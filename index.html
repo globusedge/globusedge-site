@@ -1642,3 +1642,15 @@ document.head.appendChild(o)}initApollo();
   <div style="background:var(--bg-card);border-top:1px solid var(--rule);padding:20px 48px;">
     <p style="font-size:11px;color:var(--ink-faint);line-height:1.6;max-width:900px;margin:0 auto;text-align:center;">
       <strong>Important Notice:</strong> Pairlot is a pre-launch software product. The US$1,000 reservation deposit secures your Founding Cohort place and converts in full as credit against your first year's subscription at general availability, subject to Founding Member Terms (available on request before payment). The deposit is a commitment signal and does not constitute a permanent discount on long-term pricing. The founding rate agreed at time of reservation applies to the initial contract term only. Globus Edge reserves the right to modify product scope, features and pricing prior to launch, with written notice to all deposit holders. Slot availability figures reflect expressions of interest received to date and are indicative only. This page does not constitute a prospectus, financial product, investment offer or legal advice. Refunds of the deposit are processed within 14 business days of a valid written refund request submitted to <a href="mailto:refund@globusedge.com">refund@globusedge.com</a>. The refund right applies solely where Pairlot access is not made available by the first week of Q4 2026. By submitting your details you consent to Globus Edge contacting you about Pairlot and related services.
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
