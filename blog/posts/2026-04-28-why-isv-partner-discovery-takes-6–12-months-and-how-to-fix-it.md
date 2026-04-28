@@ -3,8 +3,9 @@ title: Why ISV partner discovery takes 6–12 months (and how to fix it)
 date: 2026-04-28T16:33:00.000+05:30
 author: Amit Surve, Founder - Globus Edge
 summary: >-
-  
-  Finding the right channel partner shouldn't take six months. But for most ISVs, it does — and the cost isn't just time. It's wrong-fit relationships, dead LOIs, and pipeline that never materializes.
+  Finding the right channel partner shouldn't take six months. But for most
+  ISVs, it does — and the cost isn't just time. It's wrong-fit relationships,
+  dead LOIs, and pipeline that never materializes.
 
   In this article, Amit Surve draws on 20 years of enterprise channel experience to explain why ISV partner discovery consistently takes 6–12 months, what the five dimensions of partner fit actually look like in practice, and how to compress the timeline without cutting corners.
 
