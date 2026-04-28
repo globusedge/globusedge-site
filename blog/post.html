@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Globus Edge</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- Marked.js for markdown rendering -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0e0e0d;
+    --ink-mid: #3d3b35;
+    --ink-soft: #7a7870;
+    --ink-faint: #b5b3ac;
+    --bg: #f5f3ee;
+    --bg-card: #eceae4;
+    --bg-dark: #0e0e0d;
+    --accent: #1a4a2e;
+    --accent-mid: #2d6b44;
+    --accent-light: #d4e8da;
+    --gold: #c8932a;
+    --blue: #253C82;
+    --rule: rgba(14,14,13,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 48px;
+    background: rgba(245,243,238,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-text {
+    font-family: 'Instrument Serif', serif;
+    font-size: 20px; letter-spacing: -0.02em; color: var(--ink);
+  }
+  .nav-logo-text span { color: var(--accent-mid); }
+
+  nav a.cta {
+    font-size: 13px; font-weight: 500;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    color: #fff; background: var(--accent);
+    padding: 10px 22px; border-radius: 4px;
+    text-decoration: none; transition: background 0.2s;
+  }
+  nav a.cta:hover { background: var(--accent-mid); }
+
+  /* ── ARTICLE LAYOUT ── */
+  .article-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 140px 48px 96px;
+  }
+
+  /* ── BACK LINK ── */
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 500;
+    color: var(--ink-soft); text-decoration: none;
+    letter-spacing: 0.02em; margin-bottom: 48px;
+    transition: color 0.2s;
+  }
+  .back-link::before { content: '←'; transition: transform 0.2s; }
+  .back-link:hover { color: var(--accent-mid); }
+  .back-link:hover::before { transform: translateX(-4px); }
+
+  /* ── ARTICLE HEADER ── */
+  .article-header { margin-bottom: 48px; }
+
+  .article-meta {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 20px;
+  }
+  .article-date {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent-mid);
+  }
+  .article-author {
+    font-size: 11px; color: var(--ink-faint);
+  }
+  .article-author::before { content: '·'; margin-right: 16px; }
+
+  .article-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    line-height: 1.1; letter-spacing: -0.03em;
+    margin-bottom: 20px; color: var(--ink);
+  }
+  .article-title em { font-style: italic; color: var(--accent-mid); }
+
+  .article-summary {
+    font-size: 19px; font-weight: 300;
+    color: var(--ink-mid); line-height: 1.65;
+    border-left: 3px solid var(--accent-mid);
+    padding-left: 20px;
+    margin-bottom: 0;
+  }
+
+  /* ── FEATURED IMAGE ── */
+  .article-image {
+    width: 100%; border-radius: 6px;
+    overflow: hidden; margin-bottom: 48px;
+  }
+  .article-image img {
+    width: 100%; display: block;
+  }
+
+  /* ── ARTICLE RULE ── */
+  .article-rule {
+    height: 1px; background: var(--rule);
+    margin: 40px 0;
+  }
+
+  /* ── ARTICLE BODY ── */
+  .article-body {
+    font-size: 17px; color: var(--ink-mid);
+    line-height: 1.8;
+  }
+
+  .article-body h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(24px, 3vw, 32px);
+    line-height: 1.15; letter-spacing: -0.02em;
+    color: var(--ink); margin: 48px 0 16px;
+  }
+
+  .article-body h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(20px, 2.5vw, 26px);
+    line-height: 1.2; letter-spacing: -0.015em;
+    color: var(--ink); margin: 36px 0 12px;
+  }
+
+  .article-body h4 {
+    font-size: 15px; font-weight: 500;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--accent-mid); margin: 28px 0 10px;
+  }
+
+  .article-body p { margin-bottom: 24px; }
+
+  .article-body p:last-child { margin-bottom: 0; }
+
+  .article-body strong { font-weight: 500; color: var(--ink); }
+
+  .article-body em { font-style: italic; }
+
+  .article-body a {
+    color: var(--accent-mid); text-decoration: underline;
+    text-decoration-thickness: 1px; text-underline-offset: 3px;
+  }
+  .article-body a:hover { color: var(--accent); }
+
+  .article-body ul, .article-body ol {
+    padding-left: 24px; margin-bottom: 24px;
+  }
+  .article-body li { margin-bottom: 8px; }
+
+  .article-body blockquote {
+    margin: 32px 0;
+    padding: 20px 28px;
+    border-left: 3px solid var(--accent-mid);
+    background: var(--bg-card);
+    border-radius: 0 4px 4px 0;
+  }
+  .article-body blockquote p {
+    font-family: 'Instrument Serif', serif;
+    font-size: 20px; font-style: italic;
+    color: var(--ink); line-height: 1.5; margin: 0;
+  }
+
+  .article-body hr {
+    border: none; border-top: 1px solid var(--rule);
+    margin: 40px 0;
+  }
+
+  .article-body img {
+    max-width: 100%; border-radius: 4px;
+    margin: 24px 0;
+  }
+
+  .article-body pre {
+    background: var(--bg-card);
+    border-radius: 4px; padding: 20px;
+    overflow-x: auto; margin-bottom: 24px;
+    font-size: 14px; line-height: 1.6;
+  }
+
+  .article-body code {
+    font-size: 0.9em;
+    background: var(--bg-card);
+    padding: 2px 6px; border-radius: 3px;
+  }
+
+  .article-body pre code {
+    background: none; padding: 0;
+  }
+
+  /* ── LOADING / ERROR ── */
+  .loading-state, .error-state {
+    text-align: center; padding: 64px 0;
+    color: var(--ink-soft);
+  }
+  .loading-dots {
+    display: inline-flex; gap: 8px; align-items: center;
+  }
+  .loading-dots span {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent-mid); opacity: 0.3;
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+  .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* ── CTA STRIP ── */
+  .article-cta {
+    margin-top: 64px;
+    background: var(--accent);
+    color: #e8f0eb;
+    border-radius: 6px;
+    padding: 40px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 32px;
+  }
+  .article-cta-text {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-style: italic; line-height: 1.4;
+    opacity: 0.92;
+  }
+  .article-cta a {
+    flex-shrink: 0;
+    font-size: 13px; font-weight: 500;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--accent); background: #fff;
+    padding: 12px 24px; border-radius: 4px;
+    text-decoration: none; transition: opacity 0.2s;
+    white-space: nowrap;
+  }
+  .article-cta a:hover { opacity: 0.9; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg-dark); color: rgba(245,243,238,0.5);
+    padding: 40px 48px;
+    font-size: 13px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 64px;
+  }
+  footer a { color: rgba(245,243,238,0.5); text-decoration: none; }
+  footer a:hover { color: #fff; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 14px 24px; }
+    .article-wrap { padding: 120px 24px 64px; }
+    .article-cta { flex-direction: column; padding: 32px 28px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <span class="nav-logo-text">Globus <span>Edge</span></span>
+  </a>
+  <a href="/#contact" class="cta">Get in Touch</a>
+</nav>
+
+<!-- ARTICLE -->
+<div class="article-wrap">
+  <a href="/blog/" class="back-link">All articles</a>
+  <div id="articleContent">
+    <div class="loading-state">
+      <div class="loading-dots">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Globus Edge. All rights reserved.</span>
+  <a href="/blog/">← Back to blog</a>
+</footer>
+
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+
+  const GITHUB_USER = 'globusedge';
+  const GITHUB_REPO = 'globusedge-site';
+  const POSTS_PATH = 'blog/posts';
+
+  function parseFrontMatter(text) {
+    const match = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+    if (!match) return { data: {}, content: text };
+    const data = {};
+    match[1].split('\n').forEach(line => {
+      const [key, ...rest] = line.split(':');
+      if (key && rest.length) {
+        data[key.trim()] = rest.join(':').trim().replace(/^["']|["']$/g, '');
+      }
+    });
+    return { data, content: match[2].trim() };
+  }
+
+  function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    if (isNaN(d)) return dateStr;
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  function getSlug() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('slug');
+  }
+
+  async function loadPost() {
+    const container = document.getElementById('articleContent');
+    const slug = getSlug();
+
+    if (!slug) {
+      window.location.href = '/blog/';
+      return;
+    }
+
+    try {
+      const url = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${POSTS_PATH}/${slug}.md`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('Post not found');
+      const text = await res.text();
+      const { data, content } = parseFrontMatter(text);
+
+      // Update page title
+      if (data.title) document.title = `${data.title} — Globus Edge`;
+
+      const imgHtml = data.thumbnail
+        ? `<div class="article-image"><img src="${data.thumbnail}" alt="${data.title}"></div>`
+        : '';
+
+      const summaryHtml = data.summary
+        ? `<p class="article-summary">${data.summary}</p><div class="article-rule"></div>`
+        : '<div class="article-rule"></div>';
+
+      const bodyHtml = marked.parse(content);
+
+      container.innerHTML = `
+        <div class="article-header">
+          <div class="article-meta">
+            <span class="article-date">${formatDate(data.date)}</span>
+            <span class="article-author">${data.author || 'Globus Edge'}</span>
+          </div>
+          <h1 class="article-title">${data.title || 'Untitled'}</h1>
+          ${summaryHtml}
+        </div>
+        ${imgHtml}
+        <div class="article-body">${bodyHtml}</div>
+        <div class="article-cta">
+          <p class="article-cta-text">Ready to build your partner ecosystem with precision?</p>
+          <a href="/#contact">Talk to us</a>
+        </div>`;
+
+    } catch (err) {
+      container.innerHTML = `
+        <div class="error-state">
+          <p>Post not found. <a href="/blog/" style="color:var(--accent-mid)">Back to blog →</a></p>
+        </div>`;
+      console.error(err);
+    }
+  }
+
+  loadPost();
+</script>
+</body>
+</html>
