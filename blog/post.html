@@ -122,8 +122,11 @@
   /* ── FEATURED IMAGE ── */
   .article-image {
     width: 100%; border-radius: 6px;
-    overflow: hidden; margin-bottom: 48px;
+    overflow: hidden; margin-bottom: 32px;
   }
+
+  .article-header { margin-bottom: 32px; }
+  .article-rule { margin: 24px 0; }
   .article-image img {
     width: 100%; display: block;
   }
@@ -334,12 +337,27 @@
     const match = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
     if (!match) return { data: {}, content: text };
     const data = {};
-    match[1].split('\n').forEach(line => {
-      const [key, ...rest] = line.split(':');
-      if (key && rest.length) {
-        data[key.trim()] = rest.join(':').trim().replace(/^["']|["']$/g, '');
+    const lines = match[1].split('\n');
+    let i = 0;
+    while (i < lines.length) {
+      const line = lines[i];
+      const colonIdx = line.indexOf(':');
+      if (colonIdx === -1) { i++; continue; }
+      const key = line.slice(0, colonIdx).trim();
+      const rest = line.slice(colonIdx + 1).trim();
+      if (rest === '>-' || rest === '|-' || rest === '>' || rest === '|') {
+        let block = [];
+        i++;
+        while (i < lines.length && (lines[i].startsWith(' ') || lines[i].startsWith('\t'))) {
+          block.push(lines[i].trim());
+          i++;
+        }
+        data[key] = block.join(' ');
+      } else {
+        data[key] = rest.replace(/^["']|["']$/g, '');
+        i++;
       }
-    });
+    }
     return { data, content: match[2].trim() };
   }
 
