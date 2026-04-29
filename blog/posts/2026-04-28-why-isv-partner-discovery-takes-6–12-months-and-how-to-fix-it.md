@@ -10,6 +10,7 @@ summary: >-
   In this article, Amit Surve draws on 20 years of enterprise channel experience to explain why ISV partner discovery consistently takes 6–12 months, what the five dimensions of partner fit actually look like in practice, and how to compress the timeline without cutting corners.
 
   If your channel program is moving slower than it should — or if you're about to start one — this is where to begin.
+thumbnail: /images/uploads/whyisv.png
 ---
 
 
