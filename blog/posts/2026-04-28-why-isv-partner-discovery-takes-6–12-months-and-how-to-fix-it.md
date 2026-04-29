@@ -12,8 +12,6 @@ summary: >-
   If your channel program is moving slower than it should — or if you're about to start one — this is where to begin.
 thumbnail: /images/uploads/whyisv.png
 ---
-
-
 ## *The definitive guide to the most underestimated problem in ISV go-to-market*
 
 Ask any ISV founder what their biggest go-to-market challenge is, and you'll hear one of two answers: "finding customers" or "finding the right channel partners." The first has a well-developed solution ecosystem —CRMs, SDRs, demand gen agencies, and a dozen methodologies. The second barely has a name.
@@ -93,5 +91,3 @@ That's the problem worth solving. And it's solvable — with the right approach,
 *Globus Edge delivers hands-on partner discovery for ISVs —  ecosystem brief, signal analysis, ranked shortlist, and optional outreach  facilitation. Available today.*
 
 → globusedge.com  | pairlot.com
-
-\
