@@ -661,6 +661,8 @@ o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+
 o.onload=function(){window.trackingFunctions.onLoad({appId:"69c8d98c4bcf37001dd3f893"})},
 document.head.appendChild(o)}initApollo();
 </script>
+<link rel="stylesheet" href="hs-forms.css">
+<script src="https://js-na2.hsforms.net/forms/embed/246067591.js" defer></script>
 </head>
 <body>
 
@@ -695,7 +697,7 @@ document.head.appendChild(o)}initApollo();
     transition: color 0.2s, background 0.15s;
     display: flex; align-items: center; gap: 5px; letter-spacing: 0.03em;
     font-family: 'DM Sans', sans-serif;
-  }
+  
   .popup-close:hover { color: var(--ink); background: var(--bg-card); }
   .popup-close-arrow { font-size: 15px; }
 
@@ -901,31 +903,7 @@ document.head.appendChild(o)}initApollo();
       <h2 class="popup2-form-heading">Partnership Activation Request</h2>
       <p class="popup2-form-sub">Complete your details below. We&rsquo;ll review your request and send you a <strong>secure payment link within one business day</strong> to confirm your Partnership Activation booking at US$15,000 &mdash; with US$7,500 credited to your Pairlot Year 1 subscription.</p>
 
-      <form class="popup2-form" id="popup2Form" name="partnership-activation-request" method="POST" data-netlify="true" netlify-honeypot="bot-field-pa">
-        <input type="hidden" name="form-name" value="partnership-activation-request">
-        <input type="hidden" name="offer" value="Partnership Activation Founding Rate - US$15,000 (incl. US$7,500 Pairlot Year 1 credit)">
-        <p style="display:none"><label>Don&rsquo;t fill this out: <input name="bot-field-pa"></label></p>
-
-        <div class="popup2-form-row">
-          <input type="text" name="pa_first_name" placeholder="First name" required>
-          <input type="text" name="pa_last_name" placeholder="Last name" required>
-        </div>
-        <input type="text" name="pa_job_title" placeholder="Job title" required>
-        <input type="text" name="pa_company" placeholder="Company name" required>
-        <input type="email" name="pa_email" placeholder="Work email address" required>
-        <input type="tel" name="pa_phone" placeholder="Phone number (optional)">
-        <select name="pa_type" required>
-          <option value="">I am a&hellip;</option>
-          <option value="isv">ISV &mdash; Independent Software Vendor</option>
-          <option value="saas">SaaS company scaling channel</option>
-          <option value="channel-partner">Channel Partner / VAR / MSP</option>
-          <option value="distributor">Distributor</option>
-          <option value="other">Other</option>
-        </select>
-        <textarea name="pa_context" placeholder="Briefly describe your partner goals (optional)"></textarea>
-
-        <button type="submit" class="popup2-submit">Submit Request &mdash; We&rsquo;ll Send the Payment Link &rarr;</button>
-      </form>
+      <div class="hs-form-frame" data-region="na2" data-form-id="6ec971b1-80a1-408d-87e3-363a1df46fe1" data-portal-id="246067591"></div>
 
       <p class="popup2-payment-note">
         <strong>No payment is taken today.</strong> Once we&rsquo;ve reviewed your request, we will send you a secure Stripe payment link within one business day to confirm your Partnership Activation booking at US$15,000. The US$7,500 Pairlot credit will be applied when your subscription begins at launch.
@@ -1211,54 +1189,7 @@ document.head.appendChild(o)}initApollo();
       <div class="contact-detail"><strong>Focus</strong>&nbsp;&nbsp;Ecosystem Led Growth</div>
     </div>
 
-    <form class="contact-form" id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-      <input type="hidden" name="form-name" value="contact">
-      <p style="display:none"><label>Don't fill this out: <input name="bot-field"></label></p>
-
-      <div class="form-row">
-        <div class="form-field">
-          <label>Your name</label>
-          <input type="text" name="name" placeholder="Jane Smith" required>
-        </div>
-        <div class="form-field">
-          <label>Company</label>
-          <input type="text" name="company" placeholder="Acme Corp">
-        </div>
-      </div>
-
-      <div class="form-field">
-        <label>Email</label>
-        <input type="email" name="email" placeholder="jane@acme.com" required>
-      </div>
-
-      <div class="form-field">
-        <label>Company Website</label>
-        <input type="text" name="website" placeholder="https://company.com">
-      </div>
-
-      <div class="form-field">
-        <label>I am a</label>
-        <select name="visitor_type" id="visitorType">
-          <option value="">Select your role...</option>
-          <option value="isv">ISV — looking for partners</option>
-          <option value="partner">Partner — looking for ISVs</option>
-        </select>
-      </div>
-
-      <div class="form-field" id="interestFieldWrapper">
-        <label>I'm interested in</label>
-        <select name="interest" id="interestSelect">
-          <option value="">Select a service...</option>
-        </select>
-      </div>
-
-      <div class="form-field">
-        <label>Anything else we should know?</label>
-        <textarea name="message" rows="4" placeholder="Current stage, target geographies, industry verticals, anything relevant..."></textarea>
-      </div>
-
-      <button type="submit" class="form-submit" id="formSubmitBtn">Send message</button>
-    </form>
+  <div class="hs-form-frame" data-region="na2" data-form-id="774381a1-53e7-46dc-ada9-411c89c32718" data-portal-id="246067591"></div>
   </div>
 </section>
 
@@ -1339,26 +1270,7 @@ document.head.appendChild(o)}initApollo();
             <div class="piq-divider"></div>
 
             <!-- Netlify form -->
-            <form class="piq-form" id="piqForm" name="Pairlot-early-access" method="POST" data-netlify="true" netlify-honeypot="bot-field-piq">
-              <input type="hidden" name="form-name" value="Pairlot-early-access">
-              <p style="display:none"><label>Don't fill this out: <input name="bot-field-piq"></label></p>
-
-              <input type="text" name="piq_name" placeholder="Your full name" required>
-              <input type="email" name="piq_email" placeholder="Work email" required>
-              <input type="text" name="piq_company" placeholder="Company name" required>
-              <select name="piq_role" required>
-                <option value="">I am a …</option>
-                <option value="isv">ISV — Independent Software Vendor</option>
-                <option value="reseller">Reseller / VAR</option>
-                <option value="vad">Distributor / VAD</option>
-                <option value="msp">MSP</option>
-                <option value="si">Systems Integrator / GSI</option>
-                <option value="consulting">Consulting Partner</option>
-                <option value="other">Other</option>
-              </select>
-
-              <button type="submit" class="piq-submit">Reserve My Founding Seat →</button>
-            </form>
+            <div class="hs-form-frame" data-region="na2" data-form-id="d4891f5a-f8fc-4fb6-b23b-b5d596226c91" data-portal-id="246067591"></div>
 
             <div class="piq-payment-note">
               Secure checkout handled by Stripe.
