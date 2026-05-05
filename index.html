@@ -1854,15 +1854,15 @@
     }, 60000);
 
     // Popup 2 after 5 minutes (300,000ms) — only if popup 1 was dismissed
-    setTimeout(function() {
-      if (!popup2Shown) {
-        popup2Shown = true;
+ //   setTimeout(function() {
+//    if (!popup2Shown) {
+ //       popup2Shown = true;
         // Start the gold timer bar animation
-        var bar = document.getElementById('popup2Bar');
-        if (bar) { bar.style.transition = 'transform 600s linear'; bar.style.transform = 'scaleX(0)'; }
-        showPopup('popup2');
-      }
-    }, 120000);
+ //    var bar = document.getElementById('popup2Bar');
+  //      if (bar) { bar.style.transition = 'transform 600s linear'; bar.style.transform = 'scaleX(0)'; }
+    //    showPopup('popup2');
+     // }
+    //}, 120000);
   })();
 
   function closePopup(id) {
