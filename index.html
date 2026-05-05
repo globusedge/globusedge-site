@@ -1675,7 +1675,8 @@ document.head.appendChild(o)}initApollo();
     });
   }
 
-  document.getElementById('visitorType').addEventListener('change', updateInterestOptions);
+  const visitorTypeEl = document.getElementById('visitorType');
+  if (visitorTypeEl) visitorTypeEl.addEventListener('change', updateInterestOptions);
   updateInterestOptions();
 
   // ── Form submit + Thank You ──
