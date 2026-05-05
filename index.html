@@ -655,6 +655,41 @@
     .piq-inner { padding: 64px 24px; }
     .piq-card { position: static; }
   }
+ /* ===== HARD RESET: POPUP 2 (FORCE FIX) ===== */
+
+#popup2 {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+
+  display: none; /* hidden by default */
+  align-items: center !important;
+  justify-content: center !important;
+
+  background: rgba(0,0,0,0.65) !important;
+  z-index: 999999 !important;
+  padding: 20px !important;
+}
+
+/* when visible */
+#popup2.active {
+  display: flex !important;
+}
+
+#popup2 .popup-card {
+  width: 100% !important;
+  max-width: 560px !important;
+
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+
+  border-radius: 12px !important;
+  margin: auto !important;
+}
+
+/* ===== END FIX ===== */
 </style>
 <link rel="stylesheet" href="hs-forms.css">
 </head>
