@@ -40,17 +40,41 @@
     return fields;
   }
 
-  // Show inline success message inside the form wrapper
-  function showSuccess(form, message) {
+  // Forms that reload the page 10s after success
+  const REFRESH_AFTER_SUCCESS = {
+    'ge-contact-form':       true,
+    'piq-early-access-form': true,
+    'ge-partnership-form':   false  // popup — no refresh needed
+  };
+
+  // Show inline success message; optionally start 10s refresh countdown
+  function showSuccess(form, message, formElId) {
     const wrapper = form.parentElement;
     form.style.display = 'none';
+
+    const doRefresh = REFRESH_AFTER_SUCCESS[formElId] || false;
+
     const msg = document.createElement('div');
     msg.className = 'hs-success-message';
     msg.innerHTML = `
-      <div class="hs-success-icon">✓</div>
+      <div class="hs-success-icon">&#10003;</div>
       <p>${message}</p>
+      ${doRefresh ? '<p class="hs-refresh-note">This page will refresh in <span class="hs-countdown">10</span> seconds&hellip;</p>' : ''}
     `;
     wrapper.appendChild(msg);
+
+    if (doRefresh) {
+      let secs = 10;
+      const countEl = msg.querySelector('.hs-countdown');
+      const interval = setInterval(function () {
+        secs -= 1;
+        if (countEl) countEl.textContent = secs;
+        if (secs <= 0) {
+          clearInterval(interval);
+          window.location.reload();
+        }
+      }, 1000);
+    }
   }
 
   // Show inline error message below the submit button
@@ -80,7 +104,7 @@
   }
 
   // Submit a single form to HubSpot API
-  function submitToHubSpot(formId, fields, successMsg, btn, form) {
+  function submitToHubSpot(formId, fields, successMsg, btn, form, formElId) {
     const url = `${API_BASE}/${formId}`;
     const hutk = getHutk();
 
@@ -102,7 +126,7 @@
     })
     .then(function (res) {
       if (res.ok) {
-        showSuccess(form, successMsg);
+        showSuccess(form, successMsg, formElId);
       } else {
         return res.json().then(function (data) {
           throw new Error(data.message || 'Submission failed. Please try again.');
@@ -143,7 +167,7 @@
         }
 
         const btn = form.querySelector('button[type="submit"]');
-        submitToHubSpot(formGuid, fields, successMsg, btn, form);
+        submitToHubSpot(formGuid, fields, successMsg, btn, form, formElId);
       });
     });
   }
