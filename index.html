@@ -1664,16 +1664,18 @@ document.head.appendChild(o)}initApollo();
   ];
 
   function updateInterestOptions() {
-    const vt = document.getElementById('visitorType').value;
-    const sel = document.getElementById('interestSelect');
-    const opts = vt === 'partner' ? PARTNER_OPTIONS : ISV_OPTIONS;
-    sel.innerHTML = '<option value="">Select a service...</option>';
-    opts.forEach(o => {
-      const opt = document.createElement('option');
-      opt.value = o.value; opt.textContent = o.label;
-      sel.appendChild(opt);
-    });
-  }
+  const vtEl = document.getElementById('visitorType');
+  const sel = document.getElementById('interestSelect');
+  if (!vtEl || !sel) return;
+  const vt = vtEl.value;
+  const opts = vt === 'partner' ? PARTNER_OPTIONS : ISV_OPTIONS;
+  sel.innerHTML = '<option value="">Select a service...</option>';
+  opts.forEach(o => {
+    const opt = document.createElement('option');
+    opt.value = o.value; opt.textContent = o.label;
+    sel.appendChild(opt);
+  });
+}
 
   const visitorTypeEl = document.getElementById('visitorType');
   if (visitorTypeEl) visitorTypeEl.addEventListener('change', updateInterestOptions);
@@ -1685,7 +1687,8 @@ document.head.appendChild(o)}initApollo();
   const timerEl = document.getElementById('thankyouTimer');
   const bar = document.getElementById('thankyouBar');
 
-  document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  const _cf = document.getElementById('contactForm');
+  if (_cf) _cf.addEventListener('submit', async function(e) {
     e.preventDefault();
 
     const form = e.target;
@@ -1751,7 +1754,7 @@ document.head.appendChild(o)}initApollo();
   });
 
   // ── Pairlot Early-Access Form ──
-  const piqForm = document.getElementById('piqForm');
+  const piqForm = document.getElementById('piq-early-access-form') || document.getElementById('piqForm');
   const piqThankyou = document.getElementById('piqThankyou');
   const piqFormWrap = document.getElementById('piqFormWrap');
 
