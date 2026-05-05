@@ -655,43 +655,50 @@
     .piq-inner { padding: 64px 24px; }
     .piq-card { position: static; }
   }
- /* ===== HARD RESET: POPUP 2 (FORCE FIX) ===== */
+/* ===== NUCLEAR FIX FOR POPUP 2 ===== */
 
-/* ===== CONNECT JS (.visible) WITH PROPER MODAL BEHAVIOR ===== */
-
-/* Default: hidden */
+/* Kill any existing layout behavior */
 #popup2 {
-  display: none;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+
+  width: 100vw !important;
+  height: 100vh !important;
+
+  display: none !important;
+
+  background: rgba(0,0,0,0.65) !important;
+  z-index: 999999 !important;
 }
 
-/* When JS adds .visible → show as centered modal */
+/* When visible (your JS adds this) */
 #popup2.visible {
-  display: flex;
-
-  position: fixed;
-  inset: 0;
-
-  background: rgba(0,0,0,0.65);
-
-  align-items: center;
-  justify-content: center;
-
-  z-index: 99999;
-  padding: 20px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
-/* Ensure card behaves correctly */
+/* Force center + fix stretching */
 #popup2 .popup-card {
-  width: 100%;
-  max-width: 560px;
+  position: relative !important;
 
-  max-height: 90vh;
-  overflow-y: auto;
+  width: 90% !important;
+  max-width: 560px !important;
 
-  border-radius: 12px;
+  max-height: 85vh !important;
+  overflow-y: auto !important;
+
+  margin: auto !important;
+  transform: none !important;
 }
 
-/* ===== END FIX ===== */
+/* Prevent any weird inherited heights */
+#popup2 * {
+  max-height: none !important;
+}
 </style>
 <link rel="stylesheet" href="hs-forms.css">
 </head>
