@@ -1,0 +1,274 @@
+/* ================================================================
+   hs-forms.css — Native form styles for Globus Edge & Pairlot
+   Covers: light contact form, dark popup, dark Pairlot card
+   No HubSpot iframe — full CSS control
+   ================================================================ */
+
+/* ── Shared layout ── */
+.ge-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.ge-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 540px) {
+  .ge-form__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ge-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ── Labels ── */
+.ge-form label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.ge-required {
+  color: #c8932a;
+  margin-left: 2px;
+}
+
+/* ── LIGHT FORM (contact section — #f5f3ee bg) ── */
+.ge-form--light label {
+  color: #3d3b35;
+}
+
+.ge-form--light input,
+.ge-form--light select,
+.ge-form--light textarea {
+  background: #ffffff;
+  border: 1.5px solid rgba(14, 14, 13, 0.16);
+  color: #0e0e0d;
+}
+
+.ge-form--light input:focus,
+.ge-form--light select:focus,
+.ge-form--light textarea:focus {
+  border-color: #1a4a2e;
+  box-shadow: 0 0 0 3px rgba(26, 74, 46, 0.12);
+}
+
+.ge-form--light input::placeholder,
+.ge-form--light textarea::placeholder {
+  color: #b5b3ac;
+}
+
+/* ── DARK FORM (popup + Pairlot card) ── */
+.ge-form--dark label {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.ge-form--dark input,
+.ge-form--dark select,
+.ge-form--dark textarea {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.ge-form--dark input:focus,
+.ge-form--dark select:focus,
+.ge-form--dark textarea:focus {
+  border-color: rgba(200, 147, 42, 0.65);
+  box-shadow: 0 0 0 3px rgba(200, 147, 42, 0.15);
+}
+
+.ge-form--dark input::placeholder,
+.ge-form--dark textarea::placeholder {
+  color: rgba(255, 255, 255, 0.30);
+}
+
+.ge-form--dark select option {
+  background: #1a1a18;
+  color: #ffffff;
+}
+
+/* ── Shared input, select, textarea styles ── */
+.ge-form input,
+.ge-form select,
+.ge-form textarea {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  border-radius: 6px;
+  padding: 11px 14px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.ge-form textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+/* ── Custom select wrapper (hides native arrow, adds custom) ── */
+.ge-select-wrap {
+  position: relative;
+  display: block;
+}
+
+.ge-select-wrap select {
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+.ge-select-arrow {
+  position: absolute;
+  right: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.ge-form--light .ge-select-arrow {
+  color: #7a7870;
+}
+
+.ge-form--dark .ge-select-arrow {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ── Submit buttons ── */
+.ge-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 13px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.1s ease, opacity 0.18s ease;
+  align-self: flex-start;
+  letter-spacing: 0.01em;
+}
+
+.ge-btn:hover {
+  transform: translateY(-1px);
+}
+
+.ge-btn:active {
+  transform: translateY(0);
+}
+
+.ge-btn:disabled {
+  cursor: not-allowed;
+}
+
+/* Green button — light context */
+.ge-btn--green {
+  background: #1a4a2e;
+  color: #ffffff;
+}
+
+.ge-btn--green:hover {
+  background: #2d6b44;
+}
+
+/* Gold button — dark context */
+.ge-btn--gold {
+  background: #c8932a;
+  color: #ffffff;
+}
+
+.ge-btn--gold:hover {
+  background: #b07a1e;
+}
+
+/* ── Error message ── */
+.ge-form-error {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 5px;
+}
+
+.ge-form--light .ge-form-error {
+  color: #c0392b;
+  background: rgba(192, 57, 43, 0.08);
+  border: 1px solid rgba(192, 57, 43, 0.2);
+}
+
+.ge-form--dark .ge-form-error {
+  color: #f9a8a8;
+  background: rgba(249, 168, 168, 0.10);
+  border: 1px solid rgba(249, 168, 168, 0.2);
+}
+
+/* ── Success message (replaces form on success) ── */
+.hs-success-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  padding: 32px 20px;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.hs-success-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.hs-success-message p {
+  font-size: 15px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Success in light context */
+#ge-contact-form ~ .hs-success-message,
+.ge-form--light + .hs-success-message {
+  background: rgba(26, 74, 46, 0.08);
+  border: 1px solid rgba(26, 74, 46, 0.2);
+  color: #1a4a2e;
+}
+
+#ge-contact-form ~ .hs-success-message .hs-success-icon,
+.ge-form--light + .hs-success-message .hs-success-icon {
+  background: rgba(26, 74, 46, 0.12);
+  color: #1a4a2e;
+}
+
+/* Success in dark context (appended to parent, which is dark) */
+.hs-success-message {
+  background: rgba(200, 147, 42, 0.12);
+  border: 1px solid rgba(200, 147, 42, 0.3);
+  color: #ffffff;
+}
+
+.hs-success-icon {
+  background: rgba(200, 147, 42, 0.2);
+  color: #c8932a;
+}
