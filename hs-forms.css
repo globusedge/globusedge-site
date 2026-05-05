@@ -272,3 +272,14 @@
   background: rgba(200, 147, 42, 0.2);
   color: #c8932a;
 }
+
+/* ── Refresh countdown note inside success message ── */
+.hs-refresh-note {
+  font-size: 12px !important;
+  opacity: 0.7;
+  margin-top: 6px !important;
+}
+
+.hs-countdown {
+  font-weight: 700;
+}
