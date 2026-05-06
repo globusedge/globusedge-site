@@ -383,7 +383,8 @@
     }
 
     try {
-      const url = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${POSTS_PATH}/${slug}.md`;
+      const decodedSlug = decodeURIComponent(slug);
+      const url = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${POSTS_PATH}/${decodedSlug}.md`;
       const res = await fetch(url);
       if (!res.ok) throw new Error('Post not found');
       const text = await res.text();
