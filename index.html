@@ -1778,14 +1778,14 @@
       var formGuid = '774381a1-53e7-46dc-ada9-411c89c32718';
       var hsPayload = {
         fields: [
-          { objectTypeId: '0-1', name: 'firstname', value: document.getElementById('gpf-firstname').value },
-          { objectTypeId: '0-1', name: 'lastname',  value: document.getElementById('gpf-lastname').value },
-          { objectTypeId: '0-1', name: 'jobtitle',  value: document.getElementById('gpf-jobtitle').value },
-          { objectTypeId: '0-1', name: 'email',     value: document.getElementById('gpf-email').value },
-          { objectTypeId: '0-1', name: 'phone',     value: (document.getElementById('gpf-phone') || {value:''}).value },
-          { objectTypeId: '0-2', name: 'name',      value: document.getElementById('gpf-company').value },
-          { objectTypeId: '0-1', name: 'i_am',      value: document.getElementById('gpf-iam').value },
-          { objectTypeId: '0-1', name: 'message',   value: (document.getElementById('gpf-message') || {value:''}).value }
+          { name: 'firstname', value: document.getElementById('gpf-firstname').value },
+          { name: 'lastname',  value: document.getElementById('gpf-lastname').value },
+          { name: 'jobtitle',  value: document.getElementById('gpf-jobtitle').value },
+          { name: 'email',     value: document.getElementById('gpf-email').value },
+          { name: 'phone',     value: (document.getElementById('gpf-phone') || {value:''}).value },
+          { name: 'company',   value: document.getElementById('gpf-company').value },
+          { name: 'i_am',      value: document.getElementById('gpf-iam').value },
+          { name: 'message',   value: (document.getElementById('gpf-message') || {value:''}).value }
         ],
         context: { pageUri: window.location.href, pageName: document.title }
       };
