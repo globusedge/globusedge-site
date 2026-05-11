@@ -848,8 +848,6 @@
   .popup2-timer-bar { height: 100%; background: var(--gold); width: 100%; transform-origin: left; }
 
   /* Popup 2 form styles */
-  .popup2-state { display: none !important; }
-  .popup2-state.active { display: block !important; }
 
   .popup2-form-heading {
     font-family: 'Instrument Serif', serif;
@@ -862,26 +860,6 @@
   }
   .popup2-form-sub strong { color: var(--gold); }
 
-  /* Scoped to #popup2-form to avoid .popup2-form{display:flex} overriding .popup2-state{display:none} */
-  #popup2-form .ge-form { display: flex; flex-direction: column; gap: 10px; }
-  #popup2-form input,
-  #popup2-form select,
-  #popup2-form textarea {
-    font-family: 'DM Sans', sans-serif; font-size: 14px;
-    padding: 11px 14px;
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 6px; color: #fff; outline: none;
-    transition: border-color 0.2s; width: 100%;
-  }
-  #popup2-form input::placeholder,
-  #popup2-form textarea::placeholder { color: rgba(255,255,255,0.32); }
-  #popup2-form input:focus,
-  #popup2-form select:focus,
-  #popup2-form textarea:focus { border-color: var(--gold); }
-  #popup2-form select { appearance: none; cursor: pointer; }
-  #popup2-form select option { background: #0D2545; color: #fff; }
-  #popup2-form textarea { resize: none; min-height: 72px; }
   .popup2-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
   .popup2-submit {
@@ -894,8 +872,25 @@
   }
   .popup2-submit:hover { background: #d4a03a; transform: translateY(-1px); }
 
+  /* Form field styles injected by JS — scoped class names avoid hs-forms.css conflicts */
+  .p2-label {
+    display: block; font-size: 13px; font-weight: 500;
+    color: rgba(255,255,255,0.85); margin-bottom: 5px;
+  }
+  .p2-input {
+    width: 100%; font-family: 'DM Sans', sans-serif; font-size: 14px;
+    padding: 11px 14px; border-radius: 6px; outline: none;
+    background: rgba(255,255,255,0.07) !important;
+    border: 1px solid rgba(255,255,255,0.18) !important;
+    color: #fff !important;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+  }
+  .p2-input::placeholder { color: rgba(255,255,255,0.3); }
+  .p2-input:focus { border-color: var(--gold) !important; }
+  .p2-input option { background: #0D2545; color: #fff; }
+
   .popup2-payment-note {
-    font-size: 11px; color: rgba(255,255,255,0.32);
     text-align: center; margin-top: 10px; line-height: 1.6;
     border-top: 1px solid rgba(255,255,255,0.1);
     padding-top: 10px;
@@ -934,159 +929,8 @@
     <button class="popup-close popup2-close" onclick="closePopup('popup2')" aria-label="Close popup">
       <span class="popup-close-arrow">&rarr;</span> Close
     </button>
-
-    <!-- STATE 1: Offer overview -->
-    <div class="popup2-state active" id="popup2-offer">
-      <div class="popup2-eyebrow" id="p2-eyebrow"></div>
-      <h2 class="popup2-h" id="p2-headline"></h2>
-      <p class="popup2-body" id="p2-body"></p>
-      <div class="popup2-price-row">
-        <span class="popup2-price-now" id="p2-price" style="font-size:38px;"></span>
-      </div>
-      <p class="popup2-price-note" id="p2-price-note"></p>
-      <ul class="popup2-perks" id="p2-perks"></ul>
-      <button class="popup2-cta" onclick="popup2ShowForm()" id="p2-cta"></button>
-      <div class="popup2-timer-bar-wrap" style="margin-top:14px;"><div class="popup2-timer-bar" id="popup2Bar"></div></div>
-    </div>
-
-    <!-- STATE 2: Request form -->
-    <div class="popup2-state popup2-form-state" id="popup2-form">
-      <div class="popup2-eyebrow">&#9889; Partnership Activation &middot; Founding Rate</div>
-      <h2 class="popup2-form-heading" id="p2-form-heading"></h2>
-      <p class="popup2-form-sub" id="p2-form-sub"></p>
-
-      <form
-  id="ge-partnership-form"
-  class="ge-form ge-form--dark"
-  novalidate
-  data-success-msg="Thank you &mdash; we'll review your request and send you a secure payment link within one business day."
->
-
-  <!-- Name row -->
-  <div class="ge-form__row">
-    <div class="ge-form__field">
-      <label for="gpf-firstname">First name <span class="ge-required">*</span></label>
-      <input
-        id="gpf-firstname"
-        type="text"
-        name="firstname"
-        placeholder="Jane"
-        required
-        autocomplete="given-name"
-      >
-    </div>
-    <div class="ge-form__field">
-      <label for="gpf-lastname">Last name <span class="ge-required">*</span></label>
-      <input
-        id="gpf-lastname"
-        type="text"
-        name="lastname"
-        placeholder="Smith"
-        required
-        autocomplete="family-name"
-      >
-    </div>
-  </div>
-
-  <!-- Job title -->
-  <div class="ge-form__field">
-    <label for="gpf-jobtitle">Job title <span class="ge-required">*</span></label>
-    <input
-      id="gpf-jobtitle"
-      type="text"
-      name="jobtitle"
-      placeholder="VP of Partnerships"
-      required
-      autocomplete="organization-title"
-    >
-  </div>
-
-  <!-- Company -->
-  <div class="ge-form__field">
-    <label for="gpf-company">Company name <span class="ge-required">*</span></label>
-    <input
-      id="gpf-company"
-      type="text"
-      name="company"
-      placeholder="Acme Corp"
-      required
-      autocomplete="organization"
-    >
-  </div>
-
-  <!-- Email -->
-  <div class="ge-form__field">
-    <label for="gpf-email">Work email <span class="ge-required">*</span></label>
-    <input
-      id="gpf-email"
-      type="email"
-      name="email"
-      placeholder="jane@company.com"
-      required
-      autocomplete="email"
-    >
-  </div>
-
-  <!-- Phone -->
-  <div class="ge-form__field">
-    <label for="gpf-phone">Phone</label>
-    <input
-      id="gpf-phone"
-      type="tel"
-      name="phone"
-      placeholder="+1 555 000 0000"
-      autocomplete="tel"
-    >
-  </div>
-
-  <!-- I am a -->
-  <div class="ge-form__field">
-    <label for="gpf-iam">I am a&hellip; <span class="ge-required">*</span></label>
-    <div class="ge-select-wrap">
-      <select id="gpf-iam" name="i_am" required>
-        <option value="" disabled selected>Select your role</option>
-        <option value="ISV &mdash; Independent Software Vendor">ISV &mdash; Independent Software Vendor</option>
-        <option value="SaaS company scaling channel">SaaS company scaling channel</option>
-        <option value="Channel Partner / VAR / MSP">Channel Partner / VAR / MSP</option>
-        <option value="Distributor">Distributor</option>
-        <option value="Other">Other</option>
-      </select>
-      <span class="ge-select-arrow">&#9662;</span>
-    </div>
-  </div>
-
-  <!-- Message -->
-  <div class="ge-form__field">
-    <label for="gpf-message">Message</label>
-    <textarea
-      id="gpf-message"
-      name="message"
-      rows="3"
-      placeholder="Tell us about your partnership goals&hellip;"
-    ></textarea>
-  </div>
-
-  <p class="ge-form-error" style="display:none"></p>
-
-  <button type="submit" class="ge-btn ge-btn--gold">
-    Submit Request &rarr;
-  </button>
-
-</form>
-
-      <p class="popup2-payment-note" id="p2-payment-note"></p>
-    </div>
-
-    <!-- STATE 3: Thank you -->
-    <div class="popup2-state" id="popup2-ty">
-      <div class="popup2-ty">
-        <div class="popup2-ty-icon">&#10003;</div>
-        <h3 id="p2-ty-heading"></h3>
-        <p id="p2-ty-body"></p>
-        <p id="p2-ty-footnote" style="margin-top:12px;font-size:13px;color:rgba(255,255,255,0.4);"></p>
-      </div>
-    </div>
-
+    <!-- Single content area — JS swaps innerHTML between offer / form / thankyou states -->
+    <div id="popup2-content"></div>
   </div>
 </div>
 
@@ -1844,6 +1688,8 @@
   // ── Timed Popups — content driven by /popups.json ──
   (function() {
 
+    var _p2cfg = null;
+
     function showPopup(id) {
       var el = document.getElementById(id);
       if (el) el.classList.add('visible');
@@ -1852,43 +1698,90 @@
       }, { once: true });
     }
 
-    function buildPerks(listId, arr) {
-      var ul = document.getElementById(listId);
-      if (!ul || !Array.isArray(arr)) return;
-      ul.innerHTML = '';
-      arr.forEach(function(item) {
-        var li = document.createElement('li');
-        li.innerHTML = item;
-        ul.appendChild(li);
-      });
-    }
-
+    // ── Popup 1 ──
     function loadPopup1(cfg) {
-      document.getElementById('p1-eyebrow').textContent  = cfg.eyebrow;
-      document.getElementById('p1-headline').innerHTML   = cfg.headline + ' <em>' + cfg.headline_em + '</em>';
-      document.getElementById('p1-body').innerHTML       = cfg.body;
-      buildPerks('p1-perks', cfg.perks);
+      document.getElementById('p1-eyebrow').textContent = cfg.eyebrow;
+      document.getElementById('p1-headline').innerHTML  = cfg.headline + ' <em>' + cfg.headline_em + '</em>';
+      document.getElementById('p1-body').innerHTML      = cfg.body;
+      var ul = document.getElementById('p1-perks');
+      ul.innerHTML = '';
+      cfg.perks.forEach(function(item) {
+        var li = document.createElement('li'); li.innerHTML = item; ul.appendChild(li);
+      });
       var cta = document.getElementById('p1-cta');
       cta.textContent = cfg.cta_label;
       cta.href = cfg.cta_href || '#';
       document.getElementById('p1-fine').textContent = cfg.fine_print;
     }
 
-    function loadPopup2(cfg) {
-      document.getElementById('p2-eyebrow').innerHTML    = cfg.eyebrow;
-      document.getElementById('p2-headline').innerHTML   = cfg.headline + ' <em>' + cfg.headline_em + '</em>';
-      document.getElementById('p2-body').innerHTML       = cfg.body;
-      document.getElementById('p2-price').textContent    = cfg.price;
-      document.getElementById('p2-price-note').textContent = cfg.price_note;
-      buildPerks('p2-perks', cfg.perks);
-      document.getElementById('p2-cta').textContent      = cfg.cta_label;
-      document.getElementById('p2-form-heading').textContent = cfg.form_heading;
-      document.getElementById('p2-form-sub').innerHTML   = cfg.form_subtext;
-      document.getElementById('p2-payment-note').innerHTML = cfg.payment_note;
-      document.getElementById('p2-ty-heading').textContent = cfg.thankyou_heading;
-      document.getElementById('p2-ty-body').innerHTML    = cfg.thankyou_body;
-      document.getElementById('p2-ty-footnote').innerHTML = cfg.thankyou_footnote;
+    // ── Popup 2: render OFFER state into #popup2-content ──
+    function renderP2Offer(cfg) {
+      var perksHTML = cfg.perks.map(function(p) { return '<li>' + p + '</li>'; }).join('');
+      document.getElementById('popup2-content').innerHTML =
+        '<div class="popup2-eyebrow">' + cfg.eyebrow + '</div>' +
+        '<h2 class="popup2-h">' + cfg.headline + ' <em>' + cfg.headline_em + '</em></h2>' +
+        '<p class="popup2-body">' + cfg.body + '</p>' +
+        '<div class="popup2-price-row"><span class="popup2-price-now" style="font-size:38px;">' + cfg.price + '</span></div>' +
+        '<p class="popup2-price-note">' + cfg.price_note + '</p>' +
+        '<ul class="popup2-perks">' + perksHTML + '</ul>' +
+        '<button class="popup2-cta" onclick="window.popup2ShowForm()">' + cfg.cta_label + '</button>' +
+        '<div class="popup2-timer-bar-wrap" style="margin-top:14px;"><div class="popup2-timer-bar" id="popup2Bar"></div></div>';
     }
+
+    // ── Popup 2: CTA click → swap to FORM ──
+    window.popup2ShowForm = function() {
+      var cfg = _p2cfg; if (!cfg) return;
+      document.getElementById('popup2-content').innerHTML =
+        '<div class="popup2-eyebrow">&#9889; Partnership Activation &middot; Founding Rate</div>' +
+        '<h2 class="popup2-form-heading">' + cfg.form_heading + '</h2>' +
+        '<p class="popup2-form-sub">' + cfg.form_subtext + '</p>' +
+        '<div style="display:flex;flex-direction:column;gap:12px;margin-top:4px;">' +
+          '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">' +
+            '<div class="ge-form__field"><label class="p2-label">First name <span class="ge-required">*</span></label><input id="gpf-firstname" type="text" placeholder="Jane" required class="p2-input"></div>' +
+            '<div class="ge-form__field"><label class="p2-label">Last name <span class="ge-required">*</span></label><input id="gpf-lastname" type="text" placeholder="Smith" required class="p2-input"></div>' +
+          '</div>' +
+          '<div class="ge-form__field"><label class="p2-label">Job title <span class="ge-required">*</span></label><input id="gpf-jobtitle" type="text" placeholder="VP of Partnerships" required class="p2-input"></div>' +
+          '<div class="ge-form__field"><label class="p2-label">Company name <span class="ge-required">*</span></label><input id="gpf-company" type="text" placeholder="Acme Corp" required class="p2-input"></div>' +
+          '<div class="ge-form__field"><label class="p2-label">Work email <span class="ge-required">*</span></label><input id="gpf-email" type="email" placeholder="jane@company.com" required class="p2-input"></div>' +
+          '<div class="ge-form__field"><label class="p2-label">Phone</label><input id="gpf-phone" type="tel" placeholder="+1 555 000 0000" class="p2-input"></div>' +
+          '<div class="ge-form__field"><label class="p2-label">I am a&hellip; <span class="ge-required">*</span></label>' +
+            '<select id="gpf-iam" required class="p2-input">' +
+              '<option value="" disabled selected>Select your role</option>' +
+              '<option>ISV — Independent Software Vendor</option>' +
+              '<option>SaaS company scaling channel</option>' +
+              '<option>Channel Partner / VAR / MSP</option>' +
+              '<option>Distributor</option>' +
+              '<option>Other</option>' +
+            '</select>' +
+          '</div>' +
+          '<div class="ge-form__field"><label class="p2-label">Message</label><textarea id="gpf-message" rows="3" placeholder="Tell us about your partnership goals…" class="p2-input" style="resize:none;"></textarea></div>' +
+        '</div>' +
+        '<button class="popup2-cta" onclick="window.popup2Submit()" style="margin-top:16px;">Submit Request →</button>' +
+        '<p class="popup2-payment-note" style="margin-top:14px;">' + cfg.payment_note + '</p>';
+    };
+
+    // ── Popup 2: Submit → swap to THANK YOU ──
+    window.popup2Submit = function() {
+      var cfg = _p2cfg; if (!cfg) return;
+      var required = ['gpf-firstname','gpf-lastname','gpf-jobtitle','gpf-company','gpf-email','gpf-iam'];
+      for (var i = 0; i < required.length; i++) {
+        var el = document.getElementById(required[i]);
+        if (!el || !el.value.trim()) { alert('Please complete all required fields.'); return; }
+      }
+      var pairs = [];
+      ['gpf-firstname','gpf-lastname','gpf-jobtitle','gpf-company','gpf-email','gpf-phone','gpf-iam','gpf-message'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) pairs.push(encodeURIComponent(id) + '=' + encodeURIComponent(el.value));
+      });
+      fetch('/', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body: pairs.join('&') }).catch(function(){});
+      document.getElementById('popup2-content').innerHTML =
+        '<div class="popup2-ty">' +
+          '<div class="popup2-ty-icon">&#10003;</div>' +
+          '<h3>' + cfg.thankyou_heading + '</h3>' +
+          '<p>' + cfg.thankyou_body + '</p>' +
+          '<p style="margin-top:12px;font-size:13px;color:rgba(255,255,255,0.4);">' + cfg.thankyou_footnote + '</p>' +
+        '</div>';
+    };
 
     fetch('/popups.json?v=' + Date.now())
       .then(function(r) { return r.json(); })
@@ -1900,11 +1793,12 @@
         }
 
         if (data.popup2 && data.popup2.enabled) {
-          loadPopup2(data.popup2);
+          _p2cfg = data.popup2;
           setTimeout(function() {
+            renderP2Offer(data.popup2);
+            showPopup('popup2');
             var bar = document.getElementById('popup2Bar');
             if (bar) { bar.style.transition = 'transform 600s linear'; bar.style.transform = 'scaleX(0)'; }
-            showPopup('popup2');
           }, data.popup2.delay_ms || 120000);
         }
 
@@ -1924,30 +1818,6 @@
         el.style.transition = '';
       }, 200);
     }
-  }
-
-  // ── Popup 2 state transitions ──
-  function popup2ShowForm() {
-    document.getElementById('popup2-offer').classList.remove('active');
-    document.getElementById('popup2-form').classList.add('active');
-  }
-
-  // Popup 2 form submission (ge-partnership-form)
-  var p2form = document.getElementById('ge-partnership-form');
-  if (p2form) {
-    p2form.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      var formData = new FormData(p2form);
-      try {
-        await fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(formData).toString()
-        });
-      } catch(err) { console.warn('PA form error:', err); }
-      document.getElementById('popup2-form').classList.remove('active');
-      document.getElementById('popup2-ty').classList.add('active');
-    });
   }
 
   // Close on backdrop click
