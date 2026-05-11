@@ -836,19 +836,20 @@
   }
   .popup2-perks li::before { content: '\2713'; color: #4cdb85; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
   .popup2-cta {
-    display: block; text-align: center; font-size: 14px; font-weight: 600;
-    background: var(--gold); color: #fff; padding: 14px 28px; border-radius: 6px;
+    display: block !important; text-align: center; font-size: 14px; font-weight: 600;
+    background: var(--gold) !important; color: #fff !important; padding: 14px 28px; border-radius: 6px;
     text-decoration: none; transition: background 0.2s, transform 0.15s; letter-spacing: 0.02em;
+    border: none !important; cursor: pointer; width: 100%; font-family: 'DM Sans', sans-serif;
   }
-  .popup2-cta:hover { background: #d4a03a; transform: translateY(-1px); }
+  .popup2-cta:hover { background: #d4a03a !important; transform: translateY(-1px); }
   .popup2-close { color: rgba(255,255,255,0.5) !important; }
   .popup2-close:hover { color: #fff !important; background: rgba(255,255,255,0.1) !important; }
   .popup2-timer-bar-wrap { height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; margin-top: 14px; overflow: hidden; }
   .popup2-timer-bar { height: 100%; background: var(--gold); width: 100%; transform-origin: left; }
 
   /* Popup 2 form styles */
-  .popup2-state { display: none; }
-  .popup2-state.active { display: block; }
+  .popup2-state { display: none !important; }
+  .popup2-state.active { display: block !important; }
 
   .popup2-form-heading {
     font-family: 'Instrument Serif', serif;
@@ -949,7 +950,7 @@
     </div>
 
     <!-- STATE 2: Request form -->
-    <div class="popup2-state popup2-form" id="popup2-form">
+    <div class="popup2-state popup2-form-state" id="popup2-form">
       <div class="popup2-eyebrow">&#9889; Partnership Activation &middot; Founding Rate</div>
       <h2 class="popup2-form-heading" id="p2-form-heading"></h2>
       <p class="popup2-form-sub" id="p2-form-sub"></p>
