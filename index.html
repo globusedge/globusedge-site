@@ -700,8 +700,20 @@
   max-height: none !important;
 }
 #popup2 label {
-  color: rgba(255,255,255,0.85);
-} 
+  color: rgba(255,255,255,0.85) !important;
+}
+/* Beat hs-forms.css resets inside popup2 dark card */
+#popup2 .popup-card { background: linear-gradient(135deg, #0D2545 0%, #1a4a2e 100%) !important; }
+#popup2-form input,
+#popup2-form select,
+#popup2-form textarea {
+  background: rgba(255,255,255,0.07) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.15) !important;
+}
+#popup2-form .ge-form__field label { color: rgba(255,255,255,0.85) !important; }
+#popup2-form .ge-required { color: var(--gold) !important; }
+#popup2-form .ge-select-wrap select { background: rgba(255,255,255,0.07) !important; color: #fff !important; } 
 </style>
 <link rel="stylesheet" href="hs-forms.css">
 <!-- Google tag (gtag.js) -->
@@ -792,8 +804,8 @@
 
   /* Popup 2 dark card */
   .popup2-card {
-    background: linear-gradient(135deg, #0D2545 0%, #1a4a2e 100%);
-    color: #fff;
+    background: linear-gradient(135deg, #0D2545 0%, #1a4a2e 100%) !important;
+    color: #fff !important;
   }
   .popup2-eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
@@ -849,10 +861,11 @@
   }
   .popup2-form-sub strong { color: var(--gold); }
 
-  .popup2-form { display: flex; flex-direction: column; gap: 10px; }
-  .popup2-form input,
-  .popup2-form select,
-  .popup2-form textarea {
+  /* Scoped to #popup2-form to avoid .popup2-form{display:flex} overriding .popup2-state{display:none} */
+  #popup2-form .ge-form { display: flex; flex-direction: column; gap: 10px; }
+  #popup2-form input,
+  #popup2-form select,
+  #popup2-form textarea {
     font-family: 'DM Sans', sans-serif; font-size: 14px;
     padding: 11px 14px;
     background: rgba(255,255,255,0.07);
@@ -860,14 +873,14 @@
     border-radius: 6px; color: #fff; outline: none;
     transition: border-color 0.2s; width: 100%;
   }
-  .popup2-form input::placeholder,
-  .popup2-form textarea::placeholder { color: rgba(255,255,255,0.32); }
-  .popup2-form input:focus,
-  .popup2-form select:focus,
-  .popup2-form textarea:focus { border-color: var(--gold); }
-  .popup2-form select { appearance: none; cursor: pointer; }
-  .popup2-form select option { background: #0D2545; color: #fff; }
-  .popup2-form textarea { resize: none; min-height: 72px; }
+  #popup2-form input::placeholder,
+  #popup2-form textarea::placeholder { color: rgba(255,255,255,0.32); }
+  #popup2-form input:focus,
+  #popup2-form select:focus,
+  #popup2-form textarea:focus { border-color: var(--gold); }
+  #popup2-form select { appearance: none; cursor: pointer; }
+  #popup2-form select option { background: #0D2545; color: #fff; }
+  #popup2-form textarea { resize: none; min-height: 72px; }
   .popup2-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
   .popup2-submit {
