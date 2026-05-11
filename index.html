@@ -899,27 +899,22 @@
   .popup2-ty .gold { color: var(--gold); font-weight: 500; }
 </style>
 
-<!-- POPUP 1: Expression of Interest (2 min delay) -->
+<!-- POPUP 1: Content loaded from /popups.json — edit that file to change copy -->
 <div class="popup-backdrop" id="popup1" role="dialog" aria-modal="true" aria-label="Special offer">
   <div class="popup-card">
     <button class="popup-close" onclick="closePopup('popup1')" aria-label="Close popup">
       <span class="popup-close-arrow">&rarr;</span> Close
     </button>
-    <div class="popup-eyebrow"><span class="popup-pulse"></span> Founding Cohort &middot; Limited Seats</div>
-    <h2 class="popup-h">Still exploring? There&rsquo;s a<br><em>special offer for you.</em></h2>
-    <p class="popup-body">Whether you&rsquo;re an <strong>ISV looking for the right channel partners</strong> &mdash; or a <strong>channel partner looking for the right ISVs</strong> &mdash; Pairlot finds the fit. Join our founding cohort and lock in early-member pricing before this closes.</p>
-    <ul class="popup-perks">
-      <li>US$1,000 Expression of Interest &mdash; credited in full against Year 1 subscription</li>
-      <li>20% below General Availability pricing for your entire first year</li>
-      <li>Direct design partner access &mdash; your priorities shape the product roadmap</li>
-      <li>Named Founding Cohort status &plus; priority onboarding</li>
-    </ul>
-    <a href="#Pairlot" class="popup-cta" onclick="closePopup('popup1')">See the Founding Member Offer &rarr;</a>
-    <p class="popup-fine">Fully refundable if Pairlot access is not available by Q4 2026. No risk.</p>
+    <div class="popup-eyebrow"><span class="popup-pulse"></span> <span id="p1-eyebrow"></span></div>
+    <h2 class="popup-h" id="p1-headline"></h2>
+    <p class="popup-body" id="p1-body"></p>
+    <ul class="popup-perks" id="p1-perks"></ul>
+    <a id="p1-cta" href="#" class="popup-cta" onclick="closePopup('popup1')"></a>
+    <p class="popup-fine" id="p1-fine"></p>
   </div>
 </div>
 
-<!-- POPUP 2: Partnership Activation (2 min delay) — two states: offer → form → thankyou -->
+<!-- POPUP 2: Content loaded from /popups.json — edit that file to change copy -->
 <div class="popup-backdrop" id="popup2" role="dialog" aria-modal="true" aria-label="Partnership Activation special offer">
   <div class="popup-card popup2-card" style="max-width:560px;">
     <button class="popup-close popup2-close" onclick="closePopup('popup2')" aria-label="Close popup">
@@ -928,30 +923,23 @@
 
     <!-- STATE 1: Offer overview -->
     <div class="popup2-state active" id="popup2-offer">
-      <div class="popup2-eyebrow">&#9889; Founding rate &middot; Limited availability</div>
-      <h2 class="popup2-h">Partnership Activation &mdash;<br><em>for ISVs and Channel Partners.</em></h2>
-      <p class="popup2-body">ISV? We&rsquo;ll find you the channel partners that fit. Channel partner? We&rsquo;ll surface the ISVs worth carrying. Engage our full Partnership Activation service &mdash; shortlisting, managed outreach, and up to 3 signed LOIs &mdash; at US$15,000. <strong style="color:var(--gold);">US$7,500 credited directly toward your first year of Pairlot</strong> &mdash; so your path to ongoing intelligence is already half-funded.</p>
+      <div class="popup2-eyebrow" id="p2-eyebrow"></div>
+      <h2 class="popup2-h" id="p2-headline"></h2>
+      <p class="popup2-body" id="p2-body"></p>
       <div class="popup2-price-row">
-        <span class="popup2-price-now" style="font-size:38px;">US$15,000</span>
+        <span class="popup2-price-now" id="p2-price" style="font-size:38px;"></span>
       </div>
-      <p class="popup2-price-note">Full service fee &middot; US$7,500 credited to Pairlot Year 1 subscription</p>
-      <ul class="popup2-perks">
-        <li>ISVs &mdash; AI-powered channel partner shortlisting, ranked &amp; signal-verified</li>
-        <li>Channel partners &mdash; curated ISV discovery matched to your portfolio</li>
-        <li>Managed outreach &mdash; every conversation handled by our team</li>
-        <li>Up to 3 signed Letters of Intent &mdash; negotiated and facilitated by Globus Edge</li>
-        <li>US$7,500 Pairlot credit &mdash; applied to your Year 1 subscription at launch</li>
-        <li>20&plus; years of enterprise channel relationships behind every introduction</li>
-      </ul>
-      <button class="popup2-cta" onclick="popup2ShowForm()">Secure Your Spot &mdash; Tell Us About You &rarr;</button>
+      <p class="popup2-price-note" id="p2-price-note"></p>
+      <ul class="popup2-perks" id="p2-perks"></ul>
+      <button class="popup2-cta" onclick="popup2ShowForm()" id="p2-cta"></button>
       <div class="popup2-timer-bar-wrap" style="margin-top:14px;"><div class="popup2-timer-bar" id="popup2Bar"></div></div>
     </div>
 
     <!-- STATE 2: Request form -->
     <div class="popup2-state popup2-form" id="popup2-form">
       <div class="popup2-eyebrow">&#9889; Partnership Activation &middot; Founding Rate</div>
-      <h2 class="popup2-form-heading">Partnership Activation Request</h2>
-      <p class="popup2-form-sub">Complete your details below. We&rsquo;ll review your request and send you a <strong>secure payment link within one business day</strong> to confirm your Partnership Activation booking at US$15,000 &mdash; with US$7,500 credited to your Pairlot Year 1 subscription.</p>
+      <h2 class="popup2-form-heading" id="p2-form-heading"></h2>
+      <p class="popup2-form-sub" id="p2-form-sub"></p>
 
       <form
   id="ge-partnership-form"
@@ -1072,18 +1060,16 @@
 
 </form>
 
-      <p class="popup2-payment-note">
-        <strong>No payment is taken today.</strong> Once we&rsquo;ve reviewed your request, we will send you a secure Stripe payment link within one business day to confirm your Partnership Activation booking at US$15,000. The US$7,500 Pairlot credit will be applied when your subscription begins at launch.
-      </p>
+      <p class="popup2-payment-note" id="p2-payment-note"></p>
     </div>
 
     <!-- STATE 3: Thank you -->
     <div class="popup2-state" id="popup2-ty">
       <div class="popup2-ty">
         <div class="popup2-ty-icon">&#10003;</div>
-        <h3>Request received.</h3>
-        <p>Thank you &mdash; we&rsquo;ll review your details and send your <span class="gold">secure Stripe payment link within one business day</span> to confirm your Partnership Activation booking at US$15,000 &mdash; with US$7,500 credited toward your Pairlot Year 1 subscription.</p>
-        <p style="margin-top:12px;font-size:13px;color:rgba(255,255,255,0.4);">Check your inbox. If you don&rsquo;t hear from us within 24 hours, email us at <a href="mailto:hello@globusedge.com" style="color:var(--gold);">hello@globusedge.com</a></p>
+        <h3 id="p2-ty-heading"></h3>
+        <p id="p2-ty-body"></p>
+        <p id="p2-ty-footnote" style="margin-top:12px;font-size:13px;color:rgba(255,255,255,0.4);"></p>
       </div>
     </div>
 
@@ -1841,37 +1827,76 @@
   }
 
 
-  // ── Timed Popups ──
+  // ── Timed Popups — content driven by /popups.json ──
   (function() {
-    var popup1Shown = false;
-    var popup2Shown = false;
 
     function showPopup(id) {
       var el = document.getElementById(id);
       if (el) el.classList.add('visible');
-      // Trap focus on Escape key
       document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-          closePopup('popup1'); closePopup('popup2');
-        }
+        if (e.key === 'Escape') { closePopup('popup1'); closePopup('popup2'); }
       }, { once: true });
     }
 
-    // Popup 1 after 2 minutes (120,000ms)
-    setTimeout(function() {
-      if (!popup1Shown) { popup1Shown = true; showPopup('popup1'); }
-    }, 60000);
+    function buildPerks(listId, arr) {
+      var ul = document.getElementById(listId);
+      if (!ul || !Array.isArray(arr)) return;
+      ul.innerHTML = '';
+      arr.forEach(function(item) {
+        var li = document.createElement('li');
+        li.innerHTML = item;
+        ul.appendChild(li);
+      });
+    }
 
-    // Popup 2 after 5 minutes (300,000ms) — only if popup 1 was dismissed
- //   setTimeout(function() {
-//    if (!popup2Shown) {
- //       popup2Shown = true;
-        // Start the gold timer bar animation
- //    var bar = document.getElementById('popup2Bar');
-  //      if (bar) { bar.style.transition = 'transform 600s linear'; bar.style.transform = 'scaleX(0)'; }
-    //    showPopup('popup2');
-     // }
-    //}, 120000);
+    function loadPopup1(cfg) {
+      document.getElementById('p1-eyebrow').textContent  = cfg.eyebrow;
+      document.getElementById('p1-headline').innerHTML   = cfg.headline + ' <em>' + cfg.headline_em + '</em>';
+      document.getElementById('p1-body').innerHTML       = cfg.body;
+      buildPerks('p1-perks', cfg.perks);
+      var cta = document.getElementById('p1-cta');
+      cta.textContent = cfg.cta_label;
+      cta.href = cfg.cta_href || '#';
+      document.getElementById('p1-fine').textContent = cfg.fine_print;
+    }
+
+    function loadPopup2(cfg) {
+      document.getElementById('p2-eyebrow').innerHTML    = cfg.eyebrow;
+      document.getElementById('p2-headline').innerHTML   = cfg.headline + ' <em>' + cfg.headline_em + '</em>';
+      document.getElementById('p2-body').innerHTML       = cfg.body;
+      document.getElementById('p2-price').textContent    = cfg.price;
+      document.getElementById('p2-price-note').textContent = cfg.price_note;
+      buildPerks('p2-perks', cfg.perks);
+      document.getElementById('p2-cta').textContent      = cfg.cta_label;
+      document.getElementById('p2-form-heading').textContent = cfg.form_heading;
+      document.getElementById('p2-form-sub').innerHTML   = cfg.form_subtext;
+      document.getElementById('p2-payment-note').innerHTML = cfg.payment_note;
+      document.getElementById('p2-ty-heading').textContent = cfg.thankyou_heading;
+      document.getElementById('p2-ty-body').innerHTML    = cfg.thankyou_body;
+      document.getElementById('p2-ty-footnote').innerHTML = cfg.thankyou_footnote;
+    }
+
+    fetch('/popups.json?v=' + Date.now())
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+
+        if (data.popup1 && data.popup1.enabled) {
+          loadPopup1(data.popup1);
+          setTimeout(function() { showPopup('popup1'); }, data.popup1.delay_ms || 60000);
+        }
+
+        if (data.popup2 && data.popup2.enabled) {
+          loadPopup2(data.popup2);
+          setTimeout(function() {
+            var bar = document.getElementById('popup2Bar');
+            if (bar) { bar.style.transition = 'transform 600s linear'; bar.style.transform = 'scaleX(0)'; }
+            showPopup('popup2');
+          }, data.popup2.delay_ms || 120000);
+        }
+
+      })
+      .catch(function(err) { console.warn('Pairlot popups: could not load popups.json', err); });
+
   })();
 
   function closePopup(id) {
@@ -1887,15 +1912,14 @@
     }
   }
 
-
   // ── Popup 2 state transitions ──
   function popup2ShowForm() {
     document.getElementById('popup2-offer').classList.remove('active');
     document.getElementById('popup2-form').classList.add('active');
   }
 
-  // Popup 2 form submission
-  var p2form = document.getElementById('popup2Form');
+  // Popup 2 form submission (ge-partnership-form)
+  var p2form = document.getElementById('ge-partnership-form');
   if (p2form) {
     p2form.addEventListener('submit', async function(e) {
       e.preventDefault();
