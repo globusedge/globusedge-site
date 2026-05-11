@@ -1,0 +1,45 @@
+{
+  "popup1": {
+    "enabled": true,
+    "delay_ms": 60000,
+    "eyebrow": "Founding Cohort · Limited Seats",
+    "headline": "Still exploring? There's a",
+    "headline_em": "special offer for you.",
+    "body": "Whether you're an <strong>ISV looking for the right channel partners</strong> — or a <strong>channel partner looking for the right ISVs</strong> — Pairlot finds the fit. Join our founding cohort and lock in early-member pricing before this closes.",
+    "perks": [
+      "US$1,000 Expression of Interest — credited in full against Year 1 subscription",
+      "20% below General Availability pricing for your entire first year",
+      "Direct design partner access — your priorities shape the product roadmap",
+      "Named Founding Cohort status + priority onboarding"
+    ],
+    "cta_label": "See the Founding Member Offer →",
+    "cta_href": "#Pairlot",
+    "fine_print": "Fully refundable if Pairlot access is not available by Q4 2026. No risk."
+  },
+
+  "popup2": {
+    "enabled": true,
+    "delay_ms": 120000,
+    "eyebrow": "⚡ Founding rate · Limited availability",
+    "headline": "Partnership Activation —",
+    "headline_em": "for ISVs and Channel Partners.",
+    "body": "ISV? We'll find you the channel partners that fit. Channel partner? We'll surface the ISVs worth carrying. Engage our full Partnership Activation service — shortlisting, managed outreach, and up to 3 signed LOIs — at US$15,000. <strong style=\"color:var(--gold);\">US$7,500 credited directly toward your first year of Pairlot</strong> — so your path to ongoing intelligence is already half-funded.",
+    "price": "US$15,000",
+    "price_note": "Full service fee · US$7,500 credited to Pairlot Year 1 subscription",
+    "perks": [
+      "ISVs — AI-powered channel partner shortlisting, ranked & signal-verified",
+      "Channel partners — curated ISV discovery matched to your portfolio",
+      "Managed outreach — every conversation handled by our team",
+      "Up to 3 signed Letters of Intent — negotiated and facilitated by Globus Edge",
+      "US$7,500 Pairlot credit — applied to your Year 1 subscription at launch",
+      "20+ years of enterprise channel relationships behind every introduction"
+    ],
+    "cta_label": "Secure Your Spot — Tell Us About You →",
+    "form_heading": "Partnership Activation Request",
+    "form_subtext": "Complete your details below. We'll review your request and send you a <strong>secure payment link within one business day</strong> to confirm your Partnership Activation booking at US$15,000 — with US$7,500 credited to your Pairlot Year 1 subscription.",
+    "payment_note": "<strong>No payment is taken today.</strong> Once we've reviewed your request, we will send you a secure Stripe payment link within one business day to confirm your Partnership Activation booking at US$15,000. The US$7,500 Pairlot credit will be applied when your subscription begins at launch.",
+    "thankyou_heading": "Request received.",
+    "thankyou_body": "Thank you — we'll review your details and send your <span class=\"gold\">secure Stripe payment link within one business day</span> to confirm your Partnership Activation booking at US$15,000 — with US$7,500 credited toward your Pairlot Year 1 subscription.",
+    "thankyou_footnote": "Check your inbox. If you don't hear from us within 24 hours, email us at <a href=\"mailto:hello@globusedge.com\" style=\"color:var(--gold);\">hello@globusedge.com</a>"
+  }
+}
