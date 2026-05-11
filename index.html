@@ -1773,7 +1773,27 @@
         var el = document.getElementById(id);
         if (el) pairs.push(encodeURIComponent(id) + '=' + encodeURIComponent(el.value));
       });
-      fetch('/', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body: pairs.join('&') }).catch(function(){});
+      // Submit to HubSpot Forms API
+      var portalId = '246067591';
+      var formGuid = '774381a1-53e7-46dc-ada9-411c89c32718';
+      var hsPayload = {
+        fields: [
+          { objectTypeId: '0-1', name: 'firstname', value: document.getElementById('gpf-firstname').value },
+          { objectTypeId: '0-1', name: 'lastname',  value: document.getElementById('gpf-lastname').value },
+          { objectTypeId: '0-1', name: 'jobtitle',  value: document.getElementById('gpf-jobtitle').value },
+          { objectTypeId: '0-1', name: 'email',     value: document.getElementById('gpf-email').value },
+          { objectTypeId: '0-1', name: 'phone',     value: (document.getElementById('gpf-phone') || {value:''}).value },
+          { objectTypeId: '0-2', name: 'name',      value: document.getElementById('gpf-company').value },
+          { objectTypeId: '0-1', name: 'i_am',      value: document.getElementById('gpf-iam').value },
+          { objectTypeId: '0-1', name: 'message',   value: (document.getElementById('gpf-message') || {value:''}).value }
+        ],
+        context: { pageUri: window.location.href, pageName: document.title }
+      };
+      fetch('https://api.hsforms.com/submissions/v3/integration/submit/' + portalId + '/' + formGuid, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(hsPayload)
+      }).catch(function(err) { console.warn('HubSpot form error:', err); });
       document.getElementById('popup2-content').innerHTML =
         '<div class="popup2-ty">' +
           '<div class="popup2-ty-icon">&#10003;</div>' +
