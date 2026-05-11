@@ -1783,7 +1783,7 @@
           { name: 'jobtitle',  value: document.getElementById('gpf-jobtitle').value },
           { name: 'email',     value: document.getElementById('gpf-email').value },
           { name: 'phone',     value: (document.getElementById('gpf-phone') || {value:''}).value },
-          { name: 'company',   value: document.getElementById('gpf-company').value },
+          { objectTypeId: '0-2', name: 'name', value: document.getElementById('gpf-company').value },
           { name: 'i_am',      value: document.getElementById('gpf-iam').value },
           { name: 'message',   value: (document.getElementById('gpf-message') || {value:''}).value }
         ],
