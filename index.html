@@ -851,18 +851,7 @@
     display: flex; align-items: flex-start; gap: 8px;
   }
   .popup2-perks li::before { content: '\2713'; color: #4cdb85; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
-  .popup2-cta {
-    display: block !important; text-align: center; font-size: 14px; font-weight: 700;
-    background: #e8621a !important; color: #fff !important; padding: 14px 28px; border-radius: 6px;
-    text-decoration: none; transition: background 0.2s, transform 0.15s; letter-spacing: 0.08em;
-    border: none !important; cursor: pointer; width: 100%; font-family: 'DM Sans', sans-serif;
-    appearance: none; -webkit-appearance: none; box-shadow: none !important;
-    text-transform: uppercase;
-  }
-  .popup2-cta:hover { background: #cf5515 !important; transform: translateY(-1px); }
-  /* Ensure #popup2 * { color: #fff } doesn't bleed into button background */
-  #popup2 .popup2-cta { background: #e8621a !important; color: #fff !important; }
-  #popup2 .popup2-cta:hover { background: #cf5515 !important; }
+  /* popup2-cta rules moved to second style block after hs-native-forms.js */
   .popup2-close { color: rgba(255,255,255,0.5) !important; }
   .popup2-close:hover { color: #fff !important; background: rgba(255,255,255,0.1) !important; }
   .popup2-timer-bar-wrap { height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; margin-top: 14px; overflow: hidden; }
@@ -911,6 +900,19 @@
   }
   .popup2-ty p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.65; }
   .popup2-ty .gold { color: var(--gold); font-weight: 500; }
+
+  /* popup2 CTA button — orange, placed last to beat hs-native-forms.js resets */
+  .popup2-cta {
+    display: block !important; text-align: center; font-size: 14px; font-weight: 700;
+    background-color: #e8621a !important; background: #e8621a !important;
+    color: #fff !important; padding: 14px 28px; border-radius: 6px;
+    text-decoration: none; transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    border: none !important; cursor: pointer; width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    appearance: none; -webkit-appearance: none; box-shadow: none !important;
+  }
+  .popup2-cta:hover { background-color: #cf5515 !important; background: #cf5515 !important; transform: translateY(-1px); }
 </style>
 
 <!-- POPUP 1: Content loaded from /popups.json — edit that file to change copy -->
@@ -1910,6 +1912,14 @@
       }, 200);
     }
   }
+
+  // Inject popup2-cta orange style last — overrides anything hs-native-forms.js adds
+  window.addEventListener('load', function() {
+    var s = document.createElement('style');
+    s.id = 'popup2-cta-override';
+    s.textContent = '#popup2 .popup2-cta, .popup2-cta { background-color: #e8621a !important; background: #e8621a !important; color: #fff !important; border: none !important; text-transform: uppercase; font-weight: 700; letter-spacing: 0.08em; }';
+    document.head.appendChild(s);
+  });
 
   // Close on backdrop click
   document.addEventListener('click', function(e) {
