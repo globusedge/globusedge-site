@@ -970,8 +970,8 @@
   <div class="audience-selector">
     <p class="audience-label">I am a —</p>
     <div class="audience-btns">
-      <button class="btn-audience isv active" onclick="showPanel('isv')">ISV</button>
-      <button class="btn-audience partner" onclick="showPanel('partner')">Partner</button>
+      <button class="btn-audience isv active" onclick="showPanel('isv'); setTimeout(function(){ var a=document.getElementById('about-isv'); if(a){ var t=a.getBoundingClientRect().top+window.scrollY; window.scrollTo({top:t,behavior:'smooth'}); } },100);">ISV</button>
+      <button class="btn-audience partner" onclick="showPanel('partner'); setTimeout(function(){ var a=document.getElementById('about-isv'); if(a){ var t=a.getBoundingClientRect().top+window.scrollY; window.scrollTo({top:t,behavior:'smooth'}); } },100);">Partner</button>
       <a href="#contact" class="btn-talk" style="margin-left:12px;">Let's talk</a>
     </div>
   </div>
@@ -1523,11 +1523,15 @@
     // Show correct content panel
     document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('panel-' + type).classList.add('active');
-    // Scroll to the first section inside the selected panel (panel itself has no position when hidden)
+    // Scroll to panel — use about-isv position as reference since hidden panels have no position
     setTimeout(function() {
-      var target = document.getElementById('about-' + type) || document.getElementById('panel-' + type);
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 50);
+      // Get position from the ISV panel (always rendered) as anchor
+      var anchor = document.getElementById('about-isv') || document.getElementById('panel-isv');
+      if (anchor) {
+        var top = anchor.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    }, 80);
 
     // Update audience buttons
     document.querySelectorAll('.btn-audience').forEach(b => {
@@ -1537,20 +1541,20 @@
     });
 
     // Update form for context
-    const btn = document.getElementById('formSubmitBtn');
+    const btn = document.querySelector('#ge-contact-form button[type="submit"]');
     const sectionLabel = document.getElementById('contactLabel');
     const contactBody = document.getElementById('contactBody');
 
     if (type === 'partner') {
-      btn.classList.add('blue-btn');
-      document.getElementById('visitorType').value = 'partner';
-      sectionLabel.classList.add('blue');
-      contactBody.textContent = "Whether you're a reseller, VAR, MSP, distributor or SI looking to deepen your ISV portfolio — we're happy to start with an exploratory conversation. No pitch deck on the first call.";
+      if (btn) btn.classList.add('blue-btn');
+      var vtp = document.getElementById('visitorType'); if (vtp) vtp.value = 'partner';
+      if (sectionLabel) sectionLabel.classList.add('blue');
+      if (contactBody) contactBody.textContent = "Whether you're a reseller, VAR, MSP, distributor or SI looking to deepen your ISV portfolio — we're happy to start with an exploratory conversation. No pitch deck on the first call.";
     } else {
-      btn.classList.remove('blue-btn');
-      document.getElementById('visitorType').value = 'isv';
-      sectionLabel.classList.remove('blue');
-      contactBody.textContent = "Whether you're just starting to think about channel expansion or you've been meaning to formalise it for a while — we're happy to have an exploratory conversation. No pressure, no pitch deck on the first call.";
+      if (btn) btn.classList.remove('blue-btn');
+      var vti = document.getElementById('visitorType'); if (vti) vti.value = 'isv';
+      if (sectionLabel) sectionLabel.classList.remove('blue');
+      if (contactBody) contactBody.textContent = "Whether you're just starting to think about channel expansion or you've been meaning to formalise it for a while — we're happy to have an exploratory conversation. No pressure, no pitch deck on the first call.";
     }
     updateInterestOptions();
 
@@ -1592,115 +1596,6 @@
   const thankyouMsg = document.getElementById('thankyouMsg');
   const timerEl = document.getElementById('thankyouTimer');
   const bar = document.getElementById('thankyouBar');
-
-
-  // ── Form submit + Thank You ──
-  const overlay = document.getElementById('thankyouOverlay');
-  const thankyouMsg = document.getElementById('thankyouMsg');
-  const timerEl = document.getElementById('thankyouTimer');
-  const bar = document.getElementById('thankyouBar');
-
-  // ══════════════════════════════════════════════════════
-  // SHARED FORM VALIDATION — used by all three forms
-  // ══════════════════════════════════════════════════════
-  function _hasVowel(str) { return /[aeiouAEIOU]/.test(str); }
-  function _isMash(str) {
-    if (!_hasVowel(str)) return true;
-    if (/[^aeiou\s]{5,}/i.test(str)) return true;
-    if (/(.)\1\1/.test(str)) return true;
-    return false;
-  }
-  function _fakeDomain(domain) {
-    var part = domain.split('.')[0];
-    return (!_hasVowel(part) || part.length < 3 || _isMash(part));
-  }
-  function _fakeUser(user) {
-    return (!_hasVowel(user) || _isMash(user) || user.length < 3);
-  }
-  var _blockedDomains = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com','aol.com','protonmail.com','mail.com','ymail.com','live.com','msn.com','googlemail.com','yahoo.co.in','yahoo.co.uk','rediffmail.com','hotmail.co.uk'];
-  var _emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-  var _nameRegex  = /^[a-zA-Z\u00C0-\u024F][a-zA-Z\s\-\'\u00C0-\u024F]{1,}$/;
-
-  // Returns error string or null if valid
-  function validateFormFields(fields) {
-    for (var i = 0; i < fields.length; i++) {
-      var f = fields[i];
-      var el = f.el; if (!el) continue;
-      var val = el.value.trim();
-
-      // Required check
-      if (f.required && !val) {
-        el.style.borderColor = '#e8621a'; el.focus();
-        alert(f.label + ' is required.'); return false;
-      }
-      if (!val) continue; // optional and empty — skip
-      el.style.borderColor = '';
-
-      // Name check
-      if (f.type === 'name') {
-        if (!_nameRegex.test(val) || _isMash(val) || val.length < 2) {
-          el.style.borderColor = '#e8621a'; el.focus();
-          alert('Please enter a valid ' + f.label.toLowerCase() + '.'); return false;
-        }
-      }
-
-      // Email check
-      if (f.type === 'email') {
-        var ev = val.toLowerCase();
-        if (!_emailRegex.test(ev)) {
-          el.style.borderColor = '#e8621a'; el.focus();
-          alert('Please enter a valid email address.'); return false;
-        }
-        var parts  = ev.split('@');
-        var user   = parts[0];
-        var domain = parts[1];
-        if (_blockedDomains.indexOf(domain) > -1) {
-          el.style.borderColor = '#e8621a'; el.focus();
-          alert('Please use your work email, not a personal address.'); return false;
-        }
-        if (_fakeUser(user)) {
-          el.style.borderColor = '#e8621a'; el.focus();
-          alert('This email does not look valid. Please use your real work email.'); return false;
-        }
-        if (_fakeDomain(domain.split('.')[0])) {
-          el.style.borderColor = '#e8621a'; el.focus();
-          alert('This email domain does not look valid. Please use your real work email.'); return false;
-        }
-      }
-
-      // Text mash check (company, message, job title)
-      if (f.type === 'text' && val.length > 1 && _isMash(val)) {
-        el.style.borderColor = '#e8621a'; el.focus();
-        alert('Please enter a valid ' + f.label.toLowerCase() + '.'); return false;
-      }
-    }
-    return true; // all passed
-  }
-
-  function resetForm() {
-    overlay.classList.remove('visible');
-    document.getElementById('ge-contact-form').reset();
-    updateInterestOptions();
-    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-  }
-
-  // ── Scroll animations ──
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.08 });
-
-  document.querySelectorAll('.service-card, .process-step, .elg-pillar, .stat-item').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(16px)';
-    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    observer.observe(el);
-  });
-
   // ── Timed Popups — content driven by /popups.json ──
   (function() {
 
@@ -1927,7 +1822,7 @@
         '</div>';
     };
 
-    fetch('/popups.json?v=' + Date.now())
+    fetch('/popups.json')
       .then(function(r) { return r.json(); })
       .then(function(data) {
 
