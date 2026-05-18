@@ -1519,13 +1519,14 @@
 </footer>
 <Script>
   // ── Panel switching ──
-  function showPanel(type) {
+  window.showPanel = function showPanel(type) {
     // Show correct content panel
     document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('panel-' + type).classList.add('active');
-    // Scroll to the top of the selected panel
+    // Scroll to the first section inside the selected panel (panel itself has no position when hidden)
     setTimeout(function() {
-      document.getElementById('panel-' + type).scrollIntoView({ behavior: 'smooth', block: 'start' });
+      var target = document.getElementById('about-' + type) || document.getElementById('panel-' + type);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 50);
 
     // Update audience buttons
@@ -1592,72 +1593,6 @@
   const timerEl = document.getElementById('thankyouTimer');
   const bar = document.getElementById('thankyouBar');
 
-  function showPanel(type) {
-    // Show correct content panel
-    document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
-    document.getElementById('panel-' + type).classList.add('active');
-    // Scroll to the top of the selected panel
-    setTimeout(function() {
-      document.getElementById('panel-' + type).scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 50);
-
-    // Update audience buttons
-    document.querySelectorAll('.btn-audience').forEach(b => {
-      b.classList.remove('inactive');
-      if (!b.classList.contains(type)) b.classList.add('inactive');
-      else b.classList.remove('inactive');
-    });
-
-    // Update form for context
-    const btn = document.getElementById('formSubmitBtn');
-    const sectionLabel = document.getElementById('contactLabel');
-    const contactBody = document.getElementById('contactBody');
-
-    if (type === 'partner') {
-      btn.classList.add('blue-btn');
-      document.getElementById('visitorType').value = 'partner';
-      sectionLabel.classList.add('blue');
-      contactBody.textContent = "Whether you're a reseller, VAR, MSP, distributor or SI looking to deepen your ISV portfolio — we're happy to start with an exploratory conversation. No pitch deck on the first call.";
-    } else {
-      btn.classList.remove('blue-btn');
-      document.getElementById('visitorType').value = 'isv';
-      sectionLabel.classList.remove('blue');
-      contactBody.textContent = "Whether you're just starting to think about channel expansion or you've been meaning to formalise it for a while — we're happy to have an exploratory conversation. No pressure, no pitch deck on the first call.";
-    }
-    updateInterestOptions();
-
-    // Smooth scroll cue - briefly highlight the form area isn't needed, just update
-  }
-
-  // ── Dynamic interest options ──
-  const ISV_OPTIONS = [
-    { value: 'discovery', label: 'Partner Discovery & Shortlist' },
-    { value: 'loi', label: 'Partner Discovery + LOI Activation' },
-    { value: 'explore', label: 'Just exploring — tell me more' },
-  ];
-  const PARTNER_OPTIONS = [
-    { value: 'isv-discovery', label: 'ISV Discovery & Shortlist' },
-    { value: 'isv-activation', label: 'ISV Discovery + Partnership Activation' },
-    { value: 'explore', label: 'Just exploring — tell me more' },
-  ];
-
-  function updateInterestOptions() {
-  const vtEl = document.getElementById('visitorType');
-  const sel = document.getElementById('interestSelect');
-  if (!vtEl || !sel) return;
-  const vt = vtEl.value;
-  const opts = vt === 'partner' ? PARTNER_OPTIONS : ISV_OPTIONS;
-  sel.innerHTML = '<option value="">Select a service...</option>';
-  opts.forEach(o => {
-    const opt = document.createElement('option');
-    opt.value = o.value; opt.textContent = o.label;
-    sel.appendChild(opt);
-  });
-}
-
-  const visitorTypeEl = document.getElementById('visitorType');
-  if (visitorTypeEl) visitorTypeEl.addEventListener('change', updateInterestOptions);
-  updateInterestOptions();
 
   // ── Form submit + Thank You ──
   const overlay = document.getElementById('thankyouOverlay');
