@@ -1677,13 +1677,12 @@
     const vt = document.getElementById('visitorType').value;
 
     // ── Validation ──
-    var _form = e.target;
     var valid = validateFormFields([
-      { el: _form.querySelector('input[name="firstname"], input[id*="first"]'),  label: 'First name',   type: 'name',  required: true },
-      { el: _form.querySelector('input[name="lastname"],  input[id*="last"]'),   label: 'Last name',    type: 'name',  required: true },
-      { el: _form.querySelector('input[type="email"]'),                           label: 'Work email',   type: 'email', required: true },
-      { el: _form.querySelector('input[name="company"], input[id*="company"]'),  label: 'Company name', type: 'text',  required: false },
-      { el: _form.querySelector('textarea'),                                       label: 'Message',      type: 'text',  required: false }
+      { el: document.getElementById('gcf-firstname'), label: 'First name',   type: 'name',  required: true },
+      { el: document.getElementById('gcf-lastname'),  label: 'Last name',    type: 'name',  required: false },
+      { el: document.getElementById('gcf-email'),     label: 'Work email',   type: 'email', required: true },
+      { el: document.getElementById('gcf-company'),   label: 'Company name', type: 'text',  required: true },
+      { el: document.getElementById('gcf-message'),   label: 'Message',      type: 'text',  required: false }
     ]);
     if (!valid) return;
 
