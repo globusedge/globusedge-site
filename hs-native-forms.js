@@ -166,8 +166,24 @@
         var nameRegex = /^[a-zA-Z\u00C0-\u024F][a-zA-Z\s\-'\u00C0-\u024F]{1,}$/;
 
         function flagField(el, msg) {
-          if (el) { el.style.borderColor = '#e8621a'; el.focus(); }
-          showError(form, msg);
+          if (el) {
+            el.style.borderColor = '#e8621a';
+            el.focus();
+            // Remove any existing inline error on this field
+            var prev = el.parentElement.querySelector('.hs-field-error');
+            if (prev) prev.remove();
+            // Insert error message directly below the field
+            var err = document.createElement('p');
+            err.className = 'hs-field-error';
+            err.style.cssText = 'color:#e8621a;font-size:12px;margin:4px 0 0;font-family:DM Sans,sans-serif;';
+            err.textContent = msg;
+            el.parentElement.appendChild(err);
+            // Auto-remove on next input
+            el.addEventListener('input', function() {
+              err.remove();
+              el.style.borderColor = '';
+            }, { once: true });
+          }
         }
 
         // ── Required fields ──
