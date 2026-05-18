@@ -812,17 +812,19 @@
     color: #fff !important;
   }
   /* Force all injected popup2 text white — beats hs-forms.css */
-  #popup2 * { color: inherit; }
-  #popup2 h2, #popup2 h3, #popup2 p, #popup2 li, #popup2 span, #popup2 div {
-    color: #fff;
-  }
+  #popup2 * { color: #fff !important; }
   #popup2 .popup2-body { color: rgba(255,255,255,0.75) !important; }
   #popup2 .popup2-price-note { color: rgba(255,255,255,0.45) !important; }
+  #popup2 .popup2-eyebrow { color: var(--gold) !important; }
   #popup2 .popup2-form-sub { color: rgba(255,255,255,0.5) !important; }
   #popup2 .popup2-payment-note { color: rgba(255,255,255,0.4) !important; }
   #popup2 em { color: var(--gold) !important; }
-  #popup2 strong { color: #fff; }
+  #popup2 strong { color: #fff !important; }
+  #popup2 a { color: var(--gold) !important; }
   #popup2 .p2-label { color: rgba(255,255,255,0.85) !important; }
+  #popup2 .popup2-price-now { color: #fff !important; }
+  #popup2 .popup2-ty h3 { color: #fff !important; }
+  #popup2 .popup2-ty p { color: rgba(255,255,255,0.6) !important; }
   .popup2-eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
     font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
