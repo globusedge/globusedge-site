@@ -1669,7 +1669,7 @@
     return true; // all passed
   }
 
-  const _cf = document.getElementById('contactForm');
+  const _cf = document.getElementById('ge-contact-form');
   if (_cf) _cf.addEventListener('submit', async function(e) {
     e.preventDefault();
 
@@ -1724,7 +1724,7 @@
 
   function resetForm() {
     overlay.classList.remove('visible');
-    document.getElementById('contactForm').reset();
+    document.getElementById('ge-contact-form').reset();
     updateInterestOptions();
     document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
   }
