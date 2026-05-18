@@ -1592,6 +1592,83 @@
   const timerEl = document.getElementById('thankyouTimer');
   const bar = document.getElementById('thankyouBar');
 
+  // ══════════════════════════════════════════════════════
+  // SHARED FORM VALIDATION — used by all three forms
+  // ══════════════════════════════════════════════════════
+  function _hasVowel(str) { return /[aeiouAEIOU]/.test(str); }
+  function _isMash(str) {
+    if (!_hasVowel(str)) return true;
+    if (/[^aeiou\s]{5,}/i.test(str)) return true;
+    if (/(.)\1\1/.test(str)) return true;
+    return false;
+  }
+  function _fakeDomain(domain) {
+    var part = domain.split('.')[0];
+    return (!_hasVowel(part) || part.length < 3 || _isMash(part));
+  }
+  function _fakeUser(user) {
+    return (!_hasVowel(user) || _isMash(user) || user.length < 3);
+  }
+  var _blockedDomains = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com','aol.com','protonmail.com','mail.com','ymail.com','live.com','msn.com','googlemail.com','yahoo.co.in','yahoo.co.uk','rediffmail.com','hotmail.co.uk'];
+  var _emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  var _nameRegex  = /^[a-zA-Z\u00C0-\u024F][a-zA-Z\s\-\'\u00C0-\u024F]{1,}$/;
+
+  // Returns error string or null if valid
+  function validateFormFields(fields) {
+    for (var i = 0; i < fields.length; i++) {
+      var f = fields[i];
+      var el = f.el; if (!el) continue;
+      var val = el.value.trim();
+
+      // Required check
+      if (f.required && !val) {
+        el.style.borderColor = '#e8621a'; el.focus();
+        alert(f.label + ' is required.'); return false;
+      }
+      if (!val) continue; // optional and empty — skip
+      el.style.borderColor = '';
+
+      // Name check
+      if (f.type === 'name') {
+        if (!_nameRegex.test(val) || _isMash(val) || val.length < 2) {
+          el.style.borderColor = '#e8621a'; el.focus();
+          alert('Please enter a valid ' + f.label.toLowerCase() + '.'); return false;
+        }
+      }
+
+      // Email check
+      if (f.type === 'email') {
+        var ev = val.toLowerCase();
+        if (!_emailRegex.test(ev)) {
+          el.style.borderColor = '#e8621a'; el.focus();
+          alert('Please enter a valid email address.'); return false;
+        }
+        var parts  = ev.split('@');
+        var user   = parts[0];
+        var domain = parts[1];
+        if (_blockedDomains.indexOf(domain) > -1) {
+          el.style.borderColor = '#e8621a'; el.focus();
+          alert('Please use your work email, not a personal address.'); return false;
+        }
+        if (_fakeUser(user)) {
+          el.style.borderColor = '#e8621a'; el.focus();
+          alert('This email does not look valid. Please use your real work email.'); return false;
+        }
+        if (_fakeDomain(domain.split('.')[0])) {
+          el.style.borderColor = '#e8621a'; el.focus();
+          alert('This email domain does not look valid. Please use your real work email.'); return false;
+        }
+      }
+
+      // Text mash check (company, message, job title)
+      if (f.type === 'text' && val.length > 1 && _isMash(val)) {
+        el.style.borderColor = '#e8621a'; el.focus();
+        alert('Please enter a valid ' + f.label.toLowerCase() + '.'); return false;
+      }
+    }
+    return true; // all passed
+  }
+
   const _cf = document.getElementById('contactForm');
   if (_cf) _cf.addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -1599,23 +1676,16 @@
     const form = e.target;
     const vt = document.getElementById('visitorType').value;
 
-    // Email validation
-    const emailEl = form.querySelector('input[type="email"]');
-    if (emailEl) {
-      const emailVal = emailEl.value.trim();
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const blockedDomains = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com','aol.com','protonmail.com','mail.com','ymail.com','live.com'];
-      const domain = emailVal.split('@')[1] ? emailVal.split('@')[1].toLowerCase() : '';
-      if (!emailRegex.test(emailVal)) {
-        emailEl.style.borderColor = '#e05'; emailEl.focus();
-        alert('Please enter a valid email address.'); return;
-      }
-      if (blockedDomains.includes(domain)) {
-        emailEl.style.borderColor = '#e05'; emailEl.focus();
-        alert('Please use your work email address.'); return;
-      }
-      emailEl.style.borderColor = '';
-    }
+    // ── Validation ──
+    var _form = e.target;
+    var valid = validateFormFields([
+      { el: _form.querySelector('input[name="firstname"], input[id*="first"]'),  label: 'First name',   type: 'name',  required: true },
+      { el: _form.querySelector('input[name="lastname"],  input[id*="last"]'),   label: 'Last name',    type: 'name',  required: true },
+      { el: _form.querySelector('input[type="email"]'),                           label: 'Work email',   type: 'email', required: true },
+      { el: _form.querySelector('input[name="company"], input[id*="company"]'),  label: 'Company name', type: 'text',  required: false },
+      { el: _form.querySelector('textarea'),                                       label: 'Message',      type: 'text',  required: false }
+    ]);
+    if (!valid) return;
 
     // Show thank you overlay immediately
     if (vt === 'partner') {
@@ -1694,6 +1764,17 @@
   if (piqForm) {
     piqForm.addEventListener('submit', async function(e) {
       e.preventDefault();
+      // ── Validation ──
+      var _pf = piqForm;
+      var piqValid = validateFormFields([
+        { el: _pf.querySelector('input[name="firstname"], input[id*="first"]'),  label: 'First name',   type: 'name',  required: true },
+        { el: _pf.querySelector('input[name="lastname"],  input[id*="last"]'),   label: 'Last name',    type: 'name',  required: true },
+        { el: _pf.querySelector('input[type="email"]'),                           label: 'Work email',   type: 'email', required: true },
+        { el: _pf.querySelector('input[name="company"], input[id*="company"]'),  label: 'Company name', type: 'text',  required: false },
+        { el: _pf.querySelector('input[name="jobtitle"], input[id*="jobtitle"]'), label: 'Job title',   type: 'text',  required: false },
+        { el: _pf.querySelector('textarea'),                                        label: 'Message',      type: 'text',  required: false }
+      ]);
+      if (!piqValid) return;
       const formData = new FormData(piqForm);
       try {
         await fetch('/', {
