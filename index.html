@@ -1792,7 +1792,45 @@
     // ── Popup 2: Submit → swap to THANK YOU ──
     window.popup2Submit = function() {
       var cfg = _p2cfg; if (!cfg) return;
-      // ── Validation ──
+      // ── Validation helpers ──
+      function flagField(id, msg) {
+        var el = document.getElementById(id);
+        if (el) { el.style.border = '2px solid #e8621a'; el.focus(); }
+        alert(msg); return false;
+      }
+      function clearFields() {
+        ['gpf-firstname','gpf-lastname','gpf-jobtitle','gpf-company','gpf-email','gpf-iam','gpf-message'].forEach(function(id) {
+          var f = document.getElementById(id); if (f) f.style.border = '';
+        });
+      }
+      function hasVowel(str) { return /[aeiouAEIOU]/.test(str); }
+      function isKeyboardMash(str) {
+        // Fail if no vowels
+        if (!hasVowel(str)) return true;
+        // Fail if more than 4 consecutive consonants
+        if (/[^aeiou\s]{5,}/i.test(str)) return true;
+        // Fail if same char repeated 3+ times
+        if (/(.)\1\1/.test(str)) return true;
+        return false;
+      }
+      function looksLikeFakeDomain(domain) {
+        // No vowels in domain name part
+        var namePart = domain.split('.')[0];
+        if (!hasVowel(namePart)) return true;
+        // Too short to be a real company domain
+        if (namePart.length < 3) return true;
+        // Keyboard mash pattern
+        if (isKeyboardMash(namePart)) return true;
+        return false;
+      }
+      function looksLikeFakeEmailUser(user) {
+        if (!hasVowel(user)) return true;
+        if (isKeyboardMash(user)) return true;
+        if (user.length < 3) return true;
+        return false;
+      }
+
+      // ── Required fields ──
       var required = [
         {id:'gpf-firstname', label:'First name'},
         {id:'gpf-lastname',  label:'Last name'},
@@ -1803,43 +1841,70 @@
       ];
       for (var i = 0; i < required.length; i++) {
         var el = document.getElementById(required[i].id);
-        if (!el || !el.value.trim()) {
-          if (el) { el.style.border = '2px solid #e8621a'; el.focus(); }
-          alert(required[i].label + ' is required.'); return;
-        }
-        if (el) el.style.border = '';
+        if (!el || !el.value.trim()) { flagField(required[i].id, required[i].label + ' is required.'); return; }
+        el.style.border = '';
       }
-      // Email format check
-      var emailEl = document.getElementById('gpf-email');
-      var emailVal = emailEl ? emailEl.value.trim() : '';
-      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-      if (!emailRegex.test(emailVal)) {
-        if (emailEl) { emailEl.style.border = '2px solid #e8621a'; emailEl.focus(); }
-        alert('Please enter a valid email address.'); return;
-      }
-      // Block personal email domains
-      var blockedDomains = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com','aol.com','protonmail.com','mail.com','ymail.com','live.com','msn.com','googlemail.com'];
-      var emailDomain = emailVal.split('@')[1].toLowerCase();
-      if (blockedDomains.indexOf(emailDomain) > -1) {
-        if (emailEl) { emailEl.style.border = '2px solid #e8621a'; emailEl.focus(); }
-        alert('Please use your work email address (not a personal email).'); return;
-      }
-      // Name fields — no numbers or special chars
-      var nameRegex = /^[a-zA-Z\s\-\'\u00C0-\u024F]{2,}$/;
+
+      // ── Name validation ──
       var firstEl = document.getElementById('gpf-firstname');
       var lastEl  = document.getElementById('gpf-lastname');
-      if (firstEl && !nameRegex.test(firstEl.value.trim())) {
-        firstEl.style.border = '2px solid #e8621a'; firstEl.focus();
-        alert('First name appears invalid. Please enter your real name.'); return;
+      var nameRegex = /^[a-zA-Z\u00C0-\u024F][a-zA-Z\s\-\'\u00C0-\u024F]{1,}$/;
+      if (firstEl) {
+        var fn = firstEl.value.trim();
+        if (!nameRegex.test(fn) || isKeyboardMash(fn) || fn.length < 2) {
+          flagField('gpf-firstname', 'Please enter a valid first name.'); return;
+        }
       }
-      if (lastEl && !nameRegex.test(lastEl.value.trim())) {
-        lastEl.style.border = '2px solid #e8621a'; lastEl.focus();
-        alert('Last name appears invalid. Please enter your real name.'); return;
+      if (lastEl) {
+        var ln = lastEl.value.trim();
+        if (!nameRegex.test(ln) || isKeyboardMash(ln) || ln.length < 2) {
+          flagField('gpf-lastname', 'Please enter a valid last name.'); return;
+        }
       }
-      // Reset all borders
-      ['gpf-firstname','gpf-lastname','gpf-jobtitle','gpf-company','gpf-email','gpf-iam'].forEach(function(id) {
-        var f = document.getElementById(id); if (f) f.style.border = '';
-      });
+
+      // ── Email validation ──
+      var emailEl  = document.getElementById('gpf-email');
+      var emailVal = emailEl ? emailEl.value.trim().toLowerCase() : '';
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      if (!emailRegex.test(emailVal)) {
+        flagField('gpf-email', 'Please enter a valid email address.'); return;
+      }
+      var emailParts = emailVal.split('@');
+      var emailUser   = emailParts[0];
+      var emailDomain = emailParts[1];
+      // Block personal domains
+      var blockedDomains = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com','aol.com','protonmail.com','mail.com','ymail.com','live.com','msn.com','googlemail.com','yahoo.co.in','yahoo.co.uk','rediffmail.com'];
+      if (blockedDomains.indexOf(emailDomain) > -1) {
+        flagField('gpf-email', 'Please use your work email address, not a personal one.'); return;
+      }
+      // Block fake-looking email usernames
+      if (looksLikeFakeEmailUser(emailUser)) {
+        flagField('gpf-email', 'This email address does not look valid. Please use your real work email.'); return;
+      }
+      // Block fake-looking domains
+      if (looksLikeFakeDomain(emailDomain.split('.')[0])) {
+        flagField('gpf-email', 'This email domain does not look valid. Please use your real work email.'); return;
+      }
+
+      // ── Company name validation ──
+      var companyEl = document.getElementById('gpf-company');
+      if (companyEl) {
+        var co = companyEl.value.trim();
+        if (co.length < 2 || isKeyboardMash(co)) {
+          flagField('gpf-company', 'Please enter a valid company name.'); return;
+        }
+      }
+
+      // ── Message validation (if filled, must not be mash) ──
+      var msgEl = document.getElementById('gpf-message');
+      if (msgEl && msgEl.value.trim().length > 0) {
+        var msg = msgEl.value.trim();
+        if (msg.length < 5 || isKeyboardMash(msg)) {
+          flagField('gpf-message', 'Your message does not look valid. Please describe your goals briefly.'); return;
+        }
+      }
+
+      clearFields();
       var pairs = [];
       ['gpf-firstname','gpf-lastname','gpf-jobtitle','gpf-company','gpf-email','gpf-phone','gpf-iam','gpf-message'].forEach(function(id) {
         var el = document.getElementById(id);
