@@ -811,20 +811,17 @@
     background: linear-gradient(135deg, #0D2545 0%, #1a4a2e 100%) !important;
     color: #fff !important;
   }
-  /* Force all injected popup2 text white — beats hs-forms.css */
-  #popup2 * { color: #fff !important; }
-  #popup2 .popup2-body { color: rgba(255,255,255,0.75) !important; }
-  #popup2 .popup2-price-note { color: rgba(255,255,255,0.45) !important; }
-  #popup2 .popup2-eyebrow { color: var(--gold) !important; }
-  #popup2 .popup2-form-sub { color: rgba(255,255,255,0.5) !important; }
-  #popup2 .popup2-payment-note { color: rgba(255,255,255,0.4) !important; }
-  #popup2 em { color: var(--gold) !important; }
-  #popup2 strong { color: #fff !important; }
-  #popup2 a { color: var(--gold) !important; }
-  #popup2 .p2-label { color: rgba(255,255,255,0.85) !important; }
-  #popup2 .popup2-price-now { color: #fff !important; }
-  #popup2 .popup2-ty h3 { color: #fff !important; }
-  #popup2 .popup2-ty p { color: rgba(255,255,255,0.6) !important; }
+  /* Popup2 text colours — scoped to dark card */
+  #popup2 { color: #fff; }
+  #popup2 .popup2-body { color: rgba(255,255,255,0.75); }
+  #popup2 .popup2-price-note { color: rgba(255,255,255,0.45); }
+  #popup2 .popup2-form-sub { color: rgba(255,255,255,0.5); }
+  #popup2 .popup2-payment-note { color: rgba(255,255,255,0.4); }
+  #popup2 em { color: var(--gold); }
+  #popup2 strong { color: #fff; }
+  #popup2 a { color: var(--gold); }
+  #popup2 .popup2-ty h3 { color: #fff; }
+  #popup2 .popup2-ty p { color: rgba(255,255,255,0.6); }
   .popup2-eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
     font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
@@ -891,23 +888,7 @@
   }
   .popup2-submit:hover { background: #d4a03a; transform: translateY(-1px); }
 
-  /* Form field styles injected by JS — scoped class names avoid hs-forms.css conflicts */
-  .p2-label {
-    display: block; font-size: 13px; font-weight: 500;
-    color: rgba(255,255,255,0.85); margin-bottom: 5px;
-  }
-  .p2-input {
-    width: 100%; font-family: 'DM Sans', sans-serif; font-size: 14px;
-    padding: 11px 14px; border-radius: 6px; outline: none;
-    background: rgba(255,255,255,0.07) !important;
-    border: 1px solid rgba(255,255,255,0.18) !important;
-    color: #fff !important;
-    transition: border-color 0.2s;
-    box-sizing: border-box;
-  }
-  .p2-input::placeholder { color: rgba(255,255,255,0.3); }
-  .p2-input:focus { border-color: var(--gold) !important; }
-  .p2-input option { background: #0D2545; color: #fff; }
+  /* p2-label / p2-input removed — using ge-form--dark from hs-forms.css */
 
   .popup2-payment-note {
     text-align: center; margin-top: 10px; line-height: 1.6;
@@ -1776,26 +1757,26 @@
         '<div class="popup2-eyebrow">&#9889; Partnership Activation &middot; Founding Rate</div>' +
         '<h2 class="popup2-form-heading">' + cfg.form_heading + '</h2>' +
         '<p class="popup2-form-sub">' + cfg.form_subtext + '</p>' +
-        '<div style="display:flex;flex-direction:column;gap:12px;margin-top:4px;">' +
-          '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">' +
-            '<div class="ge-form__field"><label class="p2-label">First name <span class="ge-required">*</span></label><input id="gpf-firstname" type="text" placeholder="Jane" required class="p2-input"></div>' +
-            '<div class="ge-form__field"><label class="p2-label">Last name <span class="ge-required">*</span></label><input id="gpf-lastname" type="text" placeholder="Smith" required class="p2-input"></div>' +
+        '<div class="ge-form ge-form--dark" style="margin-top:12px;">' +
+          '<div class="ge-form__row">' +
+            '<div class="ge-form__field"><label>First name <span class="ge-required">*</span></label><input id="gpf-firstname" type="text" placeholder="Jane" required></div>' +
+            '<div class="ge-form__field"><label>Last name <span class="ge-required">*</span></label><input id="gpf-lastname" type="text" placeholder="Smith" required></div>' +
           '</div>' +
-          '<div class="ge-form__field"><label class="p2-label">Job title <span class="ge-required">*</span></label><input id="gpf-jobtitle" type="text" placeholder="VP of Partnerships" required class="p2-input"></div>' +
-          '<div class="ge-form__field"><label class="p2-label">Company name <span class="ge-required">*</span></label><input id="gpf-company" type="text" placeholder="Acme Corp" required class="p2-input"></div>' +
-          '<div class="ge-form__field"><label class="p2-label">Work email <span class="ge-required">*</span></label><input id="gpf-email" type="email" placeholder="jane@company.com" required class="p2-input"></div>' +
-          '<div class="ge-form__field"><label class="p2-label">Phone</label><input id="gpf-phone" type="tel" placeholder="+1 555 000 0000" class="p2-input"></div>' +
-          '<div class="ge-form__field"><label class="p2-label">I am a&hellip; <span class="ge-required">*</span></label>' +
-            '<select id="gpf-iam" required class="p2-input">' +
+          '<div class="ge-form__field"><label>Job title <span class="ge-required">*</span></label><input id="gpf-jobtitle" type="text" placeholder="VP of Partnerships" required></div>' +
+          '<div class="ge-form__field"><label>Company name <span class="ge-required">*</span></label><input id="gpf-company" type="text" placeholder="Acme Corp" required></div>' +
+          '<div class="ge-form__field"><label>Work email <span class="ge-required">*</span></label><input id="gpf-email" type="email" placeholder="jane@company.com" required></div>' +
+          '<div class="ge-form__field"><label>Phone</label><input id="gpf-phone" type="tel" placeholder="+1 555 000 0000"></div>' +
+          '<div class="ge-form__field"><label>I am a&hellip; <span class="ge-required">*</span></label>' +
+            '<div class="ge-select-wrap"><select id="gpf-iam" required>' +
               '<option value="" disabled selected>Select your role</option>' +
               '<option>ISV — Independent Software Vendor</option>' +
               '<option>SaaS company scaling channel</option>' +
               '<option>Channel Partner / VAR / MSP</option>' +
               '<option>Distributor</option>' +
               '<option>Other</option>' +
-            '</select>' +
+            '</select><span class="ge-select-arrow">&#9662;</span></div>' +
           '</div>' +
-          '<div class="ge-form__field"><label class="p2-label">Message</label><textarea id="gpf-message" rows="3" placeholder="Tell us about your partnership goals…" class="p2-input" style="resize:none;"></textarea></div>' +
+          '<div class="ge-form__field"><label>Message</label><textarea id="gpf-message" rows="3" placeholder="Tell us about your partnership goals…" style="resize:none;"></textarea></div>' +
         '</div>' +
         '<button class="popup2-cta" onclick="window.popup2Submit()" style="margin-top:16px;">Submit Request →</button>' +
         '<p class="popup2-payment-note" style="margin-top:14px;">' + cfg.payment_note + '</p>';
