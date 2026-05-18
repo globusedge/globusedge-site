@@ -852,13 +852,17 @@
   }
   .popup2-perks li::before { content: '\2713'; color: #4cdb85; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
   .popup2-cta {
-    display: block !important; text-align: center; font-size: 14px; font-weight: 600;
-    background: var(--gold) !important; color: #fff !important; padding: 14px 28px; border-radius: 6px;
-    text-decoration: none; transition: background 0.2s, transform 0.15s; letter-spacing: 0.02em;
+    display: block !important; text-align: center; font-size: 14px; font-weight: 700;
+    background: #e8621a !important; color: #fff !important; padding: 14px 28px; border-radius: 6px;
+    text-decoration: none; transition: background 0.2s, transform 0.15s; letter-spacing: 0.08em;
     border: none !important; cursor: pointer; width: 100%; font-family: 'DM Sans', sans-serif;
     appearance: none; -webkit-appearance: none; box-shadow: none !important;
+    text-transform: uppercase;
   }
-  .popup2-cta:hover { background: #d4a03a !important; transform: translateY(-1px); }
+  .popup2-cta:hover { background: #cf5515 !important; transform: translateY(-1px); }
+  /* Ensure #popup2 * { color: #fff } doesn't bleed into button background */
+  #popup2 .popup2-cta { background: #e8621a !important; color: #fff !important; }
+  #popup2 .popup2-cta:hover { background: #cf5515 !important; }
   .popup2-close { color: rgba(255,255,255,0.5) !important; }
   .popup2-close:hover { color: #fff !important; background: rgba(255,255,255,0.1) !important; }
   .popup2-timer-bar-wrap { height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; margin-top: 14px; overflow: hidden; }
@@ -1747,7 +1751,7 @@
         '<div class="popup2-price-row"><span class="popup2-price-now" style="font-size:38px;">' + cfg.price + '</span></div>' +
         '<p class="popup2-price-note">' + cfg.price_note + '</p>' +
         '<ul class="popup2-perks">' + perksHTML + '</ul>' +
-        '<button class="popup2-cta" onclick="window.popup2ShowForm()">' + cfg.cta_label + '</button>' +
+        '<button class="popup2-cta" onclick="window.popup2ShowForm()">Connect</button>' +
         '<div class="popup2-timer-bar-wrap" style="margin-top:14px;"><div class="popup2-timer-bar" id="popup2Bar"></div></div>';
     }
 
@@ -1786,11 +1790,54 @@
     // ── Popup 2: Submit → swap to THANK YOU ──
     window.popup2Submit = function() {
       var cfg = _p2cfg; if (!cfg) return;
-      var required = ['gpf-firstname','gpf-lastname','gpf-jobtitle','gpf-company','gpf-email','gpf-iam'];
+      // ── Validation ──
+      var required = [
+        {id:'gpf-firstname', label:'First name'},
+        {id:'gpf-lastname',  label:'Last name'},
+        {id:'gpf-jobtitle',  label:'Job title'},
+        {id:'gpf-company',   label:'Company name'},
+        {id:'gpf-email',     label:'Work email'},
+        {id:'gpf-iam',       label:'Role'}
+      ];
       for (var i = 0; i < required.length; i++) {
-        var el = document.getElementById(required[i]);
-        if (!el || !el.value.trim()) { alert('Please complete all required fields.'); return; }
+        var el = document.getElementById(required[i].id);
+        if (!el || !el.value.trim()) {
+          if (el) { el.style.border = '2px solid #e8621a'; el.focus(); }
+          alert(required[i].label + ' is required.'); return;
+        }
+        if (el) el.style.border = '';
       }
+      // Email format check
+      var emailEl = document.getElementById('gpf-email');
+      var emailVal = emailEl ? emailEl.value.trim() : '';
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      if (!emailRegex.test(emailVal)) {
+        if (emailEl) { emailEl.style.border = '2px solid #e8621a'; emailEl.focus(); }
+        alert('Please enter a valid email address.'); return;
+      }
+      // Block personal email domains
+      var blockedDomains = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com','aol.com','protonmail.com','mail.com','ymail.com','live.com','msn.com','googlemail.com'];
+      var emailDomain = emailVal.split('@')[1].toLowerCase();
+      if (blockedDomains.indexOf(emailDomain) > -1) {
+        if (emailEl) { emailEl.style.border = '2px solid #e8621a'; emailEl.focus(); }
+        alert('Please use your work email address (not a personal email).'); return;
+      }
+      // Name fields — no numbers or special chars
+      var nameRegex = /^[a-zA-Z\s\-\'\u00C0-\u024F]{2,}$/;
+      var firstEl = document.getElementById('gpf-firstname');
+      var lastEl  = document.getElementById('gpf-lastname');
+      if (firstEl && !nameRegex.test(firstEl.value.trim())) {
+        firstEl.style.border = '2px solid #e8621a'; firstEl.focus();
+        alert('First name appears invalid. Please enter your real name.'); return;
+      }
+      if (lastEl && !nameRegex.test(lastEl.value.trim())) {
+        lastEl.style.border = '2px solid #e8621a'; lastEl.focus();
+        alert('Last name appears invalid. Please enter your real name.'); return;
+      }
+      // Reset all borders
+      ['gpf-firstname','gpf-lastname','gpf-jobtitle','gpf-company','gpf-email','gpf-iam'].forEach(function(id) {
+        var f = document.getElementById(id); if (f) f.style.border = '';
+      });
       var pairs = [];
       ['gpf-firstname','gpf-lastname','gpf-jobtitle','gpf-company','gpf-email','gpf-phone','gpf-iam','gpf-message'].forEach(function(id) {
         var el = document.getElementById(id);
