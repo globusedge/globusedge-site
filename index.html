@@ -1592,6 +1592,79 @@
   const timerEl = document.getElementById('thankyouTimer');
   const bar = document.getElementById('thankyouBar');
 
+  function showPanel(type) {
+    // Show correct content panel
+    document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + type).classList.add('active');
+    // Scroll to the top of the selected panel
+    setTimeout(function() {
+      document.getElementById('panel-' + type).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+
+    // Update audience buttons
+    document.querySelectorAll('.btn-audience').forEach(b => {
+      b.classList.remove('inactive');
+      if (!b.classList.contains(type)) b.classList.add('inactive');
+      else b.classList.remove('inactive');
+    });
+
+    // Update form for context
+    const btn = document.getElementById('formSubmitBtn');
+    const sectionLabel = document.getElementById('contactLabel');
+    const contactBody = document.getElementById('contactBody');
+
+    if (type === 'partner') {
+      btn.classList.add('blue-btn');
+      document.getElementById('visitorType').value = 'partner';
+      sectionLabel.classList.add('blue');
+      contactBody.textContent = "Whether you're a reseller, VAR, MSP, distributor or SI looking to deepen your ISV portfolio — we're happy to start with an exploratory conversation. No pitch deck on the first call.";
+    } else {
+      btn.classList.remove('blue-btn');
+      document.getElementById('visitorType').value = 'isv';
+      sectionLabel.classList.remove('blue');
+      contactBody.textContent = "Whether you're just starting to think about channel expansion or you've been meaning to formalise it for a while — we're happy to have an exploratory conversation. No pressure, no pitch deck on the first call.";
+    }
+    updateInterestOptions();
+
+    // Smooth scroll cue - briefly highlight the form area isn't needed, just update
+  }
+
+  // ── Dynamic interest options ──
+  const ISV_OPTIONS = [
+    { value: 'discovery', label: 'Partner Discovery & Shortlist' },
+    { value: 'loi', label: 'Partner Discovery + LOI Activation' },
+    { value: 'explore', label: 'Just exploring — tell me more' },
+  ];
+  const PARTNER_OPTIONS = [
+    { value: 'isv-discovery', label: 'ISV Discovery & Shortlist' },
+    { value: 'isv-activation', label: 'ISV Discovery + Partnership Activation' },
+    { value: 'explore', label: 'Just exploring — tell me more' },
+  ];
+
+  function updateInterestOptions() {
+  const vtEl = document.getElementById('visitorType');
+  const sel = document.getElementById('interestSelect');
+  if (!vtEl || !sel) return;
+  const vt = vtEl.value;
+  const opts = vt === 'partner' ? PARTNER_OPTIONS : ISV_OPTIONS;
+  sel.innerHTML = '<option value="">Select a service...</option>';
+  opts.forEach(o => {
+    const opt = document.createElement('option');
+    opt.value = o.value; opt.textContent = o.label;
+    sel.appendChild(opt);
+  });
+}
+
+  const visitorTypeEl = document.getElementById('visitorType');
+  if (visitorTypeEl) visitorTypeEl.addEventListener('change', updateInterestOptions);
+  updateInterestOptions();
+
+  // ── Form submit + Thank You ──
+  const overlay = document.getElementById('thankyouOverlay');
+  const thankyouMsg = document.getElementById('thankyouMsg');
+  const timerEl = document.getElementById('thankyouTimer');
+  const bar = document.getElementById('thankyouBar');
+
   // ══════════════════════════════════════════════════════
   // SHARED FORM VALIDATION — used by all three forms
   // ══════════════════════════════════════════════════════
@@ -1669,58 +1742,6 @@
     return true; // all passed
   }
 
-  const _cf = document.getElementById('ge-contact-form');
-  if (_cf) _cf.addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    const form = e.target;
-    const vt = document.getElementById('visitorType').value;
-
-    // ── Validation ──
-    var valid = validateFormFields([
-      { el: document.getElementById('gcf-firstname'), label: 'First name',   type: 'name',  required: true },
-      { el: document.getElementById('gcf-lastname'),  label: 'Last name',    type: 'name',  required: false },
-      { el: document.getElementById('gcf-email'),     label: 'Work email',   type: 'email', required: true },
-      { el: document.getElementById('gcf-company'),   label: 'Company name', type: 'text',  required: true },
-      { el: document.getElementById('gcf-message'),   label: 'Message',      type: 'text',  required: false }
-    ]);
-    if (!valid) return;
-
-    // Show thank you overlay immediately
-    if (vt === 'partner') {
-      thankyouMsg.textContent = "Your message has been received. We\'ll be in touch shortly to explore how we can help you build the right ISV portfolio for your business.";
-      bar.classList.add('blue');
-    } else {
-      thankyouMsg.textContent = "Your message has been received. We\'ll be in touch shortly to explore how we can help you grow through ecosystem partnerships.";
-      bar.classList.remove('blue');
-    }
-
-    // Submit to Netlify in background
-    const formData = new FormData(form);
-    try {
-      await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData).toString()
-      });
-    } catch (err) {
-      console.warn('Form submission error:', err);
-    }
-
-    overlay.classList.add('visible');
-
-    let secs = 20;
-    timerEl.textContent = `Returning to the form in ${secs} seconds...`;
-    const countdown = setInterval(() => {
-      secs--;
-      timerEl.textContent = `Returning to the form in ${secs} seconds...`;
-      if (secs <= 0) {
-        clearInterval(countdown);
-        resetForm();
-      }
-    }, 1000);
-  });
-
   function resetForm() {
     overlay.classList.remove('visible');
     document.getElementById('ge-contact-form').reset();
@@ -1744,55 +1765,6 @@
     el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     observer.observe(el);
   });
-
-  // ── Pairlot Early-Access Form ──
-  const piqForm = document.getElementById('piq-early-access-form') || document.getElementById('piqForm');
-  const piqThankyou = document.getElementById('piqThankyou');
-  const piqFormWrap = document.getElementById('piqFormWrap');
-
-  // Animate slots bar on load
-  setTimeout(() => {
-    const bar = document.getElementById('piqSlotsBar');
-    if (bar) bar.style.width = '68%';
-  }, 600);
-
-  let slotsLeft = 13;
-  const slotsCountEl = document.getElementById('piqSlotsCount');
-  if (slotsCountEl) slotsCountEl.textContent = (40 - slotsLeft) + ' / 40';
-
-  if (piqForm) {
-    piqForm.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      // ── Validation ──
-      var _pf = piqForm;
-      var piqValid = validateFormFields([
-        { el: _pf.querySelector('input[name="firstname"], input[id*="first"]'),  label: 'First name',   type: 'name',  required: true },
-        { el: _pf.querySelector('input[name="lastname"],  input[id*="last"]'),   label: 'Last name',    type: 'name',  required: true },
-        { el: _pf.querySelector('input[type="email"]'),                           label: 'Work email',   type: 'email', required: true },
-        { el: _pf.querySelector('input[name="company"], input[id*="company"]'),  label: 'Company name', type: 'text',  required: false },
-        { el: _pf.querySelector('input[name="jobtitle"], input[id*="jobtitle"]'), label: 'Job title',   type: 'text',  required: false },
-        { el: _pf.querySelector('textarea'),                                        label: 'Message',      type: 'text',  required: false }
-      ]);
-      if (!piqValid) return;
-      const formData = new FormData(piqForm);
-      try {
-        await fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(formData).toString()
-        });
-      } catch (err) {
-        console.warn('PIQ form error:', err);
-      }
-      piqFormWrap.style.display = 'none';
-      piqThankyou.classList.add('visible');
-      if (slotsLeft > 1) {
-        slotsLeft--;
-        if (slotsCountEl) slotsCountEl.textContent = (40 - slotsLeft) + ' / 40';
-      }
-    });
-  }
-
 
   // ── Timed Popups — content driven by /popups.json ──
   (function() {
