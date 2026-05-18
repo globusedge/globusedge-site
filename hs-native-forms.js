@@ -152,12 +152,82 @@
       form.addEventListener('submit', function (e) {
         e.preventDefault();
 
-        // Basic client-side validation — email required
-        const emailField = form.querySelector('input[type="email"]');
-        if (emailField && !emailField.value.trim()) {
-          showError(form, 'Please enter your email address.');
-          emailField.focus();
-          return;
+        // ── Validation helpers ──
+        function hasVowel(s)  { return /[aeiouAEIOU]/.test(s); }
+        function isMash(s) {
+          if (!hasVowel(s)) return true;
+          if (/[^aeiou\s]{5,}/i.test(s)) return true;
+          if (/(.)\\1\\1/.test(s)) return true;
+          return false;
+        }
+        function fakeDomain(d) { var p = d.split('.')[0]; return !hasVowel(p) || p.length < 3 || isMash(p); }
+        function fakeUser(u)   { return !hasVowel(u) || isMash(u) || u.length < 3; }
+        var blockedDomains = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com','aol.com','protonmail.com','mail.com','ymail.com','live.com','msn.com','googlemail.com','yahoo.co.in','yahoo.co.uk','rediffmail.com','hotmail.co.uk'];
+        var nameRegex = /^[a-zA-Z\u00C0-\u024F][a-zA-Z\s\-'\u00C0-\u024F]{1,}$/;
+
+        function flagField(el, msg) {
+          if (el) { el.style.borderColor = '#e8621a'; el.focus(); }
+          showError(form, msg);
+        }
+
+        // ── Required fields ──
+        var requiredFields = form.querySelectorAll('[required]');
+        for (var i = 0; i < requiredFields.length; i++) {
+          var rf = requiredFields[i];
+          if (!rf.value.trim()) {
+            var lbl = form.querySelector('label[for="' + rf.id + '"]');
+            var name = lbl ? lbl.textContent.replace('*','').trim() : 'This field';
+            flagField(rf, name + ' is required.');
+            return;
+          }
+          rf.style.borderColor = '';
+        }
+
+        // ── Name validation ──
+        var nameFields = form.querySelectorAll('input[name="firstname"], input[name="lastname"]');
+        for (var j = 0; j < nameFields.length; j++) {
+          var nf = nameFields[j]; var nv = nf.value.trim();
+          if (!nv) continue;
+          if (!nameRegex.test(nv) || isMash(nv)) {
+            flagField(nf, 'Please enter a valid name.'); return;
+          }
+          nf.style.borderColor = '';
+        }
+
+        // ── Email validation ──
+        var emailField = form.querySelector('input[type="email"]');
+        if (emailField && emailField.value.trim()) {
+          var ev = emailField.value.trim().toLowerCase();
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(ev)) {
+            flagField(emailField, 'Please enter a valid email address.'); return;
+          }
+          var parts = ev.split('@'); var user = parts[0]; var domain = parts[1];
+          if (blockedDomains.indexOf(domain) > -1) {
+            flagField(emailField, 'Please use your work email, not a personal address.'); return;
+          }
+          if (fakeUser(user)) {
+            flagField(emailField, 'This email does not look valid. Please use your real work email.'); return;
+          }
+          if (fakeDomain(domain.split('.')[0])) {
+            flagField(emailField, 'This email domain does not look valid. Please use your real work email.'); return;
+          }
+          emailField.style.borderColor = '';
+        }
+
+        // ── Company / text mash check ──
+        var textFields = form.querySelectorAll('input[name="company"], input[name="jobtitle"]');
+        for (var k = 0; k < textFields.length; k++) {
+          var tf = textFields[k]; var tv = tf.value.trim();
+          if (tv && isMash(tv)) {
+            flagField(tf, 'Please enter a valid value.'); return;
+          }
+          if (tf) tf.style.borderColor = '';
+        }
+
+        // ── Message mash check ──
+        var msgField = form.querySelector('textarea[name="message"]');
+        if (msgField && msgField.value.trim().length > 3 && isMash(msgField.value.trim())) {
+          flagField(msgField, 'Your message does not look valid. Please describe your goals briefly.'); return;
         }
 
         const fields = collectFields(form);
