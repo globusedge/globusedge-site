@@ -162,7 +162,7 @@
         }
         function fakeDomain(d) { var p = d.split('.')[0]; return !hasVowel(p) || p.length < 3 || isMash(p); }
         function fakeUser(u)   { return !hasVowel(u) || isMash(u) || u.length < 3; }
-        var blockedDomains = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com','aol.com','protonmail.com','mail.com','ymail.com','live.com','msn.com','googlemail.com','yahoo.co.in','yahoo.co.uk','rediffmail.com','hotmail.co.uk'];
+        var blockedDomains = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com','aol.com','protonmail.com','mail.com','ymail.com','live.com','msn.com','googlemail.com','yahoo.co.in','yahoo.co.uk','rediffmail.com','hotmail.co.uk','company.com','test.com','example.com','domain.com','email.com','mycompany.com','acme.com','sample.com','fake.com','dummy.com','noemail.com','nomail.com'];
         var nameRegex = /^[a-zA-Z\u00C0-\u024F][a-zA-Z\s\-'\u00C0-\u024F]{1,}$/;
 
         function flagField(el, msg) {
@@ -200,12 +200,16 @@
         }
 
         // ── Name validation ──
+        var genericNames = ['test','testing','user','admin','name','first','last','your','hello','asdf','qwerty','none','na','n/a','nope','fake','dummy','sample','example','company','anon','anonymous'];
         var nameFields = form.querySelectorAll('input[name="firstname"], input[name="lastname"]');
         for (var j = 0; j < nameFields.length; j++) {
           var nf = nameFields[j]; var nv = nf.value.trim();
           if (!nv) continue;
-          if (!nameRegex.test(nv) || isMash(nv)) {
+          if (!nameRegex.test(nv) || isMash(nv) || nv.length < 2) {
             flagField(nf, 'Please enter a valid name.'); return;
+          }
+          if (genericNames.indexOf(nv.toLowerCase()) > -1) {
+            flagField(nf, 'Please enter your real name.'); return;
           }
           nf.style.borderColor = '';
         }
