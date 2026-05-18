@@ -1523,12 +1523,11 @@
     // Show correct content panel
     document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('panel-' + type).classList.add('active');
-    // Scroll to panel — use about-isv position as reference since hidden panels have no position
+    // Scroll to correct panel — read position AFTER panel is made active
     setTimeout(function() {
-      // Get position from the ISV panel (always rendered) as anchor
-      var anchor = document.getElementById('about-isv') || document.getElementById('panel-isv');
-      if (anchor) {
-        var top = anchor.getBoundingClientRect().top + window.scrollY;
+      var target = document.getElementById('panel-' + type);
+      if (target) {
+        var top = target.getBoundingClientRect().top + window.scrollY;
         window.scrollTo({ top: top, behavior: 'smooth' });
       }
     }, 80);
