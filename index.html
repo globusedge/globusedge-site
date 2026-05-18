@@ -4,8 +4,12 @@
 <meta charset="UTF-8">
  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230D2545'/%3E%3Ctext x='16' y='23' font-family='Arial Black, Arial, sans-serif' font-weight='900' font-size='17' fill='%23E8A93A' text-anchor='middle'%3EGE%3C/text%3E%3C/svg%3E">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Globus Edge helps ISVs and channel partners find, qualify and activate the right ecosystem partnerships. AI-powered partner intelligence for SAP, Microsoft, HubSpot and AWS ecosystems.">
 <title>Globus Edge — Ecosystem Led Growth</title>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -93,7 +97,7 @@
 
   .hero-tag {
     display: inline-flex; align-items: center; gap: 8px;
-    font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--accent-mid);
     margin-bottom: 32px;
   }
@@ -186,7 +190,7 @@
   }
 
   .section-label {
-    font-size: 11px; font-weight: 500;
+    font-size: 12px; font-weight: 500;
     letter-spacing: 0.1em; text-transform: uppercase;
     color: var(--accent-mid); margin-bottom: 16px;
   }
@@ -451,7 +455,7 @@
   }
   .piq-eyebrow {
     display: inline-flex; align-items: center; gap: 10px;
-    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.12em;
     text-transform: uppercase; color: var(--gold);
     margin-bottom: 24px;
   }
@@ -524,7 +528,7 @@
     position: sticky; top: 90px;
   }
   .piq-card-label {
-    font-size: 11px; font-weight: 500;
+    font-size: 12px; font-weight: 500;
     letter-spacing: 0.1em; text-transform: uppercase;
     color: rgba(255,255,255,0.5); margin-bottom: 8px;
   }
@@ -601,7 +605,7 @@
   .piq-payment-note {
     display: flex; align-items: center; justify-content: center;
     gap: 6px;
-    font-size: 11px; color: rgba(255,255,255,0.35);
+    font-size: 12px; color: rgba(255,255,255,0.35);
     margin-top: 8px; text-align: center;
   }
   .piq-payment-note::before { content: '🔒'; font-size: 12px; }
@@ -623,7 +627,7 @@
   .piq-slots-wrap { margin-bottom: 20px; }
   .piq-slots-label {
     display: flex; justify-content: space-between;
-    font-size: 11px; color: rgba(255,255,255,0.45);
+    font-size: 12px; color: rgba(255,255,255,0.45);
     margin-bottom: 6px;
   }
   .piq-slots-bar-bg {
@@ -765,7 +769,7 @@
 
   .popup-eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
-    font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--accent-mid); margin-bottom: 16px;
   }
   .popup-eyebrow::before {
@@ -800,16 +804,28 @@
     text-decoration: none; transition: background 0.2s, transform 0.15s; letter-spacing: 0.02em;
   }
   .popup-cta:hover { background: var(--accent-mid); transform: translateY(-1px); }
-  .popup-fine { font-size: 11px; color: var(--ink-faint); text-align: center; margin-top: 12px; line-height: 1.6; }
+  .popup-fine { font-size: 12px; color: var(--ink-faint); text-align: center; margin-top: 12px; line-height: 1.6; }
 
   /* Popup 2 dark card */
   .popup2-card {
     background: linear-gradient(135deg, #0D2545 0%, #1a4a2e 100%) !important;
     color: #fff !important;
   }
+  /* Force all injected popup2 text white — beats hs-forms.css */
+  #popup2 * { color: inherit; }
+  #popup2 h2, #popup2 h3, #popup2 p, #popup2 li, #popup2 span, #popup2 div {
+    color: #fff;
+  }
+  #popup2 .popup2-body { color: rgba(255,255,255,0.75) !important; }
+  #popup2 .popup2-price-note { color: rgba(255,255,255,0.45) !important; }
+  #popup2 .popup2-form-sub { color: rgba(255,255,255,0.5) !important; }
+  #popup2 .popup2-payment-note { color: rgba(255,255,255,0.4) !important; }
+  #popup2 em { color: var(--gold) !important; }
+  #popup2 strong { color: #fff; }
+  #popup2 .p2-label { color: rgba(255,255,255,0.85) !important; }
   .popup2-eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
-    font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
   }
   .popup2-eyebrow::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--gold); }
@@ -840,6 +856,7 @@
     background: var(--gold) !important; color: #fff !important; padding: 14px 28px; border-radius: 6px;
     text-decoration: none; transition: background 0.2s, transform 0.15s; letter-spacing: 0.02em;
     border: none !important; cursor: pointer; width: 100%; font-family: 'DM Sans', sans-serif;
+    appearance: none; -webkit-appearance: none; box-shadow: none !important;
   }
   .popup2-cta:hover { background: #d4a03a !important; transform: translateY(-1px); }
   .popup2-close { color: rgba(255,255,255,0.5) !important; }
@@ -1516,6 +1533,10 @@
     // Show correct content panel
     document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('panel-' + type).classList.add('active');
+    // Scroll to the top of the selected panel
+    setTimeout(function() {
+      document.getElementById('panel-' + type).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
 
     // Update audience buttons
     document.querySelectorAll('.btn-audience').forEach(b => {
@@ -1587,6 +1608,24 @@
 
     const form = e.target;
     const vt = document.getElementById('visitorType').value;
+
+    // Email validation
+    const emailEl = form.querySelector('input[type="email"]');
+    if (emailEl) {
+      const emailVal = emailEl.value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const blockedDomains = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com','aol.com','protonmail.com','mail.com','ymail.com','live.com'];
+      const domain = emailVal.split('@')[1] ? emailVal.split('@')[1].toLowerCase() : '';
+      if (!emailRegex.test(emailVal)) {
+        emailEl.style.borderColor = '#e05'; emailEl.focus();
+        alert('Please enter a valid email address.'); return;
+      }
+      if (blockedDomains.includes(domain)) {
+        emailEl.style.borderColor = '#e05'; emailEl.focus();
+        alert('Please use your work email address.'); return;
+      }
+      emailEl.style.borderColor = '';
+    }
 
     // Show thank you overlay immediately
     if (vt === 'partner') {
@@ -1807,16 +1846,17 @@
       .then(function(r) { return r.json(); })
       .then(function(data) {
 
-        if (data.popup1 && data.popup1.enabled) {
+        if (data.popup1 && data.popup1.enabled && !sessionStorage.getItem('p1Seen')) {
           loadPopup1(data.popup1);
-          setTimeout(function() { showPopup('popup1'); }, data.popup1.delay_ms || 60000);
+          setTimeout(function() { showPopup('popup1'); sessionStorage.setItem('p1Seen','1'); }, data.popup1.delay_ms || 60000);
         }
 
-        if (data.popup2 && data.popup2.enabled) {
+        if (data.popup2 && data.popup2.enabled && !sessionStorage.getItem('p2Seen')) {
           _p2cfg = data.popup2;
           setTimeout(function() {
             renderP2Offer(data.popup2);
             showPopup('popup2');
+            sessionStorage.setItem('p2Seen','1');
             var bar = document.getElementById('popup2Bar');
             if (bar) { bar.style.transition = 'transform 600s linear'; bar.style.transform = 'scaleX(0)'; }
           }, data.popup2.delay_ms || 120000);
@@ -1850,9 +1890,9 @@
 
   <!-- LEGAL DISCLAIMER -->
   <div style="background:var(--bg-card);border-top:1px solid var(--rule);padding:20px 48px;">
-    <p style="font-size:11px;color:var(--ink-faint);line-height:1.6;max-width:900px;margin:0 auto;text-align:center;">
+    <p style="font-size: 12px;color:var(--ink-faint);line-height:1.6;max-width:900px;margin:0 auto;text-align:center;">
       <strong>Important Notice:</strong> Pairlot is a pre-launch software product. The US$1,000 reservation deposit secures your Founding Cohort place and converts in full as credit against your first year's subscription at general availability, subject to Founding Member Terms (available on request before payment). The deposit is a commitment signal and does not constitute a permanent discount on long-term pricing. The founding rate agreed at time of reservation applies to the initial contract term only. Globus Edge reserves the right to modify product scope, features and pricing prior to launch, with written notice to all deposit holders. Slot availability figures reflect expressions of interest received to date and are indicative only. This page does not constitute a prospectus, financial product, investment offer or legal advice. Refunds of the deposit are processed within 14 business days of a valid written refund request submitted to <a href="mailto:refund@globusedge.com">refund@globusedge.com</a>. The refund right applies solely where Pairlot access is not made available by the first week of Q4 2026. By submitting your details you consent to Globus Edge contacting you about Pairlot and related services.
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<!-- Netlify identity widget removed — site on GitHub Pages -->
 <script>
   if (window.netlifyIdentity) {
     window.netlifyIdentity.on("init", user => {
