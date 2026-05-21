@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230D2545'/%3E%3Ctext x='16' y='23' font-family='Arial Black, Arial, sans-serif' font-weight='900' font-size='17' fill='%23E8A93A' text-anchor='middle'%3EGE%3C/text%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Globus Edge Partner Outreach & Activation — a structured, hands-on service that identifies your best-fit channel partners and gets them engaged on your behalf.">
+<title>Partner Outreach & Activation — Globus Edge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J5RM3FE507"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-J5RM3FE507');
+</script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0e0e0d;
+    --ink-mid: #3d3b35;
+    --ink-soft: #7a7870;
+    --ink-faint: #b5b3ac;
+    --bg: #f5f3ee;
+    --bg-card: #eceae4;
+    --bg-dark: #0e0e0d;
+    --accent: #1a4a2e;
+    --accent-mid: #2d6b44;
+    --accent-light: #d4e8da;
+    --gold: #c8932a;
+    --blue: #253C82;
+    --rule: rgba(14,14,13,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 48px;
+    background: rgba(245,243,238,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo img { height: 48px; width: auto; }
+  .nav-logo-text {
+    font-family: 'Instrument Serif', serif;
+    font-size: 20px; letter-spacing: -0.02em; color: var(--ink);
+  }
+  .nav-logo-text span { color: var(--accent-mid); }
+  nav a.cta {
+    font-size: 13px; font-weight: 500;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    color: #fff; background: var(--accent);
+    padding: 10px 22px; border-radius: 4px;
+    text-decoration: none; transition: background 0.2s;
+  }
+  nav a.cta:hover { background: var(--accent-mid); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 88vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 140px 48px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -100px; right: -200px;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(26,74,46,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: 0; left: -100px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(200,147,42,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent-mid);
+    margin-bottom: 32px;
+  }
+  .hero-tag::before {
+    content: ''; display: inline-block;
+    width: 24px; height: 1px; background: var(--accent-mid);
+  }
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(44px, 6vw, 80px);
+    line-height: 1.08; letter-spacing: -0.03em;
+    max-width: 860px; margin-bottom: 28px;
+  }
+  .hero h1 em { font-style: italic; color: var(--accent-mid); }
+  .hero-sub {
+    font-size: clamp(16px, 2vw, 20px); font-weight: 300;
+    color: var(--ink-mid); max-width: 620px;
+    line-height: 1.6; margin-bottom: 48px;
+  }
+  .hero-actions {
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  }
+  .btn-primary-green {
+    font-size: 14px; font-weight: 500;
+    padding: 16px 36px; border-radius: 4px;
+    background: var(--accent); color: #fff;
+    text-decoration: none; letter-spacing: 0.02em;
+    transition: all 0.2s; border: 2px solid transparent;
+  }
+  .btn-primary-green:hover { background: var(--accent-mid); transform: translateY(-1px); }
+
+  .btn-talk {
+    font-size: 14px; font-weight: 400;
+    color: var(--ink-mid); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: color 0.2s;
+  }
+  .btn-talk:hover { color: var(--accent-mid); }
+  .btn-talk::after { content: '→'; transition: transform 0.2s; }
+  .btn-talk:hover::after { transform: translateX(4px); }
+
+  /* ── SOCIAL PROOF BAR ── */
+  .proof-bar {
+    display: flex; align-items: center; gap: 32px;
+    margin-top: 56px; padding-top: 40px;
+    border-top: 1px solid var(--rule);
+    flex-wrap: wrap;
+  }
+  .proof-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; color: var(--ink-soft);
+  }
+  .proof-item::before {
+    content: '✓'; color: var(--accent-mid);
+    font-weight: 600; font-size: 12px;
+  }
+
+  /* ── PROBLEM STRIP ── */
+  .problem-strip {
+    background: var(--accent); color: #e8f0eb;
+    padding: 56px 48px;
+  }
+  .problem-strip p {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(20px, 3vw, 30px); font-style: italic;
+    line-height: 1.5; max-width: 860px;
+    margin: 0 auto; text-align: center; opacity: 0.9;
+  }
+
+  /* ── SECTION LAYOUT ── */
+  section {
+    padding: 96px 48px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .section-label {
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent-mid); margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(32px, 4vw, 50px);
+    line-height: 1.12; letter-spacing: -0.025em;
+    margin-bottom: 56px; max-width: 640px;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px; align-items: start;
+  }
+  .about-body {
+    font-size: 17px; color: var(--ink-mid); line-height: 1.75;
+  }
+  .about-body p + p { margin-top: 20px; }
+  .stat-stack {
+    display: flex; flex-direction: column; gap: 32px;
+    padding-left: 32px; border-left: 1px solid var(--rule);
+  }
+  .stat-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 48px; line-height: 1;
+    letter-spacing: -0.03em; color: var(--accent-mid);
+  }
+  .stat-desc { font-size: 14px; color: var(--ink-soft); margin-top: 4px; }
+
+  /* ── SERVICES ── */
+  .services-wrap { background: var(--bg-card); }
+  .services-wrap section { max-width: 1200px; }
+  .services-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .service-card {
+    background: var(--bg); border: 1px solid var(--rule);
+    border-radius: 8px; padding: 40px;
+    position: relative; overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .service-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(14,14,13,0.08);
+  }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--accent);
+  }
+  .service-card.featured::before { background: var(--gold); }
+  .service-badge {
+    display: inline-block;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--gold);
+    background: rgba(200,147,42,0.12);
+    border: 1px solid rgba(200,147,42,0.25);
+    padding: 4px 10px; border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .service-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 56px; font-style: italic;
+    color: var(--accent-light); line-height: 1; margin-bottom: 24px;
+  }
+  .service-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 26px; letter-spacing: -0.02em; margin-bottom: 16px;
+  }
+  .service-body { font-size: 15px; color: var(--ink-mid); line-height: 1.7; margin-bottom: 28px; }
+  .service-outcome {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 14px 18px; background: var(--accent-light);
+    border-radius: 4px; font-size: 13px;
+    color: var(--accent); font-weight: 500;
+  }
+  .service-outcome::before { content: '✓'; flex-shrink: 0; }
+
+  /* ── PROCESS ── */
+  .process-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; border: 1px solid var(--rule);
+    border-radius: 8px; overflow: hidden;
+  }
+  .process-step {
+    padding: 40px 28px; border-right: 1px solid var(--rule); position: relative;
+  }
+  .process-step:last-child { border-right: none; }
+  .step-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 13px; letter-spacing: 0.05em;
+    color: var(--ink-faint); margin-bottom: 20px;
+  }
+  .step-name { font-size: 17px; font-weight: 500; margin-bottom: 12px; letter-spacing: -0.01em; }
+  .step-body { font-size: 14px; color: var(--ink-soft); line-height: 1.65; }
+
+  /* ── WHAT'S INCLUDED ── */
+  .includes-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .include-card {
+    padding: 32px; background: var(--bg-card);
+    border: 1px solid var(--rule); border-radius: 8px;
+    border-top: 3px solid var(--accent);
+  }
+  .include-icon { font-size: 28px; margin-bottom: 16px; }
+  .include-title { font-size: 17px; font-weight: 500; margin-bottom: 10px; letter-spacing: -0.01em; }
+  .include-body { font-size: 14px; color: var(--ink-soft); line-height: 1.65; }
+
+  /* ── WHO IT'S FOR ── */
+  .icp-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    margin-bottom: 0;
+  }
+  .icp-card {
+    padding: 28px 24px; background: var(--bg);
+    border: 1px solid var(--rule); border-radius: 6px;
+  }
+  .icp-icon { font-size: 22px; margin-bottom: 12px; }
+  .icp-title { font-size: 15px; font-weight: 500; margin-bottom: 8px; }
+  .icp-body { font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
+
+  /* ── OBJECTIONS ── */
+  .objections-wrap { background: var(--bg-card); }
+  .objection-list {
+    display: flex; flex-direction: column; gap: 1px;
+    border: 1px solid var(--rule); border-radius: 8px; overflow: hidden;
+  }
+  .objection-item {
+    background: var(--bg); padding: 28px 32px;
+    border-bottom: 1px solid var(--rule);
+    display: grid; grid-template-columns: 240px 1fr; gap: 32px; align-items: start;
+  }
+  .objection-item:last-child { border-bottom: none; }
+  .objection-q {
+    font-size: 14px; font-weight: 500; color: var(--ink-mid);
+    font-style: italic; padding-top: 2px;
+  }
+  .objection-a { font-size: 14px; color: var(--ink-soft); line-height: 1.7; }
+
+  /* ── CTA SECTION ── */
+  .cta-section {
+    background: var(--bg-dark); color: #e8e6e0;
+    padding: 96px 48px; text-align: center;
+  }
+  .cta-section h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(32px, 5vw, 60px); font-style: italic;
+    letter-spacing: -0.025em; margin-bottom: 20px; color: #fff;
+  }
+  .cta-section p {
+    font-size: 17px; font-weight: 300; opacity: 0.65;
+    max-width: 480px; margin: 0 auto 40px; line-height: 1.65;
+  }
+  .cta-section a.btn-primary {
+    display: inline-block; font-size: 15px; font-weight: 500;
+    background: var(--gold); color: #fff;
+    padding: 16px 40px; border-radius: 4px;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .cta-section a.btn-primary:hover { background: #d4a03a; }
+
+  /* ── CONTACT ── */
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px; align-items: start;
+  }
+  .contact-body { font-size: 16px; color: var(--ink-mid); line-height: 1.75; margin-bottom: 32px; }
+  .contact-detail {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 14px; color: var(--ink-soft); margin-bottom: 12px;
+  }
+  .contact-detail strong { color: var(--ink); font-weight: 500; }
+  .contact-detail a { color: var(--accent-mid); text-decoration: none; }
+
+  /* ── GE FORM ── */
+  .ge-form { display: flex; flex-direction: column; gap: 16px; }
+  .ge-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .ge-form__field { display: flex; flex-direction: column; gap: 6px; }
+  .ge-form__field label {
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-soft);
+  }
+  .ge-required { color: var(--accent-mid); }
+  .ge-form__field input,
+  .ge-form__field textarea,
+  .ge-form__field select {
+    font-family: 'DM Sans', sans-serif; font-size: 15px;
+    padding: 12px 16px; border: 1px solid var(--rule);
+    border-radius: 4px; background: var(--bg); color: var(--ink);
+    outline: none; transition: border-color 0.2s; resize: none;
+  }
+  .ge-form__field input:focus,
+  .ge-form__field textarea:focus,
+  .ge-form__field select:focus { border-color: var(--accent-mid); }
+  .ge-select-wrap { position: relative; }
+  .ge-select-wrap select { appearance: none; width: 100%; cursor: pointer; padding-right: 36px; }
+  .ge-select-arrow {
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    color: var(--ink-soft); pointer-events: none; font-size: 12px;
+  }
+  .ge-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500;
+    padding: 14px 32px; border: none; border-radius: 4px;
+    cursor: pointer; letter-spacing: 0.02em;
+    transition: background 0.2s; align-self: flex-start;
+  }
+  .ge-btn--green { background: var(--accent); color: #fff; }
+  .ge-btn--green:hover { background: var(--accent-mid); }
+  .ge-form-error {
+    font-size: 13px; color: #c0392b; padding: 10px 14px;
+    background: #fdf0ef; border-radius: 4px; border-left: 3px solid #c0392b;
+  }
+  .ge-form-success {
+    font-size: 15px; color: var(--accent); padding: 18px 20px;
+    background: var(--accent-light); border-radius: 6px;
+    border-left: 3px solid var(--accent-mid); line-height: 1.6;
+    display: none;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--rule); padding: 32px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 13px; color: var(--ink-soft);
+  }
+  .footer-logo {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .footer-logo-text {
+    font-family: 'Instrument Serif', serif;
+    font-size: 18px; color: var(--ink);
+  }
+  .footer-logo-text span { color: var(--accent-mid); }
+
+  hr.section-rule { border: none; border-top: 1px solid var(--rule); margin: 0 48px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 14px 24px; }
+    .hero { padding: 110px 24px 64px; }
+    .about-grid, .contact-grid, .services-grid, .includes-grid, .icp-grid { grid-template-columns: 1fr; gap: 32px; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .process-step { border-right: none; border-bottom: 1px solid var(--rule); }
+    .process-step:nth-child(odd) { border-right: 1px solid var(--rule); }
+    .stat-stack { padding-left: 0; border-left: none; flex-direction: row; flex-wrap: wrap; gap: 24px; }
+    section { padding: 64px 24px; }
+    .ge-form__row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+    hr.section-rule { margin: 0 24px; }
+    .objection-item { grid-template-columns: 1fr; gap: 10px; }
+  }
+  @media (max-width: 480px) {
+    .process-steps { grid-template-columns: 1fr; }
+    .process-step:nth-child(odd) { border-right: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="/" class="nav-logo">
+    <span class="nav-logo-text">Globus<span>Edge</span></span>
+  </a>
+  <a href="#contact" class="cta">Get in touch</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <p class="hero-tag">Partner Outreach &amp; Activation</p>
+  <h1>Stop guessing which partners<br>to approach. <em>Let us find them.</em></h1>
+  <p class="hero-sub">A structured, hands-on service that identifies your best-fit channel partners — and gets them engaged on your behalf. From shortlist to signed Letter of Intent.</p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary-green">Request a scoping call</a>
+    <a href="#how-it-works" class="btn-talk">See how it works</a>
+  </div>
+  <div class="proof-bar">
+    <div class="proof-item">Built on 20+ years of SAP &amp; Microsoft ecosystem experience</div>
+    <div class="proof-item">ICP-led partner matching — not generic outreach</div>
+    <div class="proof-item">Minimum 3 signed Letters of Intent on the activation tier</div>
+    <div class="proof-item">North America &amp; EMEA focus</div>
+  </div>
+</section>
+
+<!-- ── PROBLEM STRIP ── -->
+<div class="problem-strip">
+  <p>"Most ISVs spend months approaching the wrong partners — burning goodwill, losing time, and arriving at the right conversations six quarters too late."</p>
+</div>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <p class="section-label">The problem we solve</p>
+  <h2 class="section-title">Your ecosystem has hundreds of potential partners. You need the five who will actually convert.</h2>
+  <div class="about-grid">
+    <div class="about-body">
+      <p>Partner discovery is the upstream problem that no co-sell execution tool addresses. WorkSpan, Tackle, and Clazar all assume you've already built your partner relationships. Pairlot's Partner Outreach &amp; Activation service solves what comes first.</p>
+      <p>We combine AI-scored partner intelligence with hands-on activation work — identifying the channel partners most likely to engage, qualify, and convert based on your ICP, target geographies, and product positioning. Then we work the list for you.</p>
+      <p>The result is a qualified shortlist you can act on immediately, or a set of signed Letters of Intent you can take to your next board meeting.</p>
+    </div>
+    <div class="stat-stack">
+      <div class="stat-item">
+        <div class="stat-num">5</div>
+        <div class="stat-desc">Best-fit partners identified per ISV from our proprietary database</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3+</div>
+        <div class="stat-desc">Signed Letters of Intent delivered on the activation tier</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">ICP-led</div>
+        <div class="stat-desc">Matching driven by your customer profile and expansion goals — not volume</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule">
+
+<!-- ── SERVICES ── -->
+<div class="services-wrap">
+  <section id="services">
+    <p class="section-label">Service tiers</p>
+    <h2 class="section-title">Two clear paths to a stronger partner network.</h2>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <div class="service-name">Partner Discovery &amp; Shortlist</div>
+        <p class="service-body">We analyse your ICP, geographic targets, and product positioning to identify the 5 best-fit partners from our proprietary database. You receive a research-backed shortlist — with detailed context on why each partner was chosen, their ecosystem activity, and recommended approach angles — and take it from there at your own pace.</p>
+        <div class="service-outcome">A curated, ready-to-approach list of 5 high-fit partners</div>
+      </div>
+
+      <div class="service-card featured">
+        <div class="service-badge">Most popular</div>
+        <div class="service-num">02</div>
+        <div class="service-name">Partner Discovery + LOI Activation</div>
+        <p class="service-body">Everything in the Discovery tier, plus we work the list for you. Through structured outreach and early-stage relationship development, we engage the shortlisted partners on your behalf — handling first contact, qualification calls, and objection handling — and convert interest into commitment. We deliver a minimum of 3 signed Letters of Intent.</p>
+        <div class="service-outcome">3+ signed Letters of Intent from qualified partners</div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<hr class="section-rule">
+
+<!-- ── HOW IT WORKS ── -->
+<section id="how-it-works">
+  <p class="section-label">How it works</p>
+  <h2 class="section-title">A structured process, built around your expansion goals.</h2>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-num">Step 01</div>
+      <div class="step-name">ICP &amp; Expansion Brief</div>
+      <p class="step-body">A focused intake session to capture your product positioning, target customer profile, geographic priorities, and the ecosystems you operate in. This brief drives every downstream decision.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">Step 02</div>
+      <div class="step-name">AI-Scored Partner Matching</div>
+      <p class="step-body">We run your brief against our database — scoring partners across capability, market fit, geographic reach, ecosystem activity, and customer overlap — and surface the top candidates.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">Step 03</div>
+      <div class="step-name">Outreach &amp; Qualification</div>
+      <p class="step-body">On the Discovery tier we hand you the shortlist. On Activation, we engage the partners directly — handling first contact, qualification conversations, and objection responses on your behalf.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">Step 04</div>
+      <div class="step-name">Signed Letters of Intent</div>
+      <p class="step-body">We convert engaged conversations into signed commitment documents — giving you tangible evidence of pipeline and a foundation for the commercial agreements that follow.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule">
+
+<!-- ── WHAT'S INCLUDED ── -->
+<div class="services-wrap">
+  <section id="deliverables">
+    <p class="section-label">What you receive</p>
+    <h2 class="section-title">Concrete deliverables, not reports that sit in a folder.</h2>
+    <div class="includes-grid">
+      <div class="include-card">
+        <div class="include-icon">🗂</div>
+        <div class="include-title">Partner Intelligence Report</div>
+        <p class="include-body">A structured document covering each shortlisted partner — their ecosystem positioning, customer base profile, partnership track record, and the specific reason they were selected for your brief.</p>
+      </div>
+      <div class="include-card">
+        <div class="include-icon">📋</div>
+        <div class="include-title">Scored Partner Shortlist</div>
+        <p class="include-body">Five prioritised partner candidates ranked by fit score, with recommended first-contact angles and talking points tailored to each partner's known priorities and business model.</p>
+      </div>
+      <div class="include-card">
+        <div class="include-icon">🤝</div>
+        <div class="include-title">Signed Letters of Intent</div>
+        <p class="include-body">(Activation tier) A minimum of 3 signed LOIs representing real partnership intent — not cold leads, not a conversation summary. Documented commitment you can present to your board and investors.</p>
+      </div>
+      <div class="include-card">
+        <div class="include-icon">📞</div>
+        <div class="include-title">Discovery Call Briefing</div>
+        <p class="include-body">A structured walkthrough of the shortlist with your team — covering the research methodology, each partner's profile, and the recommended outreach sequence if you're taking the Discovery tier forward yourself.</p>
+      </div>
+      <div class="include-card">
+        <div class="include-icon">📬</div>
+        <div class="include-title">Outreach Sequence (Activation)</div>
+        <p class="include-body">The full multi-touch outreach executed on your behalf — LinkedIn, email, and where relevant, warm introduction. Every touchpoint logged and documented so you have complete visibility.</p>
+      </div>
+      <div class="include-card">
+        <div class="include-icon">📈</div>
+        <div class="include-title">Activity &amp; Progress Report</div>
+        <p class="include-body">A weekly status update through the active engagement phase covering contacts reached, conversations opened, objections handled, and current LOI pipeline status.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<hr class="section-rule">
+
+<!-- ── WHO IT'S FOR ── -->
+<section id="who">
+  <p class="section-label">Who this is for</p>
+  <h2 class="section-title">Built for ISVs at a specific stage of channel development.</h2>
+  <div class="icp-grid">
+    <div class="icp-card">
+      <div class="icp-icon">🚀</div>
+      <div class="icp-title">Scaling your first channel</div>
+      <p class="icp-body">You've proven product-market fit and you know channel is the next growth lever. You don't have a Partner Manager, and you're not ready to hire one. We give you the output without the headcount.</p>
+    </div>
+    <div class="icp-card">
+      <div class="icp-icon">🌍</div>
+      <div class="icp-title">Expanding into new geographies</div>
+      <p class="icp-body">You're live in one region and need channel coverage in North America, UK, Benelux, or DACH. You need local partners with established relationships — and a way to get in front of them quickly.</p>
+    </div>
+    <div class="icp-card">
+      <div class="icp-icon">🔄</div>
+      <div class="icp-title">Resetting a stalled partner programme</div>
+      <p class="icp-body">You have a few informal partner relationships that haven't produced results. You want to rethink who you're working with, build a proper shortlist, and start the conversations that should have happened earlier.</p>
+    </div>
+    <div class="icp-card">
+      <div class="icp-icon">📦</div>
+      <div class="icp-title">Listed on SAP Store, AppSource or AWS</div>
+      <p class="icp-body">You're embedded in a major ecosystem and you want channel partners who are already active in that ecosystem — not generalists who happen to sell software.</p>
+    </div>
+    <div class="icp-card">
+      <div class="icp-icon">👤</div>
+      <div class="icp-title">One person owns partnerships</div>
+      <p class="icp-body">Partnerships is a hat you wear alongside three others. You know the problem is real but you don't have the bandwidth to run a systematic discovery process. This is exactly what we're built for.</p>
+    </div>
+    <div class="icp-card">
+      <div class="icp-icon">💼</div>
+      <div class="icp-title">Investor-ready pipeline</div>
+      <p class="icp-body">You need concrete partnership evidence — signed LOIs, named pipeline — before your next fundraise or board presentation. We deliver documented commitment, not a list of people who took a call.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule">
+
+<!-- ── OBJECTION HANDLING ── -->
+<div class="objections-wrap">
+  <section id="faqs">
+    <p class="section-label">Common questions</p>
+    <h2 class="section-title">Answers to the questions we hear most.</h2>
+    <div class="objection-list">
+      <div class="objection-item">
+        <div class="objection-q">"We can do this ourselves with LinkedIn."</div>
+        <div class="objection-a">LinkedIn shows you who exists. We tell you who is likely to activate — based on partner activity patterns, customer overlap, ecosystem engagement, and commercial model fit. The difference is TurboTax versus a blank spreadsheet. And we run the outreach, which is the part that actually takes time.</div>
+      </div>
+      <div class="objection-item">
+        <div class="objection-q">"We already use WorkSpan or Tackle."</div>
+        <div class="objection-a">Those tools manage relationships you've already established. We solve the problem that comes before that — identifying which relationships to build in the first place. We're upstream of every co-sell execution tool on the market, not a replacement for them.</div>
+      </div>
+      <div class="objection-item">
+        <div class="objection-q">"ChatGPT can do this research for $20 a month."</div>
+        <div class="objection-a">Generic AI gives generic answers. Our matching is built on ecosystem-specific data: SAP partner tiers, Microsoft competencies, marketplace listing activity, and 20+ years of VAD relationship intelligence. That specificity is what produces a shortlist you can actually act on — not one you have to validate from scratch.</div>
+      </div>
+      <div class="objection-item">
+        <div class="objection-q">"We're not sure channel is the right move yet."</div>
+        <div class="objection-a">The Discovery tier is a low-commitment way to find out. You get a research-backed shortlist with context on each partner's fit, business model, and readiness. Many clients use it to validate the channel thesis before committing to a full activation programme.</div>
+      </div>
+      <div class="objection-item">
+        <div class="objection-q">"How do you guarantee 3 LOIs?"</div>
+        <div class="objection-a">We scope every engagement before we start — and we only accept engagements where we're confident in the deliverable. If we reach the engagement period without hitting the LOI threshold, we extend our active outreach at no additional cost until we do. We'd rather be honest about fit upfront than make a promise we can't keep.</div>
+      </div>
+      <div class="objection-item">
+        <div class="objection-q">"What ecosystems do you cover?"</div>
+        <div class="objection-a">We have deep coverage in SAP and Microsoft ecosystems, with strong HubSpot and AWS channel data. Our partner database spans VAR, MSP, SI, and distributor profiles across North America, UK, Benelux, DACH, and the Nordics. If your ecosystem isn't listed, ask us — our data extends further than what we lead with.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ── CTA SECTION ── -->
+<div class="cta-section">
+  <h2>Ready to build the partner network<br>you've been putting off?</h2>
+  <p>Let's start with a 30-minute scoping call. No pitch deck, no pressure — just a structured conversation about where you are and what the right next step looks like.</p>
+  <a href="#contact" class="btn-primary">Request a scoping call</a>
+</div>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <p class="section-label">Get in touch</p>
+  <h2 class="section-title">Tell us about your ecosystem.</h2>
+  <div class="contact-grid">
+    <div>
+      <p class="contact-body">We review every submission and respond within one business day. If you'd prefer to book directly, you can use the Calendly link below — but the form works just as well and we'll come prepared.</p>
+      <div class="contact-detail"><strong>Email</strong>&nbsp;&nbsp;<a href="mailto:sales@globusedge.com">sales@globusedge.com</a></div>
+      <div class="contact-detail"><strong>Book directly</strong>&nbsp;&nbsp;<a href="https://calendly.com/amit-globusedge/globus-edge-scoping-call" target="_blank" rel="noopener">calendly.com/amit-globusedge/globus-edge-scoping-call</a></div>
+      <div class="contact-detail"><strong>Focus</strong>&nbsp;&nbsp;SAP · Microsoft · HubSpot · AWS ecosystems</div>
+      <div class="contact-detail"><strong>Markets</strong>&nbsp;&nbsp;North America &amp; EMEA</div>
+    </div>
+
+    <form id="pa-contact-form" class="ge-form" novalidate>
+
+      <div class="ge-form__row">
+        <div class="ge-form__field">
+          <label for="pa-firstname">First name <span class="ge-required">*</span></label>
+          <input id="pa-firstname" type="text" name="firstname" placeholder="Jane" required autocomplete="given-name">
+        </div>
+        <div class="ge-form__field">
+          <label for="pa-lastname">Last name <span class="ge-required">*</span></label>
+          <input id="pa-lastname" type="text" name="lastname" placeholder="Smith" required autocomplete="family-name">
+        </div>
+      </div>
+
+      <div class="ge-form__field">
+        <label for="pa-jobtitle">Job title <span class="ge-required">*</span></label>
+        <input id="pa-jobtitle" type="text" name="jobtitle" placeholder="VP Partnerships" required>
+      </div>
+
+      <div class="ge-form__field">
+        <label for="pa-company">Company name <span class="ge-required">*</span></label>
+        <input id="pa-company" type="text" name="company" placeholder="Acme Corp" required autocomplete="organization">
+      </div>
+
+      <div class="ge-form__field">
+        <label for="pa-email">Work email <span class="ge-required">*</span></label>
+        <input id="pa-email" type="email" name="email" placeholder="jane@acmecorp.com" required autocomplete="email">
+      </div>
+
+      <div class="ge-form__field">
+        <label for="pa-ecosystem">Primary ecosystem <span class="ge-required">*</span></label>
+        <div class="ge-select-wrap">
+          <select id="pa-ecosystem" name="primary_ecosystem" required>
+            <option value="" disabled selected>Select your ecosystem</option>
+            <option value="SAP">SAP</option>
+            <option value="Microsoft">Microsoft (Azure / AppSource / Teams)</option>
+            <option value="HubSpot">HubSpot</option>
+            <option value="AWS">AWS Marketplace</option>
+            <option value="Multiple">Multiple ecosystems</option>
+            <option value="Other">Other</option>
+          </select>
+          <span class="ge-select-arrow">&#9662;</span>
+        </div>
+      </div>
+
+      <div class="ge-form__field">
+        <label for="pa-tier">Service tier I'm interested in <span class="ge-required">*</span></label>
+        <div class="ge-select-wrap">
+          <select id="pa-tier" name="service_tier" required>
+            <option value="" disabled selected>Select a tier</option>
+            <option value="Partner Discovery &amp; Shortlist">Partner Discovery &amp; Shortlist (shortlist only)</option>
+            <option value="Partner Discovery + LOI Activation">Partner Discovery + LOI Activation (full service)</option>
+            <option value="Not sure yet">Not sure yet — happy to discuss</option>
+          </select>
+          <span class="ge-select-arrow">&#9662;</span>
+        </div>
+      </div>
+
+      <div class="ge-form__field">
+        <label for="pa-message">Context (optional)</label>
+        <textarea id="pa-message" name="message" rows="4" placeholder="Target geographies, industry verticals, where you are in the channel journey — anything that helps us prepare for the conversation."></textarea>
+      </div>
+
+      <p class="ge-form-error" id="pa-error" style="display:none"></p>
+      <div class="ge-form-success" id="pa-success">Thank you — we'll review your details and be in touch within one business day.</div>
+
+      <button type="submit" class="ge-btn ge-btn--green">Request a scoping call &rarr;</button>
+
+    </form>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<hr class="section-rule">
+<footer>
+  <div class="footer-logo">
+    <span class="footer-logo-text">Globus<span>Edge</span></span>
+  </div>
+  <div>© 2026 Globus Edge. All rights reserved.</div>
+</footer>
+
+<script>
+(function() {
+
+  // ── Validation helpers ──
+  function hasVowel(s) { return /[aeiouAEIOU]/.test(s); }
+  function isKeyboardMash(s) {
+    var str = s.toLowerCase().replace(/[^a-z]/g, '');
+    if (str.length < 3) return false;
+    var runs = 0;
+    for (var i = 1; i < str.length; i++) {
+      if (Math.abs(str.charCodeAt(i) - str.charCodeAt(i-1)) <= 1) runs++;
+    }
+    return runs > str.length * 0.7;
+  }
+  function looksLikeFakeDomain(d) {
+    if (d.length < 2) return true;
+    if (!hasVowel(d)) return true;
+    if (isKeyboardMash(d)) return true;
+    return false;
+  }
+  function looksLikeFakeEmailUser(u) {
+    if (!hasVowel(u)) return true;
+    if (isKeyboardMash(u)) return true;
+    if (u.length < 3) return true;
+    return false;
+  }
+
+  var blockedDomains = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com',
+    'aol.com','protonmail.com','mail.com','ymail.com','live.com','msn.com','googlemail.com',
+    'yahoo.co.in','yahoo.co.uk','rediffmail.com'];
+
+  function showError(msg) {
+    var el = document.getElementById('pa-error');
+    el.textContent = msg;
+    el.style.display = 'block';
+    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  function clearError() {
+    document.getElementById('pa-error').style.display = 'none';
+  }
+
+  document.getElementById('pa-contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    clearError();
+
+    var fields = [
+      { id: 'pa-firstname', label: 'First name' },
+      { id: 'pa-lastname',  label: 'Last name' },
+      { id: 'pa-jobtitle',  label: 'Job title' },
+      { id: 'pa-company',   label: 'Company name' },
+      { id: 'pa-email',     label: 'Work email' },
+      { id: 'pa-ecosystem', label: 'Primary ecosystem' },
+      { id: 'pa-tier',      label: 'Service tier' }
+    ];
+
+    for (var i = 0; i < fields.length; i++) {
+      var el = document.getElementById(fields[i].id);
+      if (!el || !el.value.trim()) {
+        showError(fields[i].label + ' is required.');
+        el.focus();
+        return;
+      }
+    }
+
+    // Name check
+    var nameRegex = /^[a-zA-Z\u00C0-\u024F][a-zA-Z\s\-\'\u00C0-\u024F]{1,}$/;
+    var fn = document.getElementById('pa-firstname').value.trim();
+    var ln = document.getElementById('pa-lastname').value.trim();
+    if (!nameRegex.test(fn) || fn.length < 2) { showError('Please enter a valid first name.'); return; }
+    if (!nameRegex.test(ln) || ln.length < 2) { showError('Please enter a valid last name.'); return; }
+
+    // Email check
+    var emailVal = document.getElementById('pa-email').value.trim().toLowerCase();
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (!emailRegex.test(emailVal)) { showError('Please enter a valid email address.'); return; }
+    var parts = emailVal.split('@');
+    var user = parts[0]; var domain = parts[1];
+    if (blockedDomains.indexOf(domain) > -1) { showError('Please use your work email, not a personal one.'); return; }
+    if (looksLikeFakeEmailUser(user)) { showError('This email address doesn\'t look valid. Please use your real work email.'); return; }
+    if (looksLikeFakeDomain(domain.split('.')[0])) { showError('This email domain doesn\'t look valid. Please use your real work email.'); return; }
+
+    // Message mash check
+    var msgEl = document.getElementById('pa-message');
+    if (msgEl && msgEl.value.trim().length > 0 && isKeyboardMash(msgEl.value.trim())) {
+      showError('Your message doesn\'t look valid. Please describe your goals briefly.'); return;
+    }
+
+    // HubSpot submission
+    var portalId  = '246067591';
+    var formGuid  = '6ec971b1-80a1-408d-87e3-363a1df46fe1';
+    var payload = {
+      fields: [
+        { name: 'firstname',        value: document.getElementById('pa-firstname').value },
+        { name: 'lastname',         value: document.getElementById('pa-lastname').value },
+        { name: 'jobtitle',         value: document.getElementById('pa-jobtitle').value },
+        { name: 'email',            value: document.getElementById('pa-email').value },
+        { objectTypeId: '0-2', name: 'name', value: document.getElementById('pa-company').value },
+        { name: 'primary_ecosystem', value: document.getElementById('pa-ecosystem').value },
+        { name: 'service_tier',     value: document.getElementById('pa-tier').value },
+        { name: 'message',          value: (msgEl ? msgEl.value : '') }
+      ],
+      context: { pageUri: window.location.href, pageName: document.title }
+    };
+
+    fetch('https://api.hsforms.com/submissions/v3/integration/submit/' + portalId + '/' + formGuid, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function(err) { console.warn('HubSpot error:', err); });
+
+    // Show success
+    document.getElementById('pa-contact-form').style.display = 'none';
+    var success = document.getElementById('pa-success');
+    success.style.display = 'block';
+
+    // GA4 conversion event
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'form_submit', {
+        event_category: 'contact',
+        event_label: 'partnership_activation_enquiry'
+      });
+    }
+  });
+
+})();
+</script>
+
+</body>
+</html>
