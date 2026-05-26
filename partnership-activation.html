@@ -883,9 +883,9 @@
     }).catch(function(err) { console.warn('HubSpot error:', err); });
 
     // Show success
-    document.getElementById('pa-contact-form').style.display = 'none';
+    document.getElementById('pa-contact-form').style.cssText = 'display:none !important;';
     var success = document.getElementById('pa-success');
-    success.style.display = 'block';
+    success.style.cssText = 'display:block !important;';
 
     // GA4 conversion event
     if (typeof gtag !== 'undefined') {
