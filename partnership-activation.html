@@ -692,7 +692,7 @@
       <div class="contact-detail"><strong>Markets</strong>&nbsp;&nbsp;North America &amp; EMEA</div>
     </div>
 
-    <form id="pa-contact-form" class="ge-form" novalidate>
+    <form id="pa-contact-form" class="ge-form" novalidate action="javascript:void(0);">
 
       <div class="ge-form__row">
         <div class="ge-form__field">
@@ -757,7 +757,7 @@
       <p class="ge-form-error" id="pa-error" style="display:none"></p>
       <div class="ge-form-success" id="pa-success">Thank you — we'll review your details and be in touch within one business day.</div>
 
-      <button type="submit" class="ge-btn ge-btn--green">Request a scoping call &rarr;</button>
+      <button type="button" class="ge-btn ge-btn--green" onclick="paSubmitForm()">Request a scoping call &rarr;</button>
 
     </form>
   </div>
@@ -773,9 +773,23 @@
 </footer>
 
 <script>
-(function() {
+window.onerror = function(msg, src, line) { console.error("PAGE JS ERROR:", msg, "line:", line); };
 
-  // ── Validation helpers ──
+function paSubmitForm() {
+  var blockedDomains = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com',
+    'aol.com','protonmail.com','mail.com','ymail.com','live.com','msn.com','googlemail.com',
+    'yahoo.co.in','yahoo.co.uk','rediffmail.com'];
+
+  function showError(msg) {
+    var el = document.getElementById('pa-error');
+    el.textContent = msg;
+    el.style.cssText = 'display:block !important;';
+    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  function clearError() {
+    var el = document.getElementById('pa-error');
+    el.style.cssText = 'display:none !important;';
+  }
   function hasVowel(s) { return /[aeiouAEIOU]/.test(s); }
   function isKeyboardMash(s) {
     var str = s.toLowerCase().replace(/[^a-z]/g, '');
@@ -786,129 +800,87 @@
     }
     return runs > str.length * 0.7;
   }
-  function looksLikeFakeDomain(d) {
-    if (d.length < 2) return true;
-    if (!hasVowel(d)) return true;
-    if (isKeyboardMash(d)) return true;
-    return false;
-  }
-  function looksLikeFakeEmailUser(u) {
-    if (!hasVowel(u)) return true;
-    if (isKeyboardMash(u)) return true;
-    if (u.length < 3) return true;
-    return false;
-  }
 
-  var blockedDomains = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com',
-    'aol.com','protonmail.com','mail.com','ymail.com','live.com','msn.com','googlemail.com',
-    'yahoo.co.in','yahoo.co.uk','rediffmail.com'];
+  clearError();
 
-  function showError(msg) {
-    var el = document.getElementById('pa-error');
-    el.textContent = msg;
-    el.style.display = 'block';
-    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-  function clearError() {
-    document.getElementById('pa-error').style.display = 'none';
-  }
-
-  document.getElementById('pa-contact-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    clearError();
-
-    var fields = [
-      { id: 'pa-firstname', label: 'First name' },
-      { id: 'pa-lastname',  label: 'Last name' },
-      { id: 'pa-jobtitle',  label: 'Job title' },
-      { id: 'pa-company',   label: 'Company name' },
-      { id: 'pa-email',     label: 'Work email' },
-      { id: 'pa-ecosystem', label: 'Primary ecosystem' },
-      { id: 'pa-tier',      label: 'Service tier' }
-    ];
-
-    for (var i = 0; i < fields.length; i++) {
-      var el = document.getElementById(fields[i].id);
-      if (!el || !el.value.trim()) {
-        showError(fields[i].label + ' is required.');
-        el.focus();
-        return;
-      }
+  // Required field check
+  var fields = [
+    { id: 'pa-firstname', label: 'First name' },
+    { id: 'pa-lastname',  label: 'Last name' },
+    { id: 'pa-jobtitle',  label: 'Job title' },
+    { id: 'pa-company',   label: 'Company name' },
+    { id: 'pa-email',     label: 'Work email' },
+    { id: 'pa-ecosystem', label: 'Primary ecosystem' },
+    { id: 'pa-tier',      label: 'Service tier' }
+  ];
+  for (var i = 0; i < fields.length; i++) {
+    var el = document.getElementById(fields[i].id);
+    if (!el || !el.value.trim()) {
+      showError(fields[i].label + ' is required.');
+      if (el) el.focus();
+      return;
     }
+  }
 
-    // Name check
-    var nameRegex = /^[a-zA-Z\u00C0-\u024F][a-zA-Z\s\-\'\u00C0-\u024F]{1,}$/;
-    var fn = document.getElementById('pa-firstname').value.trim();
-    var ln = document.getElementById('pa-lastname').value.trim();
-    if (!nameRegex.test(fn) || fn.length < 2) { showError('Please enter a valid first name.'); return; }
-    if (!nameRegex.test(ln) || ln.length < 2) { showError('Please enter a valid last name.'); return; }
+  // Name validation
+  var nameRegex = /^[a-zA-ZÀ-ɏ][a-zA-Z\s\-'À-ɏ]{1,}$/;
+  var fn = document.getElementById('pa-firstname').value.trim();
+  var ln = document.getElementById('pa-lastname').value.trim();
+  if (!nameRegex.test(fn) || fn.length < 2) { showError('Please enter a valid first name.'); return; }
+  if (!nameRegex.test(ln) || ln.length < 2) { showError('Please enter a valid last name.'); return; }
 
-    // Email check
-    var emailVal = document.getElementById('pa-email').value.trim().toLowerCase();
-    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-    if (!emailRegex.test(emailVal)) { showError('Please enter a valid email address.'); return; }
-    var parts = emailVal.split('@');
-    var user = parts[0]; var domain = parts[1];
-    if (blockedDomains.indexOf(domain) > -1) { showError('Please use your work email, not a personal one.'); return; }
-    if (looksLikeFakeEmailUser(user)) { showError('This email address doesn\'t look valid. Please use your real work email.'); return; }
-    if (looksLikeFakeDomain(domain.split('.')[0])) { showError('This email domain doesn\'t look valid. Please use your real work email.'); return; }
+  // Email validation
+  var emailVal = document.getElementById('pa-email').value.trim().toLowerCase();
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  if (!emailRegex.test(emailVal)) { showError('Please enter a valid email address.'); return; }
+  var parts = emailVal.split('@');
+  var user = parts[0]; var domain = parts[1];
+  if (blockedDomains.indexOf(domain) > -1) { showError('Please use your work email, not a personal one.'); return; }
 
-    // Message mash check
-    var msgEl = document.getElementById('pa-message');
-    if (msgEl && msgEl.value.trim().length > 0 && isKeyboardMash(msgEl.value.trim())) {
-      showError('Your message doesn\'t look valid. Please describe your goals briefly.'); return;
-    }
+  // Build payload
+  var msgEl = document.getElementById('pa-message');
+  var payload = {
+    fields: [
+      { name: 'firstname',         value: document.getElementById('pa-firstname').value.trim() },
+      { name: 'lastname',          value: document.getElementById('pa-lastname').value.trim() },
+      { name: 'jobtitle',          value: document.getElementById('pa-jobtitle').value.trim() },
+      { name: 'email',             value: emailVal },
+      { name: 'company',           value: document.getElementById('pa-company').value.trim() },
+      { name: 'primary_ecosystem', value: document.getElementById('pa-ecosystem').value },
+      { name: 'service_tier',      value: document.getElementById('pa-tier').value },
+      { name: 'message',           value: msgEl ? msgEl.value.trim() : '' }
+    ],
+    context: { pageUri: window.location.href, pageName: document.title }
+  };
 
-    // HubSpot submission
-    var portalId  = '246067591';
-    var formGuid  = '6ec971b1-80a1-408d-87e3-363a1df46fe1';
-    var payload = {
-      fields: [
-        { name: 'firstname',        value: document.getElementById('pa-firstname').value },
-        { name: 'lastname',         value: document.getElementById('pa-lastname').value },
-        { name: 'jobtitle',         value: document.getElementById('pa-jobtitle').value },
-        { name: 'email',            value: document.getElementById('pa-email').value },
-        { name: 'company', value: document.getElementById('pa-company').value },
-        { name: 'primary_ecosystem', value: document.getElementById('pa-ecosystem').value },
-        { name: 'service_tier',     value: document.getElementById('pa-tier').value },
-        { name: 'message',          value: (msgEl ? msgEl.value : '') }
-      ],
-      context: { pageUri: window.location.href, pageName: document.title }
-    };
+  console.log('Submitting to HubSpot:', JSON.stringify(payload));
 
-    fetch('https://api.hsforms.com/submissions/v3/integration/submit/' + portalId + '/' + formGuid, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).then(function(res) {
-      if (res.ok) {
-        // Hide form, show success
-        console.log('HubSpot submission OK — showing thank you');
-        var form = document.getElementById('pa-contact-form');
-        var success = document.getElementById('pa-success');
-        if (form) form.style.cssText = 'display:none !important;';
-        if (success) success.style.cssText = 'display:block !important;';
-        console.log('Success element:', success, 'computed style:', success ? success.style.cssText : 'not found');
-        // GA4 conversion event
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'form_submit', {
-            event_category: 'contact',
-            event_label: 'partnership_activation_enquiry'
-          });
-        }
-      } else {
-        res.json().then(function(data) {
-          showError('Something went wrong. Please try again or email us directly.');
-          console.warn('HubSpot error:', data);
-        });
+  fetch('https://api.hsforms.com/submissions/v3/integration/submit/246067591/6ec971b1-80a1-408d-87e3-363a1df46fe1', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(function(res) {
+    console.log('HubSpot response status:', res.status);
+    if (res.ok) {
+      console.log('Success — showing thank you message');
+      var form = document.getElementById('pa-contact-form');
+      var success = document.getElementById('pa-success');
+      if (form) form.style.cssText = 'display:none !important;';
+      if (success) success.style.cssText = 'display:block !important;';
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'form_submit', { event_category: 'contact', event_label: 'partnership_activation_enquiry' });
       }
-    }).catch(function(err) {
-      showError('Connection error. Please try again or email us directly.');
-      console.warn('Fetch error:', err);
-    });
+    } else {
+      res.text().then(function(txt) {
+        console.warn('HubSpot error response:', txt);
+        showError('Something went wrong. Please try again or email us directly at sales@globusedge.com');
+      });
+    }
+  }).catch(function(err) {
+    console.error('Fetch failed:', err);
+    showError('Connection error. Please try again or email us at sales@globusedge.com');
   });
-
-})();
+}
 </script>
 
 </body>
