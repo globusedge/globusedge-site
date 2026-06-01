@@ -880,20 +880,30 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
-    }).catch(function(err) { console.warn('HubSpot error:', err); });
-
-    // Show success
-    document.getElementById('pa-contact-form').style.cssText = 'display:none !important;';
-    var success = document.getElementById('pa-success');
-    success.style.cssText = 'display:block !important;';
-
-    // GA4 conversion event
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'form_submit', {
-        event_category: 'contact',
-        event_label: 'partnership_activation_enquiry'
-      });
-    }
+    }).then(function(res) {
+      if (res.ok) {
+        // Hide form, show success
+        var form = document.getElementById('pa-contact-form');
+        var success = document.getElementById('pa-success');
+        form.style.cssText = 'display:none !important;';
+        success.style.cssText = 'display:block !important;';
+        // GA4 conversion event
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'form_submit', {
+            event_category: 'contact',
+            event_label: 'partnership_activation_enquiry'
+          });
+        }
+      } else {
+        res.json().then(function(data) {
+          showError('Something went wrong. Please try again or email us directly.');
+          console.warn('HubSpot error:', data);
+        });
+      }
+    }).catch(function(err) {
+      showError('Connection error. Please try again or email us directly.');
+      console.warn('Fetch error:', err);
+    });
   });
 
 })();
