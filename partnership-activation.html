@@ -868,7 +868,7 @@
         { name: 'lastname',         value: document.getElementById('pa-lastname').value },
         { name: 'jobtitle',         value: document.getElementById('pa-jobtitle').value },
         { name: 'email',            value: document.getElementById('pa-email').value },
-        { objectTypeId: '0-2', name: 'name', value: document.getElementById('pa-company').value },
+        { name: 'company', value: document.getElementById('pa-company').value },
         { name: 'primary_ecosystem', value: document.getElementById('pa-ecosystem').value },
         { name: 'service_tier',     value: document.getElementById('pa-tier').value },
         { name: 'message',          value: (msgEl ? msgEl.value : '') }
@@ -883,10 +883,12 @@
     }).then(function(res) {
       if (res.ok) {
         // Hide form, show success
+        console.log('HubSpot submission OK — showing thank you');
         var form = document.getElementById('pa-contact-form');
         var success = document.getElementById('pa-success');
-        form.style.cssText = 'display:none !important;';
-        success.style.cssText = 'display:block !important;';
+        if (form) form.style.cssText = 'display:none !important;';
+        if (success) success.style.cssText = 'display:block !important;';
+        console.log('Success element:', success, 'computed style:', success ? success.style.cssText : 'not found');
         // GA4 conversion event
         if (typeof gtag !== 'undefined') {
           gtag('event', 'form_submit', {
