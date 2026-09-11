@@ -790,9 +790,12 @@ function submitPilotForm(e) {
         btn.textContent = 'Claim My Pilot Spot →';
         btn.disabled = false;
         console.warn('HubSpot error response:', txt);
-        // Show inline error instead of alert
+        // Show exact HubSpot error in the error div for debugging
         var errEl = document.getElementById('pilot-form-error');
-        if (errEl) { errEl.style.display = 'block'; }
+        if (errEl) {
+          errEl.innerHTML = 'HubSpot error — please copy this and send to hello@globusedge.com: <br><code style="font-size:11px;word-break:break-all;">' + txt + '</code>';
+          errEl.style.display = 'block';
+        }
       });
     }
   }).catch(function(err) {
