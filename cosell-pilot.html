@@ -764,14 +764,12 @@ function submitPilotForm(e) {
 
   var payload = {
     fields: [
-      { name: 'firstname',        value: document.getElementById('p-firstname').value.trim() },
-      { name: 'lastname',         value: document.getElementById('p-lastname').value.trim()  },
-      { name: 'email',            value: document.getElementById('p-email').value.trim()     },
-      { name: 'company',          value: document.getElementById('p-company').value.trim()   },
-      { name: 'jobtitle',         value: document.getElementById('p-jobtitle').value.trim()  },
-      { name: 'primary_ecosystem',value: ecosystem },
-      { name: 'service_tier',     value: 'Co-sell Pilot — US$7,500' },
-      { name: 'message',          value: messageBody }
+      { name: 'firstname', value: document.getElementById('p-firstname').value.trim() },
+      { name: 'lastname',  value: document.getElementById('p-lastname').value.trim()  },
+      { name: 'email',     value: document.getElementById('p-email').value.trim()     },
+      { name: 'company',   value: document.getElementById('p-company').value.trim()   },
+      { name: 'jobtitle',  value: document.getElementById('p-jobtitle').value.trim()  },
+      { name: 'message',   value: messageBody }
     ],
     context: { pageUri: window.location.href, pageName: document.title }
   };
