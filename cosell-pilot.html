@@ -507,7 +507,7 @@
       <div class="proof-line">5 co-sell candidates shortlisted, 3 signed LOIs delivered</div>
       <div class="proof-line">20+ years of enterprise channel relationships behind every introduction</div>
     </div>
-    <p class="hero-note">This pilot rate is open to ISVs only. Once 10 companies are onboarded, the rate returns to US$15,000. No payment today — we'll review your brief and send a Stripe link within one business day.</p>
+    <p class="hero-note">This pilot rate is open to ISVs only. Once 10 companies are onboarded, the rate returns to US$15,000. No payment today — we'll review your brief and send a secure payment link within one business day.</p>
   </div>
 
   <!-- STICKY OFFER CARD -->
@@ -531,7 +531,7 @@
       <strong>Limited to 10 companies.</strong> Once this cohort is full, the rate returns to US$15,000. No payment today.
     </div>
     <a href="#apply" class="offer-cta">Claim Your Pilot Spot →</a>
-    <p class="offer-fine">We'll review your brief and send a Stripe link within one business day.</p>
+    <p class="offer-fine">We'll review your brief and send a secure payment link within one business day.</p>
   </div>
 </section>
 
@@ -653,14 +653,14 @@
       <div class="detail-item"><strong>Scope</strong> Identify · Shortlist · Outreach · Scoping calls · 3 LOIs</div>
       <div class="detail-item"><strong>Markets</strong> AWS · Azure · GCP · SAP · Microsoft ecosystems</div>
       <div class="detail-item"><strong>Timeline</strong> Shortlist in 5–7 days · LOIs within 6–8 weeks</div>
-      <div class="detail-item"><strong>Payment</strong> Stripe link within one business day of acceptance</div>
+      <div class="detail-item"><strong>Payment</strong> Secure payment link within one business day of acceptance</div>
     </div>
   </div>
 
   <div>
     <div class="contact-form" id="pilot-form-wrap">
       <div class="form-title">Co-sell Pilot Application</div>
-      <p class="form-sub">No payment today. We'll review your brief and send a Stripe link within one business day if we're a fit.</p>
+      <p class="form-sub">No payment today. We'll review your brief and send a secure payment link within one business day if we're a fit.</p>
 
       <form id="pilot-contact-form" onsubmit="submitPilotForm(event)">
         <div class="form-grid">
@@ -715,14 +715,17 @@
           <textarea id="p-goal" name="goal" placeholder="e.g. We're listed on AWS Marketplace and want to identify 3–5 Channel Partners in DACH and Benelux to co-sell our solution. We don't have a Partner Manager."></textarea>
         </div>
         <input type="hidden" name="offer" value="Co-sell Pilot — US$7,500">
+        <div id="pilot-form-error" style="display:none; background:#fdf2f2; border:1px solid #f5c2c2; border-radius:6px; padding:12px 14px; font-size:13px; color:#8b2020; margin-bottom:12px; line-height:1.5;">
+          Something went wrong. Please try again, or email us directly at <a href="mailto:hello@globusedge.com" style="color:#8b2020;">hello@globusedge.com</a>
+        </div>
         <button type="submit" class="form-submit" id="pilot-submit-btn">Claim My Pilot Spot →</button>
-        <p class="form-payment-note"><strong>No payment is taken today.</strong> Once we've reviewed your application, we'll send a secure Stripe payment link within one business day.</p>
+        <p class="form-payment-note"><strong>No payment is taken today.</strong> Once we've reviewed your application, we'll send a secure payment link within one business day.</p>
       </form>
 
       <div class="form-success" id="pilot-success">
         <div class="form-success-icon">✓</div>
         <h3>Application received.</h3>
-        <p>Thank you — we'll review your brief and come back to you with a <strong>secure Stripe payment link within one business day</strong> to confirm your pilot spot at US$7,500.</p>
+        <p>Thank you — we'll review your brief and come back to you with a <strong>secure payment link within one business day</strong> to confirm your pilot spot at US$7,500.</p>
         <p class="form-success-note">Questions? Email us at <a href="mailto:hello@globusedge.com">hello@globusedge.com</a></p>
       </div>
     </div>
@@ -750,18 +753,23 @@ function submitPilotForm(e) {
   var form = document.getElementById('pilot-contact-form');
   var data = new FormData(form);
 
+  // Pack extra fields into message so only known HubSpot fields are sent
+  var messageBody = [
+    'OFFER: Co-sell Pilot — US$7,500',
+    'Marketplace: ' + (data.get('marketplace') || '—'),
+    'Ecosystem: '   + (data.get('ecosystem')   || '—'),
+    'Goal: '        + (data.get('goal')         || '—')
+  ].join('\n');
+
   var payload = {
     submittedAt: Date.now().toString(),
     fields: [
-      { name: 'firstname',   value: data.get('firstname')   || '' },
-      { name: 'lastname',    value: data.get('lastname')    || '' },
-      { name: 'email',       value: data.get('email')       || '' },
-      { name: 'company',     value: data.get('company')     || '' },
-      { name: 'jobtitle',    value: data.get('jobtitle')    || '' },
-      { name: 'marketplace', value: data.get('marketplace') || '' },
-      { name: 'ecosystem',   value: data.get('ecosystem')   || '' },
-      { name: 'message',     value: data.get('goal')        || '' },
-      { name: 'offer',       value: 'Co-sell Pilot — US$7,500' }
+      { name: 'firstname', value: data.get('firstname') || '' },
+      { name: 'lastname',  value: data.get('lastname')  || '' },
+      { name: 'email',     value: data.get('email')     || '' },
+      { name: 'company',   value: data.get('company')   || '' },
+      { name: 'jobtitle',  value: data.get('jobtitle')  || '' },
+      { name: 'message',   value: messageBody }
     ],
     context: { pageUri: window.location.href, pageName: 'Co-sell Pilot — Globus Edge' }
   };
@@ -781,15 +789,18 @@ function submitPilotForm(e) {
       res.text().then(function(txt) {
         btn.textContent = 'Claim My Pilot Spot →';
         btn.disabled = false;
-        alert('Something went wrong. Please try again or email us at hello@globusedge.com');
-        console.warn('HubSpot error:', txt);
+        console.warn('HubSpot error response:', txt);
+        // Show inline error instead of alert
+        var errEl = document.getElementById('pilot-form-error');
+        if (errEl) { errEl.style.display = 'block'; }
       });
     }
   }).catch(function(err) {
     btn.textContent = 'Claim My Pilot Spot →';
     btn.disabled = false;
-    alert('Connection error. Please try again or email us at hello@globusedge.com');
     console.error('Fetch failed:', err);
+    var errEl = document.getElementById('pilot-form-error');
+    if (errEl) { errEl.style.display = 'block'; }
   });
 }
 </script>
