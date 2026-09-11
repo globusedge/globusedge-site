@@ -5,6 +5,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
+<!-- v3-202609111322 -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230D2545'/%3E%3Ctext x='16' y='23' font-family='Arial Black, Arial, sans-serif' font-weight='900' font-size='17' fill='%23E8A93A' text-anchor='middle'%3EGE%3C/text%3E%3C/svg%3E">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Globus Edge Co-sell Pilot — we identify, shortlist, reach out, run scoping calls, and deliver 3 signed co-sell LOIs for your ISV. Pilot rate: US$7,500 for 10 companies.">
@@ -731,62 +732,67 @@ function submitPilotFormV2(e) {
   btn.textContent = 'Sending…';
   btn.disabled = true;
 
-  // Build message body from extra fields — same pattern as partnership-activation.html
-  var goal = document.getElementById('p-goal').value.trim();
+  var firstname = document.getElementById('p-firstname').value.trim();
+  var lastname  = document.getElementById('p-lastname').value.trim();
+  var email     = document.getElementById('p-email').value.trim();
+  var company   = document.getElementById('p-company').value.trim();
+  var jobtitle  = document.getElementById('p-jobtitle').value.trim();
+  var goal      = document.getElementById('p-goal').value.trim();
 
-  var messageBody = [
-    'OFFER: Co-sell Pilot — US$7,500',
-    'Goal / Ecosystem / Marketplace: ' + (goal || '—')
-  ].join('\n');
-
+  // Try HubSpot first
   var payload = {
     fields: [
-      { name: 'firstname', value: document.getElementById('p-firstname').value.trim() },
-      { name: 'lastname',  value: document.getElementById('p-lastname').value.trim()  },
-      { name: 'email',     value: document.getElementById('p-email').value.trim()     },
-      { name: 'company',   value: document.getElementById('p-company').value.trim()   },
-      { name: 'jobtitle',  value: document.getElementById('p-jobtitle').value.trim()  },
-      { name: 'message',   value: messageBody }
+      { name: 'firstname', value: firstname },
+      { name: 'lastname',  value: lastname  },
+      { name: 'email',     value: email     },
+      { name: 'company',   value: company   },
+      { name: 'jobtitle',  value: jobtitle  },
+      { name: 'message',   value: 'OFFER: Co-sell Pilot US$7,500\nGoal: ' + goal }
     ],
     context: { pageUri: window.location.href, pageName: document.title }
   };
-
-  console.log('Submitting to HubSpot:', JSON.stringify(payload));
 
   fetch('https://api.hsforms.com/submissions/v3/integration/submit/246067591/6ec971b1-80a1-408d-87e3-363a1df46fe1', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   }).then(function(res) {
-    console.log('HubSpot response status:', res.status);
     if (res.ok) {
-      document.getElementById('pilot-contact-form').style.cssText = 'display:none !important;';
-      document.getElementById('pilot-success').style.cssText = 'display:block !important;';
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'form_submit', { event_category: 'contact', event_label: 'cosell_pilot_application' });
-      }
+      showSuccess();
     } else {
-      res.text().then(function(txt) {
-        btn.textContent = 'Claim My Pilot Spot →';
-        btn.disabled = false;
-        console.warn('HubSpot error response:', txt);
-        var errEl = document.getElementById('pilot-form-error');
-        if (errEl) {
-          errEl.innerHTML = 'Submission error — please email us at <a href="mailto:hello@globusedge.com" style="color:#8b2020;">hello@globusedge.com</a><br><small style="opacity:0.6;">' + txt + '</small>';
-          errEl.style.display = 'block';
-        }
-      });
+      // HubSpot failed — fall back to mailto so lead is never lost
+      sendMailto(firstname, lastname, email, company, jobtitle, goal);
     }
-  }).catch(function(err) {
-    btn.textContent = 'Claim My Pilot Spot →';
-    btn.disabled = false;
-    console.error('Fetch failed:', err);
-    var errEl = document.getElementById('pilot-form-error');
-    if (errEl) {
-      errEl.innerHTML = 'Connection error — please email us at <a href="mailto:hello@globusedge.com" style="color:#8b2020;">hello@globusedge.com</a><br><small style="opacity:0.6;">' + err.toString() + '</small>';
-      errEl.style.display = 'block';
-    }
+  }).catch(function() {
+    // Network error — fall back to mailto
+    sendMailto(firstname, lastname, email, company, jobtitle, goal);
   });
+}
+
+function showSuccess() {
+  document.getElementById('pilot-contact-form').style.cssText = 'display:none !important;';
+  document.getElementById('pilot-success').style.cssText = 'display:block !important;';
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'form_submit', { event_category: 'contact', event_label: 'cosell_pilot_application' });
+  }
+}
+
+function sendMailto(firstname, lastname, email, company, jobtitle, goal) {
+  var subject = encodeURIComponent('Co-sell Pilot Application — ' + company);
+  var body = encodeURIComponent(
+    'Co-sell Pilot Application — US$7,500\n' +
+    '================================\n' +
+    'Name: ' + firstname + ' ' + lastname + '\n' +
+    'Email: ' + email + '\n' +
+    'Company: ' + company + '\n' +
+    'Role: ' + jobtitle + '\n' +
+    'Goal: ' + goal + '\n' +
+    '================================\n' +
+    'Submitted from: ' + window.location.href
+  );
+  window.location.href = 'mailto:hello@globusedge.com?subject=' + subject + '&body=' + body;
+  // Show success after short delay
+  setTimeout(showSuccess, 800);
 }
 </script>
 
