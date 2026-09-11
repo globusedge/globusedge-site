@@ -690,32 +690,10 @@
             <input id="p-jobtitle" type="text" name="jobtitle" placeholder="VP Partnerships">
           </div>
         </div>
-        <div class="form-row">
-          <label for="p-marketplace">Primary marketplace</label>
-          <select id="p-marketplace" name="marketplace" required>
-            <option value="">Select marketplace&hellip;</option>
-            <option value="AWS">AWS Marketplace</option>
-            <option value="Azure">Azure Marketplace</option>
-            <option value="GCP">Google Cloud Marketplace</option>
-            <option value="SAP">SAP Store</option>
-            <option value="Microsoft">Microsoft AppSource</option>
-            <option value="Multiple">Multiple marketplaces</option>
-          </select>
-        </div>
-        <div class="form-row">
-          <label for="p-ecosystem">Primary ecosystem / technology <span style="color:#c0392b;">*</span></label>
-          <select id="p-ecosystem" name="ecosystem" required>
-            <option value="" disabled selected>Select ecosystem&hellip;</option>
-            <option value="SAP">SAP</option>
-            <option value="Microsoft">Microsoft</option>
-            <option value="AWS">AWS</option>
-            <option value="Salesforce">Salesforce</option>
-            <option value="Other">Other / Multi-ecosystem</option>
-          </select>
-        </div>
+
         <div class="form-row">
           <label for="p-goal">What's your main co-sell goal?</label>
-          <textarea id="p-goal" name="goal" placeholder="e.g. We're listed on AWS Marketplace and want to identify 3–5 Channel Partners in DACH and Benelux to co-sell our solution. We don't have a Partner Manager."></textarea>
+          <textarea id="p-goal" name="goal" placeholder="e.g. We're listed on AWS Marketplace and want to identify 3–5 Channel Partners in DACH and Benelux to co-sell our solution. Primary ecosystem: SAP/Microsoft/AWS. We don't have a Partner Manager." required></textarea>
         </div>
         <input type="hidden" name="offer" value="Co-sell Pilot — US$7,500">
         <div id="pilot-form-error" style="display:none; background:#fdf2f2; border:1px solid #f5c2c2; border-radius:6px; padding:12px 14px; font-size:13px; color:#8b2020; margin-bottom:12px; line-height:1.5;">
@@ -754,15 +732,11 @@ function submitPilotFormV2(e) {
   btn.disabled = true;
 
   // Build message body from extra fields — same pattern as partnership-activation.html
-  var marketplace = document.getElementById('p-marketplace').value;
-  var ecosystem   = document.getElementById('p-ecosystem').value;
-  var goal        = document.getElementById('p-goal').value.trim();
+  var goal = document.getElementById('p-goal').value.trim();
 
   var messageBody = [
     'OFFER: Co-sell Pilot — US$7,500',
-    'Marketplace: ' + (marketplace || '—'),
-    'Ecosystem: '   + (ecosystem   || '—'),
-    'Goal: '        + (goal        || '—')
+    'Goal / Ecosystem / Marketplace: ' + (goal || '—')
   ].join('\n');
 
   var payload = {
