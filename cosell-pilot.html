@@ -750,38 +750,43 @@ function submitPilotForm(e) {
   btn.textContent = 'Sending…';
   btn.disabled = true;
 
-  var form = document.getElementById('pilot-contact-form');
-  var data = new FormData(form);
+  // Build message body from extra fields — same pattern as partnership-activation.html
+  var marketplace = document.getElementById('p-marketplace').value;
+  var ecosystem   = document.getElementById('p-ecosystem').value;
+  var goal        = document.getElementById('p-goal').value.trim();
 
-  // Pack extra fields into message so only known HubSpot fields are sent
   var messageBody = [
     'OFFER: Co-sell Pilot — US$7,500',
-    'Marketplace: ' + (data.get('marketplace') || '—'),
-    'Ecosystem: '   + (data.get('ecosystem')   || '—'),
-    'Goal: '        + (data.get('goal')         || '—')
+    'Marketplace: ' + (marketplace || '—'),
+    'Ecosystem: '   + (ecosystem   || '—'),
+    'Goal: '        + (goal        || '—')
   ].join('\n');
 
   var payload = {
-    submittedAt: Date.now().toString(),
     fields: [
-      { name: 'firstname', value: data.get('firstname') || '' },
-      { name: 'lastname',  value: data.get('lastname')  || '' },
-      { name: 'email',     value: data.get('email')     || '' },
-      { name: 'company',   value: data.get('company')   || '' },
-      { name: 'jobtitle',  value: data.get('jobtitle')  || '' },
-      { name: 'message',   value: messageBody }
+      { name: 'firstname',        value: document.getElementById('p-firstname').value.trim() },
+      { name: 'lastname',         value: document.getElementById('p-lastname').value.trim()  },
+      { name: 'email',            value: document.getElementById('p-email').value.trim()     },
+      { name: 'company',          value: document.getElementById('p-company').value.trim()   },
+      { name: 'jobtitle',         value: document.getElementById('p-jobtitle').value.trim()  },
+      { name: 'primary_ecosystem',value: ecosystem },
+      { name: 'service_tier',     value: 'Co-sell Pilot — US$7,500' },
+      { name: 'message',          value: messageBody }
     ],
-    context: { pageUri: window.location.href, pageName: 'Co-sell Pilot — Globus Edge' }
+    context: { pageUri: window.location.href, pageName: document.title }
   };
+
+  console.log('Submitting to HubSpot:', JSON.stringify(payload));
 
   fetch('https://api.hsforms.com/submissions/v3/integration/submit/246067591/6ec971b1-80a1-408d-87e3-363a1df46fe1', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   }).then(function(res) {
+    console.log('HubSpot response status:', res.status);
     if (res.ok) {
-      document.getElementById('pilot-contact-form').style.display = 'none';
-      document.getElementById('pilot-success').style.display = 'block';
+      document.getElementById('pilot-contact-form').style.cssText = 'display:none !important;';
+      document.getElementById('pilot-success').style.cssText = 'display:block !important;';
       if (typeof gtag !== 'undefined') {
         gtag('event', 'form_submit', { event_category: 'contact', event_label: 'cosell_pilot_application' });
       }
@@ -790,10 +795,9 @@ function submitPilotForm(e) {
         btn.textContent = 'Claim My Pilot Spot →';
         btn.disabled = false;
         console.warn('HubSpot error response:', txt);
-        // Show exact HubSpot error in the error div for debugging
         var errEl = document.getElementById('pilot-form-error');
         if (errEl) {
-          errEl.innerHTML = 'HubSpot error — please copy this and send to hello@globusedge.com: <br><code style="font-size:11px;word-break:break-all;">' + txt + '</code>';
+          errEl.innerHTML = 'Submission error — please email us at <a href="mailto:hello@globusedge.com" style="color:#8b2020;">hello@globusedge.com</a><br><small style="opacity:0.6;">' + txt + '</small>';
           errEl.style.display = 'block';
         }
       });
@@ -803,7 +807,10 @@ function submitPilotForm(e) {
     btn.disabled = false;
     console.error('Fetch failed:', err);
     var errEl = document.getElementById('pilot-form-error');
-    if (errEl) { errEl.style.display = 'block'; }
+    if (errEl) {
+      errEl.innerHTML = 'Connection error — please email us at <a href="mailto:hello@globusedge.com" style="color:#8b2020;">hello@globusedge.com</a><br><small style="opacity:0.6;">' + err.toString() + '</small>';
+      errEl.style.display = 'block';
+    }
   });
 }
 </script>
