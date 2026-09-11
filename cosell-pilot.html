@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230D2545'/%3E%3Ctext x='16' y='23' font-family='Arial Black, Arial, sans-serif' font-weight='900' font-size='17' fill='%23E8A93A' text-anchor='middle'%3EGE%3C/text%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Globus Edge Co-sell Pilot — we identify, shortlist, reach out, run scoping calls, and deliver 3 signed co-sell LOIs for your ISV. Pilot rate: US$7,500 for 10 companies.">
+<title>Co-sell Partner Identification — Pilot Rate · Globus Edge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0e0e0d;
+    --ink-mid: #3d3b35;
+    --ink-soft: #7a7870;
+    --ink-faint: #b5b3ac;
+    --bg: #f5f3ee;
+    --bg-card: #eceae4;
+    --bg-dark: #0D2545;
+    --accent: #1a4a2e;
+    --accent-mid: #2d6b44;
+    --accent-light: #d4e8da;
+    --gold: #c8932a;
+    --gold-light: #f5e9d0;
+    --rule: rgba(14,14,13,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 48px;
+    background: rgba(245,243,238,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 20px; letter-spacing: -0.02em;
+    color: var(--ink); text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent-mid); }
+  .nav-back {
+    font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
+    color: var(--ink-soft); text-decoration: none;
+    display: flex; align-items: center; gap: 6px;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--accent-mid); }
+  .nav-back::before { content: '←'; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 140px 48px 80px;
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 400px; gap: 80px;
+    align-items: start;
+  }
+
+  .hero-left { padding-top: 12px; }
+
+  .pilot-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--gold-light); border: 1px solid rgba(200,147,42,0.3);
+    color: var(--gold); border-radius: 4px;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.06em;
+    padding: 6px 14px; margin-bottom: 36px;
+    text-transform: uppercase;
+  }
+  .pilot-badge-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--gold);
+    animation: pulse-gold 2s ease-in-out infinite;
+  }
+  @keyframes pulse-gold {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(40px, 5vw, 68px);
+    line-height: 1.08; letter-spacing: -0.03em;
+    margin-bottom: 28px; max-width: 680px;
+  }
+  .hero h1 em { font-style: italic; color: var(--accent-mid); }
+
+  .hero-sub {
+    font-size: 18px; font-weight: 300;
+    color: var(--ink-mid); line-height: 1.65;
+    max-width: 560px; margin-bottom: 40px;
+  }
+
+  .hero-proof {
+    display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 48px;
+  }
+  .proof-line {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 14px; color: var(--ink-mid);
+  }
+  .proof-line::before {
+    content: '✓'; color: var(--accent-mid);
+    font-weight: 600; flex-shrink: 0; margin-top: 1px;
+  }
+
+  .hero-note {
+    font-size: 13px; color: var(--ink-soft);
+    border-left: 2px solid var(--rule);
+    padding-left: 14px; line-height: 1.5;
+  }
+
+  /* ── OFFER CARD ── */
+  .offer-card {
+    background: var(--bg-dark);
+    color: #fff;
+    border-radius: 12px;
+    padding: 40px 36px;
+    position: sticky; top: 100px;
+  }
+
+  .offer-card-tag {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 20px;
+  }
+
+  .offer-price-row {
+    display: flex; align-items: baseline; gap: 14px;
+    margin-bottom: 6px;
+  }
+  .offer-price-pilot {
+    font-family: 'Instrument Serif', serif;
+    font-size: 52px; line-height: 1;
+    color: var(--gold);
+  }
+  .offer-price-full {
+    font-size: 18px; color: rgba(255,255,255,0.35);
+    text-decoration: line-through;
+  }
+  .offer-price-note {
+    font-size: 13px; color: rgba(255,255,255,0.45);
+    margin-bottom: 28px;
+  }
+
+  .offer-divider {
+    height: 1px; background: rgba(255,255,255,0.1);
+    margin-bottom: 24px;
+  }
+
+  .offer-includes-label {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: rgba(255,255,255,0.4);
+    margin-bottom: 14px;
+  }
+  .offer-includes {
+    list-style: none; display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 28px;
+  }
+  .offer-includes li {
+    font-size: 13px; color: rgba(255,255,255,0.75);
+    display: flex; align-items: flex-start; gap: 9px; line-height: 1.45;
+  }
+  .offer-includes li::before {
+    content: '→'; color: var(--gold);
+    font-size: 12px; flex-shrink: 0; margin-top: 1px;
+  }
+
+  .offer-spots {
+    background: rgba(200,147,42,0.12);
+    border: 1px solid rgba(200,147,42,0.25);
+    border-radius: 6px; padding: 12px 16px;
+    font-size: 13px; color: rgba(255,255,255,0.7);
+    margin-bottom: 24px; line-height: 1.45;
+  }
+  .offer-spots strong { color: var(--gold); }
+
+  .offer-cta {
+    display: block; width: 100%;
+    background: var(--gold); color: #fff;
+    font-size: 14px; font-weight: 500;
+    padding: 16px; border-radius: 6px;
+    text-align: center; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    border: none; cursor: pointer;
+  }
+  .offer-cta:hover { background: #b8831f; transform: translateY(-1px); }
+
+  .offer-fine {
+    font-size: 12px; color: rgba(255,255,255,0.3);
+    text-align: center; margin-top: 12px;
+    line-height: 1.45;
+  }
+
+  /* ── PROCESS ── */
+  .process {
+    background: #fff;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 80px 48px;
+  }
+  .process-inner {
+    max-width: 1100px; margin: 0 auto;
+  }
+  .process-label {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent-mid);
+    margin-bottom: 16px;
+  }
+  .process h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(28px, 3.5vw, 44px);
+    line-height: 1.15; letter-spacing: -0.02em;
+    margin-bottom: 56px; max-width: 600px;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    position: relative;
+  }
+  .steps::before {
+    content: '';
+    position: absolute; top: 20px; left: 40px; right: 40px;
+    height: 1px; background: var(--rule);
+  }
+  .step { padding: 0 16px 0 0; position: relative; }
+  .step-num {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--accent); color: #fff;
+    font-size: 14px; font-weight: 500;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px; position: relative; z-index: 1;
+    flex-shrink: 0;
+  }
+  .step-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 17px; line-height: 1.25;
+    margin-bottom: 8px; letter-spacing: -0.01em;
+  }
+  .step-body {
+    font-size: 13px; color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  /* ── DELIVERABLES ── */
+  .deliverables {
+    padding: 80px 48px;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .deliverables-label {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent-mid);
+    margin-bottom: 16px;
+  }
+  .deliverables h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(28px, 3.5vw, 44px);
+    line-height: 1.15; letter-spacing: -0.02em;
+    margin-bottom: 48px; max-width: 560px;
+  }
+  .deliverables-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 8px; overflow: hidden;
+  }
+  .deliverable {
+    background: var(--bg);
+    padding: 32px 28px;
+  }
+  .deliverable-icon {
+    font-size: 22px; margin-bottom: 14px;
+  }
+  .deliverable-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 18px; line-height: 1.25;
+    margin-bottom: 8px; letter-spacing: -0.01em;
+  }
+  .deliverable-body {
+    font-size: 13px; color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  /* ── ICP ── */
+  .icp {
+    background: var(--accent);
+    color: #fff;
+    padding: 80px 48px;
+  }
+  .icp-inner { max-width: 1100px; margin: 0 auto; }
+  .icp-label {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: rgba(255,255,255,0.45);
+    margin-bottom: 16px;
+  }
+  .icp h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(28px, 3.5vw, 44px);
+    line-height: 1.15; letter-spacing: -0.02em;
+    margin-bottom: 48px; max-width: 560px;
+    color: #fff;
+  }
+  .icp-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .icp-item-title {
+    font-size: 15px; font-weight: 500;
+    color: var(--gold); margin-bottom: 6px;
+  }
+  .icp-item-body {
+    font-size: 13px; color: rgba(255,255,255,0.65);
+    line-height: 1.55;
+  }
+
+  /* ── FORM ── */
+  .form-section {
+    padding: 80px 48px;
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 520px; gap: 80px;
+    align-items: start;
+  }
+  .form-left-label {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent-mid);
+    margin-bottom: 16px;
+  }
+  .form-left h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(28px, 3.5vw, 44px);
+    line-height: 1.15; letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .form-left p {
+    font-size: 15px; color: var(--ink-mid);
+    line-height: 1.65; margin-bottom: 32px;
+    max-width: 420px;
+  }
+  .form-left-detail {
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .detail-item {
+    font-size: 13px; color: var(--ink-soft);
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .detail-item strong { color: var(--ink); min-width: 60px; }
+
+  .contact-form {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 40px 36px;
+  }
+  .form-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px; letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .form-sub {
+    font-size: 13px; color: var(--ink-soft);
+    margin-bottom: 28px; line-height: 1.5;
+  }
+  .form-row { margin-bottom: 16px; }
+  .form-row label {
+    display: block; font-size: 12px; font-weight: 500;
+    letter-spacing: 0.04em; color: var(--ink-mid);
+    margin-bottom: 6px;
+  }
+  .form-row input,
+  .form-row select,
+  .form-row textarea {
+    width: 100%; font-family: 'DM Sans', sans-serif;
+    font-size: 14px; color: var(--ink);
+    background: var(--bg); border: 1px solid var(--rule);
+    border-radius: 6px; padding: 12px 14px;
+    transition: border-color 0.2s; outline: none;
+    -webkit-appearance: none;
+  }
+  .form-row input:focus,
+  .form-row select:focus,
+  .form-row textarea:focus {
+    border-color: var(--accent-mid);
+  }
+  .form-row textarea { resize: vertical; min-height: 80px; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-submit {
+    width: 100%; padding: 16px;
+    background: var(--accent); color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500;
+    border: none; border-radius: 6px; cursor: pointer;
+    margin-top: 8px; transition: background 0.2s;
+  }
+  .form-submit:hover { background: var(--accent-mid); }
+  .form-payment-note {
+    font-size: 12px; color: var(--ink-soft);
+    margin-top: 14px; line-height: 1.5; text-align: center;
+  }
+
+  .form-success {
+    display: none; text-align: center; padding: 40px 20px;
+  }
+  .form-success-icon {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--accent-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin: 0 auto 20px;
+  }
+  .form-success h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 26px; letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .form-success p {
+    font-size: 14px; color: var(--ink-soft);
+    line-height: 1.6; max-width: 340px; margin: 0 auto 8px;
+  }
+  .form-success-note {
+    font-size: 12px; color: var(--ink-faint);
+    margin-top: 16px;
+  }
+  .form-success-note a { color: var(--gold); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 32px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .footer-brand {
+    font-family: 'Instrument Serif', serif;
+    font-size: 16px; color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .footer-brand span { color: var(--accent-mid); }
+  .footer-links {
+    display: flex; gap: 28px;
+  }
+  .footer-links a {
+    font-size: 13px; color: var(--ink-soft);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--ink); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 14px 24px; }
+    .hero { grid-template-columns: 1fr; gap: 48px; padding: 120px 24px 60px; }
+    .offer-card { position: static; }
+    .process { padding: 60px 24px; }
+    .steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .steps::before { display: none; }
+    .deliverables { padding: 60px 24px; }
+    .deliverables-grid { grid-template-columns: 1fr; }
+    .icp { padding: 60px 24px; }
+    .icp-grid { grid-template-columns: 1fr; gap: 24px; }
+    .form-section { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px; }
+    .form-grid { grid-template-columns: 1fr; }
+    footer { padding: 24px; flex-direction: column; gap: 16px; text-align: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pilot-badge-dot { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://globusedge.com" class="nav-logo">Globus<span>Edge</span></a>
+  <a href="https://globusedge.com" class="nav-back">Back to Globus Edge</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="pilot-badge">
+      <span class="pilot-badge-dot"></span>
+      Pilot rate &middot; 10 companies only
+    </div>
+    <h1>Your co-sell partners,<br>identified and <em>activated.</em></h1>
+    <p class="hero-sub">We do the full job — from identifying the right co-sell partners on AWS, Azure, and GCP, to scoping calls, outreach, and 3 signed LOIs — delivered in weeks, not quarters.</p>
+    <div class="hero-proof">
+      <div class="proof-line">End-to-end: we identify, shortlist, reach out, run scoping calls, and close LOIs</div>
+      <div class="proof-line">Marketplace-active partners only — AWS, Azure, and GCP ecosystems</div>
+      <div class="proof-line">5 co-sell candidates shortlisted, 3 signed LOIs delivered</div>
+      <div class="proof-line">20+ years of enterprise channel relationships behind every introduction</div>
+    </div>
+    <p class="hero-note">This pilot rate is open to ISVs only. Once 10 companies are onboarded, the rate returns to US$15,000. No payment today — we'll review your brief and send a Stripe link within one business day.</p>
+  </div>
+
+  <!-- STICKY OFFER CARD -->
+  <div class="offer-card">
+    <div class="offer-card-tag">Co-sell Partner Identification &middot; Pilot Rate</div>
+    <div class="offer-price-row">
+      <div class="offer-price-pilot">US$7,500</div>
+      <div class="offer-price-full">US$15,000</div>
+    </div>
+    <div class="offer-price-note">Full service &middot; Identify + Shortlist + Outreach + Scoping calls + 3 LOIs</div>
+    <div class="offer-divider"></div>
+    <div class="offer-includes-label">What's included</div>
+    <ul class="offer-includes">
+      <li>5 co-sell partner candidates identified and ranked by fit</li>
+      <li>Signal-verified shortlist — marketplace activity, ICP overlap, co-sell history</li>
+      <li>Managed outreach — every first contact handled by our team</li>
+      <li>Scoping calls — we qualify and run the early conversations</li>
+      <li>3 signed Letters of Intent from marketplace-active partners</li>
+    </ul>
+    <div class="offer-spots">
+      <strong>Limited to 10 companies.</strong> Once this cohort is full, the rate returns to US$15,000. No payment today.
+    </div>
+    <a href="#apply" class="offer-cta">Claim Your Pilot Spot →</a>
+    <p class="offer-fine">We'll review your brief and send a Stripe link within one business day.</p>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="process-inner">
+    <div class="process-label">How it works</div>
+    <h2>Five stages. One clear outcome — three signed co-sell LOIs.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">Brief & ICP alignment</div>
+        <p class="step-body">We start with a 30-minute call to understand your product, target markets, marketplace presence, and ideal co-sell partner profile.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">Co-sell partner identification</div>
+        <p class="step-body">Our 30+ signal AI pipeline scores partners across marketplace activity, co-sell history, ICP overlap, geographic reach, and ecosystem fit across AWS, Azure, and GCP.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">Shortlist delivery</div>
+        <p class="step-body">You receive 5 ranked co-sell partner candidates with full intelligence on each — marketplace presence, co-sell readiness, suggested approach, and why we selected them.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-title">Outreach & scoping calls</div>
+        <p class="step-body">We handle first contact and run the early scoping conversations on your behalf — qualifying partner readiness, handling objections, and moving relationships forward.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-title">3 signed LOIs</div>
+        <p class="step-body">We facilitate and close a minimum of 3 signed Letters of Intent from marketplace-active co-sell partners — documented commitment, not a conversation summary.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERABLES -->
+<section class="deliverables">
+  <div class="deliverables-label">What you receive</div>
+  <h2>Concrete deliverables at every stage.</h2>
+  <div class="deliverables-grid">
+    <div class="deliverable">
+      <div class="deliverable-icon">🎯</div>
+      <div class="deliverable-title">Co-sell Partner Intelligence Report</div>
+      <p class="deliverable-body">A research document covering the target co-sell landscape — marketplace activity, partner ecosystem gaps, and the signal set we used to identify your candidates.</p>
+    </div>
+    <div class="deliverable">
+      <div class="deliverable-icon">📋</div>
+      <div class="deliverable-title">Ranked Co-sell Shortlist</div>
+      <p class="deliverable-body">5 prioritised co-sell partner candidates — ranked by fit score, with marketplace presence, co-sell history, recommended approach, and tailored talking points for each.</p>
+    </div>
+    <div class="deliverable">
+      <div class="deliverable-icon">📞</div>
+      <div class="deliverable-title">Outreach & Scoping Log</div>
+      <p class="deliverable-body">A full record of every contact made, conversation opened, and scoping call run — so you have complete visibility into what was said and what was agreed.</p>
+    </div>
+    <div class="deliverable">
+      <div class="deliverable-icon">🤝</div>
+      <div class="deliverable-title">3 Signed LOIs</div>
+      <p class="deliverable-body">A minimum of 3 signed Letters of Intent from co-sell-ready partners. Structured, documented, and ready to present to your board, investors, or marketplace team.</p>
+    </div>
+    <div class="deliverable">
+      <div class="deliverable-icon">📊</div>
+      <div class="deliverable-title">Weekly Status Updates</div>
+      <p class="deliverable-body">A weekly report through the active engagement phase — contacts reached, conversations opened, scoping calls completed, and LOI pipeline status.</p>
+    </div>
+    <div class="deliverable">
+      <div class="deliverable-icon">💬</div>
+      <div class="deliverable-title">Shortlist Walkthrough Call</div>
+      <p class="deliverable-body">A structured call with your team covering the research methodology, each partner's profile, and the outreach strategy — so you're fully across every decision we made.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ICP -->
+<section class="icp">
+  <div class="icp-inner">
+    <div class="icp-label">Who this is for</div>
+    <h2>Built for ISVs who are ready to move on marketplace.</h2>
+    <div class="icp-grid">
+      <div class="icp-item">
+        <div class="icp-item-title">Listed but not co-selling</div>
+        <p class="icp-item-body">You're live on AWS, Azure, or GCP Marketplace but you haven't built the Channel Partner co-sell relationships that drive marketplace pipeline. This gets you there.</p>
+      </div>
+      <div class="icp-item">
+        <div class="icp-item-title">No Partner Manager on staff</div>
+        <p class="icp-item-body">You know co-sell is the next growth lever but you don't have a dedicated Partner Manager. We give you the output — identified partners, scoping calls, signed LOIs — without the headcount.</p>
+      </div>
+      <div class="icp-item">
+        <div class="icp-item-title">Expanding into new markets</div>
+        <p class="icp-item-body">You're live in one region and need co-sell coverage in North America, UK, Benelux, or DACH — with local partners who already have marketplace presence and customer relationships.</p>
+      </div>
+      <div class="icp-item">
+        <div class="icp-item-title">Stalled co-sell programme</div>
+        <p class="icp-item-body">You have a few informal partner conversations that haven't converted. You need a proper co-sell shortlist and the outreach that should have happened earlier.</p>
+      </div>
+      <div class="icp-item">
+        <div class="icp-item-title">Series A–C, $5M–$100M ARR</div>
+        <p class="icp-item-body">You've proven product-market fit and channel is the next move. You're not yet ready to build a full partner team — this is the right-sized engagement to get co-sell moving.</p>
+      </div>
+      <div class="icp-item">
+        <div class="icp-item-title">Board needs co-sell evidence</div>
+        <p class="icp-item-body">You need concrete co-sell traction — signed LOIs, named pipeline, marketplace-active partners — before your next fundraise or board presentation. We deliver documented commitment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-section" id="apply">
+  <div class="form-left">
+    <div class="form-left-label">Claim your pilot spot</div>
+    <h2>10 companies. US$7,500. End-to-end co-sell activation.</h2>
+    <p>Tell us about your ISV and your marketplace goals. We'll review your brief and come back to you within one business day — no payment today.</p>
+    <div class="form-left-detail">
+      <div class="detail-item"><strong>Rate</strong> US$7,500 — pilot cohort only (full rate US$15,000)</div>
+      <div class="detail-item"><strong>Scope</strong> Identify · Shortlist · Outreach · Scoping calls · 3 LOIs</div>
+      <div class="detail-item"><strong>Markets</strong> AWS · Azure · GCP · SAP · Microsoft ecosystems</div>
+      <div class="detail-item"><strong>Timeline</strong> Shortlist in 5–7 days · LOIs within 6–8 weeks</div>
+      <div class="detail-item"><strong>Payment</strong> Stripe link within one business day of acceptance</div>
+    </div>
+  </div>
+
+  <div>
+    <div class="contact-form" id="pilot-form-wrap">
+      <div class="form-title">Co-sell Pilot Application</div>
+      <p class="form-sub">No payment today. We'll review your brief and send a Stripe link within one business day if we're a fit.</p>
+
+      <form id="pilot-contact-form" onsubmit="submitPilotForm(event)">
+        <div class="form-grid">
+          <div class="form-row">
+            <label for="p-firstname">First name</label>
+            <input id="p-firstname" type="text" name="firstname" placeholder="James" required>
+          </div>
+          <div class="form-row">
+            <label for="p-lastname">Last name</label>
+            <input id="p-lastname" type="text" name="lastname" placeholder="Walsh" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <label for="p-email">Work email</label>
+          <input id="p-email" type="email" name="email" placeholder="james@yourcompany.com" required>
+        </div>
+        <div class="form-grid">
+          <div class="form-row">
+            <label for="p-company">Company</label>
+            <input id="p-company" type="text" name="company" placeholder="Acme ISV Ltd" required>
+          </div>
+          <div class="form-row">
+            <label for="p-jobtitle">Your role</label>
+            <input id="p-jobtitle" type="text" name="jobtitle" placeholder="VP Partnerships">
+          </div>
+        </div>
+        <div class="form-row">
+          <label for="p-marketplace">Primary marketplace</label>
+          <select id="p-marketplace" name="marketplace" required>
+            <option value="">Select marketplace&hellip;</option>
+            <option value="AWS">AWS Marketplace</option>
+            <option value="Azure">Azure Marketplace</option>
+            <option value="GCP">Google Cloud Marketplace</option>
+            <option value="SAP">SAP Store</option>
+            <option value="Microsoft">Microsoft AppSource</option>
+            <option value="Multiple">Multiple marketplaces</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="p-ecosystem">Primary ecosystem / technology</label>
+          <select id="p-ecosystem" name="ecosystem">
+            <option value="">Select ecosystem&hellip;</option>
+            <option value="SAP">SAP</option>
+            <option value="Microsoft">Microsoft</option>
+            <option value="AWS">AWS</option>
+            <option value="Salesforce">Salesforce</option>
+            <option value="Other">Other / Multi-ecosystem</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="p-goal">What's your main co-sell goal?</label>
+          <textarea id="p-goal" name="goal" placeholder="e.g. We're listed on AWS Marketplace and want to identify 3–5 Channel Partners in DACH and Benelux to co-sell our solution. We don't have a Partner Manager."></textarea>
+        </div>
+        <input type="hidden" name="offer" value="Co-sell Pilot — US$7,500">
+        <button type="submit" class="form-submit" id="pilot-submit-btn">Claim My Pilot Spot →</button>
+        <p class="form-payment-note"><strong>No payment is taken today.</strong> Once we've reviewed your application, we'll send a secure Stripe payment link within one business day.</p>
+      </form>
+
+      <div class="form-success" id="pilot-success">
+        <div class="form-success-icon">✓</div>
+        <h3>Application received.</h3>
+        <p>Thank you — we'll review your brief and come back to you with a <strong>secure Stripe payment link within one business day</strong> to confirm your pilot spot at US$7,500.</p>
+        <p class="form-success-note">Questions? Email us at <a href="mailto:hello@globusedge.com">hello@globusedge.com</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="https://globusedge.com" class="footer-brand">Globus<span>Edge</span></a>
+  <div class="footer-links">
+    <a href="https://globusedge.com">Home</a>
+    <a href="https://globusedge.com/partnership-activation.html">Full service</a>
+    <a href="https://pairlot.com">Pairlot</a>
+    <a href="mailto:hello@globusedge.com">hello@globusedge.com</a>
+  </div>
+</footer>
+
+<script>
+function submitPilotForm(e) {
+  e.preventDefault();
+  var btn = document.getElementById('pilot-submit-btn');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  var form = document.getElementById('pilot-contact-form');
+  var data = new FormData(form);
+
+  var payload = {
+    submittedAt: Date.now().toString(),
+    fields: [
+      { name: 'firstname',   value: data.get('firstname')   || '' },
+      { name: 'lastname',    value: data.get('lastname')    || '' },
+      { name: 'email',       value: data.get('email')       || '' },
+      { name: 'company',     value: data.get('company')     || '' },
+      { name: 'jobtitle',    value: data.get('jobtitle')    || '' },
+      { name: 'marketplace', value: data.get('marketplace') || '' },
+      { name: 'ecosystem',   value: data.get('ecosystem')   || '' },
+      { name: 'message',     value: data.get('goal')        || '' },
+      { name: 'offer',       value: 'Co-sell Pilot — US$7,500' }
+    ],
+    context: { pageUri: window.location.href, pageName: 'Co-sell Pilot — Globus Edge' }
+  };
+
+  fetch('https://api.hsforms.com/submissions/v3/integration/submit/246067591/6ec971b1-80a1-408d-87e3-363a1df46fe1', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(function(res) {
+    if (res.ok) {
+      document.getElementById('pilot-contact-form').style.display = 'none';
+      document.getElementById('pilot-success').style.display = 'block';
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'form_submit', { event_category: 'contact', event_label: 'cosell_pilot_application' });
+      }
+    } else {
+      res.text().then(function(txt) {
+        btn.textContent = 'Claim My Pilot Spot →';
+        btn.disabled = false;
+        alert('Something went wrong. Please try again or email us at hello@globusedge.com');
+        console.warn('HubSpot error:', txt);
+      });
+    }
+  }).catch(function(err) {
+    btn.textContent = 'Claim My Pilot Spot →';
+    btn.disabled = false;
+    alert('Connection error. Please try again or email us at hello@globusedge.com');
+    console.error('Fetch failed:', err);
+  });
+}
+</script>
+
+</body>
+</html>
