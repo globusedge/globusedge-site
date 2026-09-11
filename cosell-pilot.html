@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230D2545'/%3E%3Ctext x='16' y='23' font-family='Arial Black, Arial, sans-serif' font-weight='900' font-size='17' fill='%23E8A93A' text-anchor='middle'%3EGE%3C/text%3E%3C/svg%3E">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Globus Edge Co-sell Pilot — we identify, shortlist, reach out, run scoping calls, and deliver 3 signed co-sell LOIs for your ISV. Pilot rate: US$7,500 for 10 companies.">
@@ -662,7 +665,7 @@
       <div class="form-title">Co-sell Pilot Application</div>
       <p class="form-sub">No payment today. We'll review your brief and send a secure payment link within one business day if we're a fit.</p>
 
-      <form id="pilot-contact-form" onsubmit="submitPilotForm(event)">
+      <form id="pilot-contact-form" onsubmit="submitPilotFormV2(event)">
         <div class="form-grid">
           <div class="form-row">
             <label for="p-firstname">First name</label>
@@ -744,7 +747,7 @@
 </footer>
 
 <script>
-function submitPilotForm(e) {
+function submitPilotFormV2(e) {
   e.preventDefault();
   var btn = document.getElementById('pilot-submit-btn');
   btn.textContent = 'Sending…';
